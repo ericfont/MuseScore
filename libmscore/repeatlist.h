@@ -15,6 +15,7 @@
 
 #include "score.h"
 #include "measure.h"
+#include "tempo.h"
 
 namespace Ms {
 
@@ -43,11 +44,14 @@ class RepeatSegment {
 class RepeatList: public QList<RepeatSegment*>
       {
       Score* _score;
+
       mutable unsigned idx1, idx2;   // cached values
 
       RepeatSegment* rs;            // tmp value during unwind()
 
       Measure* jumpToStartRepeat(Measure*);
+
+      TempoMap _unrolledTempoMap;   // unrolled version filled in during update(), generated from _score's tempomap and this repeatlist
 
    public:
       RepeatList(Score* s);

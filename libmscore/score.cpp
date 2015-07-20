@@ -499,11 +499,6 @@ void Score::fixTicks()
                   m->mmRest()->moveTicks(diff);
 
 //            if (!parentScore()) {
-                  //
-                  //  implement section break rest
-                  //
-                  if (m->sectionBreak() && m->pause() != 0.0)
-                        setPause(m->tick() + m->ticks(), m->pause());
 
                   //
                   // implement fermata as a tempo change
@@ -522,7 +517,7 @@ void Score::fixTicks()
                                           }
                                     }
                               if (length != 0.0)
-                                    setPause(tick, length);
+                                    setPauseBeforeTick(tick, length);
                               }
                         else if (s->segmentType() == Segment::Type::TimeSig) {
                               for (int staffIdx = 0; staffIdx < _staves.size(); ++staffIdx) {
@@ -3207,12 +3202,22 @@ void Score::removeTempo(int tick)
       }
 
 //---------------------------------------------------------
-//   setPause
+//   setPauseBeforeTick
 //---------------------------------------------------------
 
-void Score::setPause(int tick, qreal seconds)
+void Score::setPauseBeforeTick(int tick, qreal seconds)
       {
-      tempomap()->setPause(tick, seconds);
+      tempomap()->setPauseBeforeTick(tick, seconds);
+      _playlistDirty = true;
+      }
+
+//---------------------------------------------------------
+//   setPauseThroughTick
+//---------------------------------------------------------
+
+void Score::setPauseThroughTick(int tick, qreal seconds)
+      {
+      tempomap()->setPauseThroughTick(tick, seconds);
       _playlistDirty = true;
       }
 

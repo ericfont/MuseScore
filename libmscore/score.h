@@ -817,7 +817,9 @@ class Score : public QObject {
       void setTempo(Segment*, qreal);
       void setTempo(int tick, qreal bps);
       void removeTempo(int tick);
-      void setPause(int tick, qreal seconds);
+      void setPauseBeforeTick(int tick, qreal seconds);
+      void setPauseThroughTick(int tick, qreal seconds);
+      void removeSectionBreakPause(int tick);
       qreal tempo(int tick) const;
 
       bool defaultsRead() const                      { return _defaultsRead;    }

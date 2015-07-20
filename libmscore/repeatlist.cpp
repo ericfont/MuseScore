@@ -131,18 +131,27 @@ int RepeatList::ticks()
 void RepeatList::update()
       {
       const TempoMap* tl = _score->tempomap();
+      tl->dump();
 
       int utick = 0;
       qreal t  = 0;
+
+      _unrolledTempoMap.clear();    // reset map first before rebuilding
 
       for(RepeatSegment* s : *this) {
             s->utick      = utick;
             s->utime      = t;
             qreal ct      = tl->tick2time(s->tick);
             s->timeOffset = t - ct;
+
+            //_urolledTempoMap.build
+
             utick        += s->len;
             t            += tl->tick2time(s->tick + s->len) - ct;
             }
+
+      _unrolledTempoMap.setRelTempo( tl->relTempo() );      // use same relative tempo
+      _unrolledTempoMap.dump();
       }
 
 //---------------------------------------------------------
