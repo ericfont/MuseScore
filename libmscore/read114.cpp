@@ -388,13 +388,16 @@ Score::FileError Score::read114(XmlReader& e)
                   tm.setRelTempo(tempo);
                   while (e.readNextStartElement()) {
                         if (e.name() == "tempo") {
-                              int tick = e.attribute("tick").toInt();
+                        // since #32696 indexes tempo map by uticks, it is not possible at this moment
+                        // to setTempo without having the RepeatList built and ready.
+                        // TODO: need to setTempo for *all* uticks corresponding to tick
+                       /*       int tick = e.attribute("tick").toInt();
                               double tmp = e.readElementText().toDouble();
                               tick = (tick * MScore::division + _fileDivision/2) / _fileDivision;
                               auto pos = tm.find(tick);
                               if (pos != tm.end())
                                     tm.erase(pos);
-                              tm.setTempo(tick, tmp);
+                              tm.setTempo(tick, tmp);*/
                         }
                         else if (e.name() == "relTempo")
                               e.readElementText();

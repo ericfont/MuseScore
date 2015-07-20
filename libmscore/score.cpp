@@ -574,7 +574,7 @@ void Score::fixTicks()
             tick += measureTicks;
             }
       if (tempomap()->empty())
-            tempomap()->setTempo(0, 2.0);
+            tempomap()->setTempo(0, 2.0, 0);
       }
 
 //---------------------------------------------------------
@@ -3194,8 +3194,8 @@ void Score::setTempo(Segment* segment, qreal tempo)
 void Score::setTempo(int tick, qreal tempo)
       {
       std::list<int>* uticks = _repeatList->tick2uticks(tick);
-      for( int utick : uticks )
-            tempomap()->setTempo(utick, tempo);
+      for( int utick : *uticks )
+            tempomap()->setTempo(tick, tempo, utick);
 
       delete uticks;
       _playlistDirty = true;
@@ -3209,7 +3209,7 @@ void Score::setTempo(int tick, qreal tempo)
 void Score::removeTempo(int tick)
       {
       std::list<int>* uticks = _repeatList->tick2uticks(tick);
-      for( int utick : uticks )
+      for( int utick : *uticks )
             tempomap()->delTempo(utick);
 
       delete uticks;
@@ -3224,8 +3224,8 @@ void Score::removeTempo(int tick)
 void Score::setPause(int tick, qreal seconds)
       {
       std::list<int>* uticks = _repeatList->tick2uticks(tick);
-      for( int utick : uticks )
-            tempomap()->setPause(utick, seconds);
+      for( int utick : *uticks )
+            tempomap()->setPause(tick, seconds, utick);
 
       delete uticks;
       _playlistDirty = true;

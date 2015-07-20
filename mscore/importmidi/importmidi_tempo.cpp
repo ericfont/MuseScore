@@ -145,7 +145,7 @@ void setTempo(const std::multimap<int, MTrack> &tracks, Score *score)
             }
 
       if (score->tempomap()->empty())
-            score->tempomap()->setTempo(0, 2.0);      // default tempo
+            score->tempomap()->setTempo(0, 2.0, 0);      // default tempo
       }
 
 } // namespace MidiTempo

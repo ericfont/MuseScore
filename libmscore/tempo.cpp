@@ -24,6 +24,7 @@ TEvent::TEvent()
       type     = TempoType::INVALID;
       tempo    = 0.0;
       pause    = 0.0;
+      tick     = 0;
       }
 
 TEvent::TEvent(const TEvent& e)
@@ -32,14 +33,16 @@ TEvent::TEvent(const TEvent& e)
       tempo = e.tempo;
       pause = e.pause;
       time  = e.time;
+      tick  = e.tick;
       }
 
-TEvent::TEvent(qreal t, qreal p, TempoType tp)
+TEvent::TEvent(qreal t, qreal p, TempoType tp, int graphicalTick)
       {
       type  = tp;
       tempo = t;
       pause = p;
       time  = 0.0;
+      tick  = graphicalTick;
       }
 
 bool TEvent::valid() const
@@ -62,16 +65,16 @@ TempoMap::TempoMap()
 //   setPause
 //---------------------------------------------------------
 
-void TempoMap::setPause(int tick, qreal pause)
+void TempoMap::setPause(int tick, qreal pause, int qtick)
       {
-      auto e = find(tick);
+      auto e = find(qtick);
       if (e != end()) {
             e->second.pause = pause;
             e->second.type |= TempoType::PAUSE;
             }
       else {
-            qreal t = tempo(tick);
-            insert(std::pair<const int, TEvent> (tick, TEvent(t, pause, TempoType::PAUSE)));
+            qreal t = tempo(qtick);
+            insert(std::pair<const int, TEvent> (qtick, TEvent(t, pause, TempoType::PAUSE, tick)));
             }
       normalize();
       }
@@ -80,15 +83,15 @@ void TempoMap::setPause(int tick, qreal pause)
 //   setTempo
 //---------------------------------------------------------
 
-void TempoMap::setTempo(int tick, qreal tempo)
+void TempoMap::setTempo(int tick, qreal tempo, int qtick)
       {
-      auto e = find(tick);
+      auto e = find(qtick);
       if (e != end()) {
             e->second.tempo = tempo;
             e->second.type |= TempoType::FIX;
             }
       else
-            insert(std::pair<const int, TEvent> (tick, TEvent(tempo, 0.0, TempoType::FIX)));
+            insert(std::pair<const int, TEvent> (qtick, TEvent(tempo, 0.0, TempoType::FIX, tick)));
       normalize();
       }
 
@@ -193,9 +196,9 @@ void TempoMap::setRelTempo(qreal val)
 //   delTempo
 //---------------------------------------------------------
 
-void TempoMap::delTempo(int tick)
+void TempoMap::delTempo(int qtick)
       {
-      del(tick);
+      del(qtick);
       ++_tempoSN;
       }
 

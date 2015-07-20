@@ -31,15 +31,17 @@ struct TEvent {
       qreal tempo;     // beats per second
       qreal pause;     // pause in seconds
       qreal time;      // precomputed time for tick in sec
+      int tick;        // graphical tick that this event (indexed by uticks) corresponds to
 
       TEvent();
       TEvent(const TEvent& e);
-      TEvent(qreal bps, qreal seconds, TempoType t);
+      TEvent(qreal bps, qreal seconds, TempoType t, int graphicalTick);
       bool valid() const;
       };
 
 //---------------------------------------------------------
 //   Tempomap
+//    maps uticks to tempo events
 //---------------------------------------------------------
 
 class TempoMap : public std::map<int, TEvent> {
@@ -48,7 +50,7 @@ class TempoMap : public std::map<int, TEvent> {
       qreal _relTempo;        // rel. tempo
 
       void normalize();
-      void del(int tick);
+      void del(int qtick);
 
    public:
       TempoMap();
@@ -65,9 +67,9 @@ class TempoMap : public std::map<int, TEvent> {
       int time2tick(qreal time, int tick, int* sn) const;
       int tempoSN() const { return _tempoSN; }
 
-      void setTempo(int t, qreal);
-      void setPause(int t, qreal);
-      void delTempo(int tick);
+      void setTempo(int tick, qreal tempo, int qtick);
+      void setPause(int tick, qreal pause, int qtick);
+      void delTempo(int qtick);
 
       void setRelTempo(qreal val);
       qreal relTempo() const { return _relTempo; }

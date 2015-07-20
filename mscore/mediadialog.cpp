@@ -26,6 +26,7 @@
 #include "scoreview.h"
 #include "omr/omr.h"
 #include "libmscore/tempo.h"
+#include "libmscore/repeatlist.h"
 
 namespace Ms {
 
@@ -154,6 +155,7 @@ void MediaDialog::addAudioPressed()
       QFile syncFile(fi.absolutePath() + "/" + fi.baseName() + ".txt");
 
       TempoMap* tmo = score->tempomap();
+      RepeatList* scoreRepeatList = score->repeatList();
 
       if (!syncFile.open(QIODevice::ReadOnly))
             return;
@@ -162,7 +164,7 @@ void MediaDialog::addAudioPressed()
       int tick = 0;
       qreal lastTempo = tmo->tempo(0);
       TempoMap* tmn = new TempoMap();
-      tmn->setTempo(0, lastTempo);
+      tmn->setTempo(0, lastTempo, 0);
       int resolution = 25;
       while (!syncFile.atEnd()) {
             for (int i = 0; !syncFile.atEnd() && i < resolution-1; i++)
@@ -187,8 +189,13 @@ void MediaDialog::addAudioPressed()
             if (deltaTime > 0) {
                   qreal tempo = dt / (480 * deltaTime);
                   if(tempo != lastTempo) {
-                  qDebug() << tempo;
-                        tmn->setTempo(tick, tempo);
+                        qDebug() << tempo;
+
+                        std::list<int>* uticks = scoreRepeatList->tick2uticks(tick);
+                        for( int utick : *uticks )
+                              tmn->setTempo(tick, tempo, utick);
+                        delete uticks;
+
                         lastTempo = tempo;
                         }
                   }
