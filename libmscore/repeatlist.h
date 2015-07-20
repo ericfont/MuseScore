@@ -54,6 +54,7 @@ class RepeatList: public QList<RepeatSegment*>
       void unwind();
       int utick2tick(int tick) const;
       int tick2utick(int tick) const;
+      std::list<int>* tick2uticks(int tick) const;
       void dump() const;
       int utime2utick(qreal) const;
       qreal utick2utime(int) const;

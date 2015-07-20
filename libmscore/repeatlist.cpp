@@ -171,6 +171,7 @@ int RepeatList::utick2tick(int tick) const
 
 //---------------------------------------------------------
 //   tick2utick
+//    returns only the first utick that corresponds to graphical tick
 //---------------------------------------------------------
 
 int RepeatList::tick2utick(int tick) const
@@ -180,6 +181,25 @@ int RepeatList::tick2utick(int tick) const
                   return s->utick + (tick - s->tick);
             }
       return last()->utick + (tick - last()->tick);
+      }
+
+
+//---------------------------------------------------------
+//   tick2uticks
+//    returns a list of all uticks corresponding to graphical tick
+//    returns empty list if no uticks correspond to graphical tick
+//---------------------------------------------------------
+
+std::list<int>* RepeatList::tick2uticks(int tick) const
+      {
+      std::list<int>* uticks = new std::list<int>();
+
+      for (const RepeatSegment* s : *this) {
+            if (tick >= s->tick && tick < (s->tick + s->len))
+                  uticks->push_back(s->utick + (tick - s->tick));
+            }
+
+      return uticks;
       }
 
 //---------------------------------------------------------
