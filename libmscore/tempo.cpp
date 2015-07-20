@@ -136,7 +136,7 @@ void TempoMap::normalize()
 
             // entries that represent a pause *only* (PAUSE_BEFORE_TICK or PAUSE_THROUGH_TICK)
             // without a tempo change (FIX or RAMP)
-            // need to be corrected to continue previous tempo
+            // need to continue previous tempo
             if ((e->second.type&(TempoType::PAUSE_BEFORE_TICK|TempoType::PAUSE_THROUGH_TICK)) &&
                !(e->second.type&(TempoType::FIX|TempoType::RAMP)))
                   e->second.tempo = tempo;
@@ -157,7 +157,7 @@ void TempoMap::normalize()
 
 void TempoMap::dump() const
       {
-      qDebug("\nTempoMap: Tick | Type | Tempo    | PauseBefore | PauseThrough | Time");
+      qDebug("\nTempoMap:   Tick | Type | Tempo    | PauseBefore | PauseThrough | Time");
       for (auto i = begin(); i != end(); ++i)
             qDebug("          %6d | %2d   | %5f | %5f    | %5f     | %5f",
                i->first, static_cast<char>(i->second.type), i->second.tempo, i->second.pauseBeforeTick, i->second.pauseThroughTick, i->second.time);
