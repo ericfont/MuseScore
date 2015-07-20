@@ -3183,6 +3183,7 @@ void Score::addLyrics(int tick, int staffIdx, const QString& txt)
 //---------------------------------------------------------
 //   setTempo
 //    convenience function to access TempoMap
+//    sets tempo for all uticks corresponding to graphical tick
 //---------------------------------------------------------
 
 void Score::setTempo(Segment* segment, qreal tempo)
@@ -3192,27 +3193,41 @@ void Score::setTempo(Segment* segment, qreal tempo)
 
 void Score::setTempo(int tick, qreal tempo)
       {
-      tempomap()->setTempo(tick, tempo);
+      std::list<int>* uticks = _repeatList->tick2uticks(tick);
+      for( int utick : uticks )
+            tempomap()->setTempo(utick, tempo);
+
+      delete uticks;
       _playlistDirty = true;
       }
 
 //---------------------------------------------------------
 //   removeTempo
+//    removes tempo for all uticks corresponding to graphical tick
 //---------------------------------------------------------
 
 void Score::removeTempo(int tick)
       {
-      tempomap()->delTempo(tick);
+      std::list<int>* uticks = _repeatList->tick2uticks(tick);
+      for( int utick : uticks )
+            tempomap()->delTempo(utick);
+
+      delete uticks;
       _playlistDirty = true;
       }
 
 //---------------------------------------------------------
 //   setPause
+//    sets pause for all uticks corresponding to graphical tick
 //---------------------------------------------------------
 
 void Score::setPause(int tick, qreal seconds)
       {
-      tempomap()->setPause(tick, seconds);
+      std::list<int>* uticks = _repeatList->tick2uticks(tick);
+      for( int utick : uticks )
+            tempomap()->setPause(utick, seconds);
+
+      delete uticks;
       _playlistDirty = true;
       }
 
