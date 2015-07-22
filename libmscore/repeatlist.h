@@ -13,9 +13,6 @@
 #ifndef __REPEATLIST_H__
 #define __REPEATLIST_H__
 
-#include "score.h"
-#include "measure.h"
-
 namespace Ms {
 
 class Score;

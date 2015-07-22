@@ -814,6 +814,8 @@ class Score : public QObject {
       void setTempomap(TempoMap* tm);
       TempoMap* tempomap() const;
       TempoMap* unrolledTempomap() const;
+      void invalidateUnrolledTempomap();
+      void unrollTempomap();
       TimeSigMap* sigmap() const;
 
       void setTempo(Segment*, qreal);
@@ -821,7 +823,6 @@ class Score : public QObject {
       void removeTempo(int tick);
       void setPauseBeforeTick(int tick, qreal seconds);
       void setPauseThroughTick(int tick, qreal seconds);
-      void removeSectionBreakPause(int tick);
       qreal tempo(int tick) const;
 
       bool defaultsRead() const                      { return _defaultsRead;    }
@@ -849,8 +850,8 @@ class Score : public QObject {
       void endUndoRedo();
       Measure* searchLabel(const QString& s);
       RepeatList* repeatList() const;
-      qreal utick2utime(int tick) const;
-      int utime2utick(qreal utime) const;
+      qreal utick2utime(int tick);
+      int utime2utick(qreal utime);
       //@ ??
       Q_INVOKABLE void updateRepeatList(bool expandRepeats);
 

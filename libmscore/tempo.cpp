@@ -12,6 +12,8 @@
 
 #include "tempo.h"
 #include "xml.h"
+#include "repeatlist.h"
+
 
 namespace Ms {
 
@@ -65,6 +67,118 @@ TempoMap::TempoMap()
       _tempo    = 2.0;        // default fixed tempo in beat per second
       _tempoSN  = 1;
       _relTempo = 1.0;
+      }
+
+//---------------------------------------------------------
+//   TempoMap constructor creating an unrolled TempoMap from a RepeatList and a score's graphicalTempoMap.
+//    Inserts the adjusted unrolled TempoEvents into this TempoMap.
+//---------------------------------------------------------
+
+TempoMap::TempoMap( const RepeatList* repeatList, const TempoMap* graphicalTempoMap )
+      {
+      _tempo    = graphicalTempoMap->_tempo;          // default initial fixed tempo in beat per second
+      _tempoSN  = 1;                                  // restart serial number for tracking changes (although since never adding entries after constructing unrolled map, SN will never change
+
+      static const TEvent zeroTEvent; // should be filled with all zeroes.  Used only for code clarity as a default to refer to TEvents that don't exist
+      TEvent mergedInitialEvent;
+
+      graphicalTempoMap->dump();
+      qDebug("STARTING RepeatList::update() using above graphicalTempoMap ---------------");
+
+      // pointers to keep track of the event at the ending tick of the previous segment and the starting tick of the current segment
+      const TEvent* prevEndEvent = &zeroTEvent;
+      const TEvent* currStartEvent = &zeroTEvent;
+
+      // unroll each repeat segment starting from s->tick to s->tick+s->len
+      for (RepeatSegment* s : *repeatList) {
+
+            int utickOfEventToInsert = s->utick;
+
+            qDebug("START unrolling segment:"); s->dump();
+
+            auto nextGraphicalEvent = graphicalTempoMap->lower_bound(s->tick);
+
+            // check if an event exists exactly at the starting tick of this segment
+            if (nextGraphicalEvent != graphicalTempoMap->end() && nextGraphicalEvent->first == s->tick) {
+                  currStartEvent = &nextGraphicalEvent->second;
+                  nextGraphicalEvent++;
+
+                  qDebug("currStartEvent:"); currStartEvent->dump();
+            }
+            else
+                  currStartEvent = &zeroTEvent;      // indicates that there is no event at start of this segment
+
+            //---------------------------------------------------------
+            //    Now will merge the TEvents at edges of previous RepeatSegment and current RepeatSegment:
+            //            prevEndEvent, the TEvent at the ending tick of the previous repeat segment
+            //            currStartEvent, the TEvent at the starting tick of the current segment
+            //
+            //    Create mergedInitialEvent for the utick at the junction between the two concatenated repeat segments according to these rules:
+            //
+            //          always incur pause from breaths/caesuras prior to jumping:
+            //                -Keep PAUSE_BEFORE_TICK at end of previous segment.
+            //                -Ignore PAUSE_BEFORE_TICK at start of current segment.
+            //
+            //          never incur a pause from section breaks when jumping prior to encountering them:
+            //                -Ignore PAUSE_THROUGH_TICK at end of previous segment.
+            //                -Ignore PAUSE_THROUGH_TICK at start of current segment.
+            //
+            //          only use tempo from current segment:
+            //                -Ignore tempo FIX at end of previous segment.
+            //                -Keep tempo FIX at start of current segment.
+            //
+            //           if want to add support for fermatas (not implemented yet):
+            //                -not implemented yet: Ignore PAUSE_AFTER_TICK at end of previous segment.
+            //                -not implemented yet: Keep PAUSE_AFTER_TICK at start of current segment.
+            //
+            //           if want to add support for tempo RAMPs (not implemented yet):
+            //                -not implemented yet: Ignore tempo RAMP at end of previous segment.
+            //                -not implemented yet: Keep tempo RAMP at start of current segment.
+            //---------------------------------------------------------
+            mergedInitialEvent.type = (prevEndEvent->type & TempoType::PAUSE_BEFORE_TICK)
+                                  | (currStartEvent->type & (TempoType::FIX|TempoType::RAMP));
+            mergedInitialEvent.tempo = (currStartEvent->type & TempoType::FIX)? currStartEvent->tempo : 0.0;
+            mergedInitialEvent.pauseBeforeTick = (prevEndEvent->type & TempoType::PAUSE_BEFORE_TICK)? prevEndEvent->pauseBeforeTick : 0.0;
+            mergedInitialEvent.pauseThroughTick = 0.0;
+
+            // insert this merged initial starting event at beginning tick of this segment
+            // only insert if type is valid, since no point in inserting an event of TempoType::INVALID
+            if (mergedInitialEvent.type) {
+                  insert(std::pair<const int, TEvent> (utickOfEventToInsert, mergedInitialEvent));
+                  qDebug("Inserted initial event at start of repeat segment."); mergedInitialEvent.dump();
+            }
+
+            // now handle rest of events in repeat segment
+            while ( nextGraphicalEvent != graphicalTempoMap->lower_bound(s->tick + s->len) ) {
+
+                  qDebug("Inserting nextGraphicalEvent:"); nextGraphicalEvent->second.dump();
+
+                  // append the graphical event into unrolled tempomap
+                  utickOfEventToInsert = s->utick + (nextGraphicalEvent->first - s->tick);
+                  insert(std::pair<const int, TEvent> (utickOfEventToInsert, nextGraphicalEvent->second));
+
+                  // if want to apply tempos that are triggered on specific repeats, based on some condition, then here would be the place to do it
+
+                  qDebug("Inserted event."); //insertedUnrolledEvent->second.dump();
+
+                  nextGraphicalEvent++;
+                  }
+
+            qDebug("FINISHED segment.\n");
+
+            // check if an event exists exactly at the ending tick of this segment
+            if (nextGraphicalEvent != graphicalTempoMap->end() && nextGraphicalEvent->first == s->tick+s->len) {
+                  prevEndEvent = &nextGraphicalEvent->second; // needed to handle situation when need to apply pause just before the next repeat segment
+                  qDebug("prevEndEvent:"); prevEndEvent->dump();
+                  }
+            else
+                  prevEndEvent = &zeroTEvent;      // indicates that there is no event at end of segment
+
+            }
+
+      setRelTempo( graphicalTempoMap->relTempo() );      // use same relative tempo as graphical score & normalize
+
+      qDebug("FINISHED TempoMap( repeatList, graphicalTempoMap ). Here is nomalized unrolled tempomap:"); dump();
       }
 
 //---------------------------------------------------------
@@ -138,26 +252,21 @@ void TempoMap::normalize()
       int tick    = 0;
       qreal tempo = 2.0;
       for (auto e = begin(); e != end(); ++e) {
-            if( e->second.type != TempoType::INVALID) {
 
-                  // entries that represent a pause *only* (PAUSE_BEFORE_TICK or PAUSE_THROUGH_TICK)
-                  // without a tempo change (FIX or RAMP)
-                  // need to continue previous tempo
-                  if ((e->second.type&(TempoType::PAUSE_BEFORE_TICK|TempoType::PAUSE_THROUGH_TICK)) &&
-                     !(e->second.type&(TempoType::FIX|TempoType::RAMP)))
-                        e->second.tempo = tempo;
+            // entries that represent a pause *only* (PAUSE_BEFORE_TICK or PAUSE_THROUGH_TICK)
+            // without a tempo change (FIX or RAMP)
+            // need to continue previous tempo
+            if ((e->second.type&(TempoType::PAUSE_BEFORE_TICK|TempoType::PAUSE_THROUGH_TICK)) &&
+               !(e->second.type&(TempoType::FIX|TempoType::RAMP)))
+                  e->second.tempo = tempo;
 
-                  int delta = e->first - tick;
-                  time += qreal(delta) / (MScore::division * tempo * _relTempo);
-                  time += e->second.pauseBeforeTick + e->second.pauseThroughTick;
-                  e->second.time = time;
-                  tick  = e->first;
-                  tempo = e->second.tempo;
-                  }
-            else {
-                  qDebug("INVALID TempoEvent:");
-                  dump();
-                  }
+            int delta = e->first - tick;
+            time += qreal(delta) / (MScore::division * tempo * _relTempo);
+            time += e->second.pauseBeforeTick + e->second.pauseThroughTick;
+            e->second.time = time;
+            tick  = e->first;
+            tempo = e->second.tempo;
+
             }
       ++_tempoSN;
       }
@@ -169,9 +278,16 @@ void TempoMap::normalize()
 void TempoMap::dump() const
       {
       qDebug("\nTempoMap:   Tick | Time     | Type | Tempo    | PauseBefore | PauseThrough");
-      for (auto i = begin(); i != end(); ++i)
-            qDebug("          %6d | %8.2f | %2d   | %8.2f | %8.2f    | %8.2f",
-               i->first, i->second.time, static_cast<char>(i->second.type), i->second.tempo, i->second.pauseBeforeTick, i->second.pauseThroughTick);
+      for (auto i = begin(); i != end(); ++i) {
+
+            char F = (i->second.type & TempoType::FIX)?   'F' : ' ';
+            char R = (i->second.type & TempoType::RAMP)?  'R' : ' ';
+            char B = (i->second.type & TempoType::PAUSE_BEFORE_TICK)?   'B' : ' ';
+            char T = (i->second.type & TempoType::PAUSE_THROUGH_TICK)?  'T' : ' ';
+
+            qDebug("          %6d | %8.2f | %c%c%c%c | %8.2f | %8.2f    | %8.2f",
+               i->first, i->second.time, F, R, B, T, i->second.tempo, i->second.pauseBeforeTick, i->second.pauseThroughTick);
+            }
       }
 
 //---------------------------------------------------------
@@ -183,6 +299,7 @@ void TempoMap::clear()
       std::map<int,TEvent>::clear();
       ++_tempoSN;
       }
+
 
 //---------------------------------------------------------
 //   tempo
@@ -346,94 +463,6 @@ int TempoMap::time2tick(qreal time, int* sn) const
             *sn = _tempoSN;
 
       return tick;
-      }
-
-//---------------------------------------------------------
-//   TempoMap constructor creating an unrolled TempoMap from a RepeatList and a score's graphicalTempoMap.
-//    Inserts the adjusted unrolled TempoEvents into this TempoMap.
-//---------------------------------------------------------
-
-TempoMap::TempoMap( const RepeatList* repeatList, const TempoMap* graphicalTempoMap )
-      {
-//      clear();    // will overwrite entire map since a new repeatList makes old unrolled entries stale.  //unnecessary if is a Constructor
-
-      _tempo    = graphicalTempoMap->_tempo;          // default fixed tempo in beat per second
-      _tempoSN  = 1;                                  // restart serial number for tracking changes (although since never adding entries after constructing unrolled map, SN will never change
-
-      graphicalTempoMap->dump();
-      qDebug("STARTING RepeatList::update() using above graphicalTempoMap ---------------");
-
-      bool needToApplyPauseBeforeTickAfterJump = false; // will be set if a repeat/jump was just taken from a tick with "PAUSE_BEFORE_TICK"
-      qreal durationPauseBeforeTickAfterJump = 0.0;
-
-      // unroll each repeat segment starting from s->tick to s->tick+s->len
-      for(RepeatSegment* s : *repeatList) {
-
-            qDebug("START unrolling segment:"); s->dump();
-
-            auto nextGraphicalEvent = graphicalTempoMap->lower_bound(s->tick);
-            int utickOfEventToInsert = s->utick;
-
-            // if a TempoEvent exists at the *very start* of this segment, then insert it here.
-            TEvent initialEventToInsert;
-            if( nextGraphicalEvent != graphicalTempoMap->end() && nextGraphicalEvent == graphicalTempoMap->begin()) {
-                  // remove any PAUSE_THROUGH or PAUSE_BEFORE the starting tick of this repeat segment if exist
-                  initialEventToInsert.type = (nextGraphicalEvent->second.type & (TempoType::FIX | TempoType::RAMP)); //unset the flag for TempoType::PAUSE_BEFORE_TICK (I would use the bitwise not operator, but that seems to be undefined for this enum class)
-                  initialEventToInsert.tempo = nextGraphicalEvent->second.tempo;
-                  initialEventToInsert.pauseBeforeTick = 0.0;
-                  initialEventToInsert.pauseThroughTick = 0.0;
-                  nextGraphicalEvent++;
-                  }
-            else {
-                  //If not, will insert a blank INVALID event (note: this makes code cleaner by avoiding handling of a mess of nested if conditions).
-                  qDebug("No tempo events were found at beginning of this repeat segment..inserting a blank TempoType:INVALID");
-                  }
-
-            // if want to reset the tempo to whatever tempo was previously set on this graphical "tick", or if
-            // if want to apply a starting tempo that is triggered at the start of a specific repeat, then here is would be the place to do it
-
-            // handle case where need to apply a pause before the initial tick of this unrolled segment (e.g. jumped from a measure ending with a breath/caesura)
-            if( needToApplyPauseBeforeTickAfterJump ) {
-                  qDebug("applying PAUSE_BEFORE_TICK of %6.2f seconds", durationPauseBeforeTickAfterJump);
-                  // apply a pause before the starting tick of this repeat segment
-                  // Do not add any pause if some pause already present before this first graphical tick
-                  initialEventToInsert.type |= TempoType::PAUSE_BEFORE_TICK;
-                  initialEventToInsert.pauseBeforeTick = durationPauseBeforeTickAfterJump;
-                  needToApplyPauseBeforeTickAfterJump = false;
-                  }
-
-            // insert this initial event
-            auto insertedUnrolledEvent = insert(std::pair<const int, TEvent> (utickOfEventToInsert, initialEventToInsert));
-            qDebug("Inserted initial event at start of repeat segment.");// insertedUnrolledEvent;//->second.dump();
-
-            // now handle rest of events in repeat segment
-            while( nextGraphicalEvent++ != graphicalTempoMap->lower_bound(s->tick + s->len) ) {
-
-                  qDebug("Inserting nextGraphicalEvent:"); nextGraphicalEvent->second.dump();
-
-                  // append the graphical event into unrolled tempomap
-                  utickOfEventToInsert = s->utick + (nextGraphicalEvent->first - s->tick);
-                  insertedUnrolledEvent = insert(std::pair<const int, TEvent> (utickOfEventToInsert, nextGraphicalEvent->second));
-
-                  // if want to apply tempos that are triggered on specific repeats, based on some condition, then here would be the place to do it
-
-                  qDebug("Inserted event."); //insertedUnrolledEvent->second.dump();
-                  }
-
-            // check if need to apply a pause just before the next repeat segment
-            if( nextGraphicalEvent != graphicalTempoMap->end() && nextGraphicalEvent->second.type & TempoType::PAUSE_BEFORE_TICK ) {
-                  needToApplyPauseBeforeTickAfterJump = true;
-                  durationPauseBeforeTickAfterJump = nextGraphicalEvent->second.pauseBeforeTick;
-                  qDebug("Need to apply a pause before the next unrolled segment of %6.2f seconds", durationPauseBeforeTickAfterJump);
-                  }
-
-            qDebug("FINISH segment.\n");
-
-            }
-
-      setRelTempo( graphicalTempoMap->relTempo() );      // use same relative tempo as graphical score & normalize
-
-      qDebug("FINISHED TempoMap( repeatList, graphicalTempoMap ). Here is nomalized unrolled tempomap:"); dump();
       }
 
 }

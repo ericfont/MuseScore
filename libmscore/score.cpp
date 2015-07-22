@@ -490,8 +490,8 @@ void Score::fixTicks()
             tempomap()->clear();
             smap->clear();
             smap->add(0, SigEvent(sig,  nsig, 0));
-            if(_unrolledTempomap)
-                  delete _unrolledTempomap;
+
+            invalidateUnrolledTempomap();
             }
 
       for (MeasureBase* mb = first(); mb; mb = mb->next()) {
@@ -1751,28 +1751,27 @@ Segment* Score::lastSegment() const
 //   utick2utime
 //---------------------------------------------------------
 
-qreal Score::utick2utime(int tick) const
+qreal Score::utick2utime(int tick)
       {
-      if(unrolledTempomap())
-            return unrolledTempomap()->tick2time(tick);
-      else {
-            qWarning( "unrolledTempomap invalid...providing non-unrolled time instead of utime as backup");
-            return tempomap()->tick2time(tick);
+      if ( !unrolledTempomap() ) {
+            qDebug( "asked for utick2utime, but unrolledTempomap is invalid.  Regenerating unrolledTempomap..." );
+            unrollTempomap();
             }
+      return unrolledTempomap()->tick2time(tick);
       }
 
 //---------------------------------------------------------
 //   utime2utick
 //---------------------------------------------------------
 
-int Score::utime2utick(qreal utime) const
+int Score::utime2utick(qreal utime)
       {
-      if(unrolledTempomap())
-            return unrolledTempomap()->time2tick(utime);
-      else {
-            qWarning( "unrolledTempomap invalid...providing non-unrolled tick instead of utick as backup");
-            return tempomap()->time2tick(utime);
+      if ( !unrolledTempomap() ) {
+            qDebug( "asked for utime2utick, but unrolledTempomap is invalid.  Regenerating unrolledTempomap..." );
+            unrollTempomap();
             }
+
+      return unrolledTempomap()->time2tick(utime);
       }
 
 //---------------------------------------------------------
@@ -1932,6 +1931,36 @@ TempoMap* Score::tempomap() const
 TempoMap* Score::unrolledTempomap() const
       {
       return rootScore()->_unrolledTempomap;
+      }
+
+//---------------------------------------------------------
+//   invalidateUnrolledTempomap
+//---------------------------------------------------------
+
+void Score::invalidateUnrolledTempomap()
+      {
+      TempoMap* rootUnrolledTempomap = unrolledTempomap();
+      if ( rootUnrolledTempomap ) {
+            delete rootUnrolledTempomap;
+            qDebug("unrolledTempomap() deleted, now is invalid. Will be regenerated when needed.");
+            }
+      else
+            qDebug("unrolledTempomap() already invalid. Will be regenerated when needed.");
+      }
+
+//---------------------------------------------------------
+//   unrolledTempomap
+//---------------------------------------------------------
+
+void Score::unrollTempomap()
+      {
+      //should only be root score if this is called.  rootScore()->_unrolledTempomap = new TempoMap( repeatList(), tempomap() );
+
+      if ( _unrolledTempomap )
+            invalidateUnrolledTempomap();
+
+      qDebug("unrollTempomap() called...  unrolling tempomap now...");
+      _unrolledTempomap = new TempoMap( _repeatList, _tempomap );
       }
 
 //---------------------------------------------------------
@@ -3222,6 +3251,7 @@ void Score::setTempo(Segment* segment, qreal tempo)
 void Score::setTempo(int tick, qreal tempo)
       {
       tempomap()->setTempo(tick, tempo);
+      invalidateUnrolledTempomap();
       _playlistDirty = true;
       }
 
@@ -3232,6 +3262,7 @@ void Score::setTempo(int tick, qreal tempo)
 void Score::removeTempo(int tick)
       {
       tempomap()->delTempo(tick);
+      invalidateUnrolledTempomap();
       _playlistDirty = true;
       }
 
@@ -3242,6 +3273,7 @@ void Score::removeTempo(int tick)
 void Score::setPauseBeforeTick(int tick, qreal seconds)
       {
       tempomap()->setPauseBeforeTick(tick, seconds);
+      invalidateUnrolledTempomap();
       _playlistDirty = true;
       }
 
@@ -3252,6 +3284,7 @@ void Score::setPauseBeforeTick(int tick, qreal seconds)
 void Score::setPauseThroughTick(int tick, qreal seconds)
       {
       tempomap()->setPauseThroughTick(tick, seconds);
+      invalidateUnrolledTempomap();
       _playlistDirty = true;
       }
 

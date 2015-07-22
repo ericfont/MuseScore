@@ -20,9 +20,17 @@ namespace Ms {
 class RepeatSegment;
 class Xml;
 
-enum class TempoType : unsigned char { INVALID = 0x0, PAUSE_BEFORE_TICK = 0x1, FIX = 0x2, RAMP = 0x4, PAUSE_THROUGH_TICK = 0x8};
+enum class TempoType : char {
+      INVALID           = 0x0,
+      PAUSE_BEFORE_TICK = 0x1,
+      FIX               = 0x2,
+      RAMP              = 0x4,
+      PAUSE_THROUGH_TICK= 0x8,
+      PAUSE_AFTER_TICK  = 0x10,
+      PAUSE = PAUSE_BEFORE_TICK | PAUSE_THROUGH_TICK        // |PAUSE_AFTER_TICK
+      };
 
-typedef QFlags<TempoType> TempoTypes;
+Q_DECLARE_FLAGS(TempoTypes, TempoType);
 Q_DECLARE_OPERATORS_FOR_FLAGS(TempoTypes);
 
 //---------------------------------------------------------

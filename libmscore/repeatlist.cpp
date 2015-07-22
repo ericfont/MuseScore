@@ -10,6 +10,7 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
+#include <QtCore/QtDebug>
 #include "repeatlist.h"
 #include "score.h"
 #include "measure.h"
