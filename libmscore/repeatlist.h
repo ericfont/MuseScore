@@ -20,8 +20,9 @@ class Measure;
 
 //---------------------------------------------------------
 //   RepeatSegment
-//    responsible for unwinding and for mapping uticks <-> ticks,
-//    but no longer responsible for mapping uticks <-> utime, which is now handled by score's unrolled tempomap
+//    Each segment represents a string of consecutive measures played in order after repeats & jumps are unwound.
+//    Only responsible for mapping uticks <-> ticks for each segment.
+//    Not responsible for mapping uticks <-> utime, which is now handled by score's unrolled tempomap.
 //---------------------------------------------------------
 
 class RepeatSegment {
@@ -29,8 +30,6 @@ class RepeatSegment {
       int tick;         // start tick
       int len;
       int utick;
-//      qreal utime;          // this functionality now provided by unrolled tempomap
-//      qreal timeOffset;     // this functionality now provided by unrolled tempomap
 
       RepeatSegment();
 
@@ -57,8 +56,6 @@ class RepeatList: public QList<RepeatSegment*>
       int utick2tick(int tick) const;
       int tick2utick(int tick) const;
       void dump() const;
-  //    int utime2utick(qreal) const;     // this functionality now provided by unrolled tempomap
-  //    qreal utick2utime(int) const;     // this functionality now provided by unrolled tempomap
       void update();
       int ticks();
       };
