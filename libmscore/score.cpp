@@ -322,6 +322,7 @@ void Score::init()
       _showOmr                = false;
       _sigmap                 = 0;
       _tempomap               = 0;
+      _unrolledTempomap       = 0;
       _layoutMode             = LayoutMode::PAGE;
       _noteHeadWidth          = 0.0;      // set in doLayout()
       _midiPortCount          = 0;
@@ -337,6 +338,7 @@ Score::Score()
       _parentScore = 0;
       init();
       _tempomap = new TempoMap;
+      _unrolledTempomap = 0;  // unrolled tempomap is not generated until unwind repeatlist
       _sigmap   = new TimeSigMap();
       _style    = *(MScore::defaultStyle());
       accInfo = tr("No selection");
@@ -348,6 +350,7 @@ Score::Score(const MStyle* s)
       _parentScore = 0;
       init();
       _tempomap = new TempoMap;
+      _unrolledTempomap = 0;  // unrolled tempomap is not generated until unwind repeatlist
       _sigmap   = new TimeSigMap();
       _style    = *s;
       accInfo = tr("No selection");
@@ -358,6 +361,7 @@ Score::Score(const MStyle* s)
 //    _undo
 //    _sigmap
 //    _tempomap
+//    _unrolledTempoMap
 //    _repeatList
 //    _links
 //    _staffTypes
@@ -428,6 +432,9 @@ Score::~Score()
       delete _tempomap;
       delete _sigmap;
       delete _repeatList;
+
+      if(_unrolledTempomap)
+            delete _unrolledTempomap;
       }
 
 //---------------------------------------------------------
@@ -483,6 +490,8 @@ void Score::fixTicks()
             tempomap()->clear();
             smap->clear();
             smap->add(0, SigEvent(sig,  nsig, 0));
+            if(_unrolledTempomap)
+                  delete _unrolledTempomap;
             }
 
       for (MeasureBase* mb = first(); mb; mb = mb->next()) {
@@ -1744,7 +1753,12 @@ Segment* Score::lastSegment() const
 
 qreal Score::utick2utime(int tick) const
       {
-      return repeatList()->utick2utime(tick);
+      if(unrolledTempomap())
+            return unrolledTempomap()->tick2time(tick);
+      else {
+            qWarning( "unrolledTempomap invalid...providing non-unrolled time instead of utime as backup");
+            return tempomap()->tick2time(tick);
+            }
       }
 
 //---------------------------------------------------------
@@ -1753,7 +1767,12 @@ qreal Score::utick2utime(int tick) const
 
 int Score::utime2utick(qreal utime) const
       {
-      return repeatList()->utime2utick(utime);
+      if(unrolledTempomap())
+            return unrolledTempomap()->time2tick(utime);
+      else {
+            qWarning( "unrolledTempomap invalid...providing non-unrolled tick instead of utick as backup");
+            return tempomap()->time2tick(utime);
+            }
       }
 
 //---------------------------------------------------------
@@ -1904,6 +1923,15 @@ void Score::setTempomap(TempoMap* tm)
 TempoMap* Score::tempomap() const
       {
       return rootScore()->_tempomap;
+      }
+
+//---------------------------------------------------------
+//   unrolledTempomap
+//---------------------------------------------------------
+
+TempoMap* Score::unrolledTempomap() const
+      {
+      return rootScore()->_unrolledTempomap;
       }
 
 //---------------------------------------------------------

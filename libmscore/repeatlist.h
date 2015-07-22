@@ -15,7 +15,6 @@
 
 #include "score.h"
 #include "measure.h"
-#include "tempo.h"
 
 namespace Ms {
 
@@ -24,6 +23,8 @@ class Measure;
 
 //---------------------------------------------------------
 //   RepeatSegment
+//    responsible for unwinding and for mapping uticks <-> ticks,
+//    but no longer responsible for mapping uticks <-> utime, which is now handled by score's unrolled tempomap
 //---------------------------------------------------------
 
 class RepeatSegment {
@@ -31,10 +32,12 @@ class RepeatSegment {
       int tick;         // start tick
       int len;
       int utick;
-      qreal utime;
-      qreal timeOffset;
+//      qreal utime;          // this functionality now provided by unrolled tempomap
+//      qreal timeOffset;     // this functionality now provided by unrolled tempomap
 
       RepeatSegment();
+
+      void dump() const;      // debug print to console
       };
 
 //---------------------------------------------------------
@@ -51,16 +54,14 @@ class RepeatList: public QList<RepeatSegment*>
 
       Measure* jumpToStartRepeat(Measure*);
 
-      TempoMap _unrolledTempoMap;   // unrolled version filled in during update(), generated from _score's tempomap and this repeatlist
-
    public:
       RepeatList(Score* s);
       void unwind();
       int utick2tick(int tick) const;
       int tick2utick(int tick) const;
       void dump() const;
-      int utime2utick(qreal) const;
-      qreal utick2utime(int) const;
+  //    int utime2utick(qreal) const;     // this functionality now provided by unrolled tempomap
+  //    qreal utick2utime(int) const;     // this functionality now provided by unrolled tempomap
       void update();
       int ticks();
       };

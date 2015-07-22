@@ -13,11 +13,14 @@
 #ifndef __AL_TEMPO_H__
 #define __AL_TEMPO_H__
 
+#include "repeatlist.h"
+
 namespace Ms {
 
+class RepeatSegment;
 class Xml;
 
-enum class TempoType : char { INVALID = 0x0, PAUSE_BEFORE_TICK = 0x1, FIX = 0x2, RAMP = 0x4, PAUSE_THROUGH_TICK = 0x8};
+enum class TempoType : unsigned char { INVALID = 0x0, PAUSE_BEFORE_TICK = 0x1, FIX = 0x2, RAMP = 0x4, PAUSE_THROUGH_TICK = 0x8};
 
 typedef QFlags<TempoType> TempoTypes;
 Q_DECLARE_OPERATORS_FOR_FLAGS(TempoTypes);
@@ -39,6 +42,7 @@ struct TEvent {
       TEvent(const TEvent& e);
       TEvent(qreal tempo, qreal pauseBeforeTick, qreal pauseThroughTick, TempoType type);
       bool valid() const;
+      void dump() const;
       };
 
 //---------------------------------------------------------
@@ -55,6 +59,8 @@ class TempoMap : public std::map<int, TEvent> {
 
    public:
       TempoMap();
+      TempoMap( const RepeatList* repeatList, const TempoMap* graphicalTempoMap ); // creates unrolled tempomap
+
       void clear();
 
       void dump() const;
