@@ -71,7 +71,7 @@ TempoMap::TempoMap()
 
 //---------------------------------------------------------
 //   TempoMap constructor creating an unrolled TempoMap from a RepeatList and a score's graphicalTempoMap.
-//    Inserts the adjusted unrolled TempoEvents into this TempoMap.
+//    Inserts the adjusted unrolled TempoEvents into this new TempoMap.
 //---------------------------------------------------------
 
 TempoMap::TempoMap( const RepeatList* repeatList, const TempoMap* graphicalTempoMap )
@@ -88,6 +88,8 @@ TempoMap::TempoMap( const RepeatList* repeatList, const TempoMap* graphicalTempo
       // pointers to keep track of the event at the ending tick of the previous segment and the starting tick of the current segment
       const TEvent* prevEndEvent = &zeroTEvent;
       const TEvent* currStartEvent = &zeroTEvent;
+
+      auto hintPositionInsert = begin();
 
       // unroll each repeat segment starting from s->tick to s->tick+s->len
       for (RepeatSegment* s : *repeatList) {
@@ -144,7 +146,7 @@ TempoMap::TempoMap( const RepeatList* repeatList, const TempoMap* graphicalTempo
             // insert this merged initial starting event at beginning tick of this segment
             // only insert if type is valid, since no point in inserting an event of TempoType::INVALID
             if (mergedInitialEvent.type) {
-                  insert(std::pair<const int, TEvent> (utickOfEventToInsert, mergedInitialEvent));
+                  hintPositionInsert = insert(hintPositionInsert, std::pair<const int, TEvent> (utickOfEventToInsert, mergedInitialEvent));
                   qDebug("Inserted initial event at start of repeat segment."); mergedInitialEvent.dump();
             }
 
@@ -155,7 +157,7 @@ TempoMap::TempoMap( const RepeatList* repeatList, const TempoMap* graphicalTempo
 
                   // append the graphical event into unrolled tempomap
                   utickOfEventToInsert = s->utick + (nextGraphicalEvent->first - s->tick);
-                  insert(std::pair<const int, TEvent> (utickOfEventToInsert, nextGraphicalEvent->second));
+                  hintPositionInsert = insert(hintPositionInsert, std::pair<const int, TEvent> (utickOfEventToInsert, nextGraphicalEvent->second));
 
                   // if want to apply tempos that are triggered on specific repeats, based on some condition, then here would be the place to do it
 
