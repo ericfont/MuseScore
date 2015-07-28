@@ -68,15 +68,10 @@ after_script:
   - "artifacts upload"
 notifications:
   recipients:
-    - build@musescore.org
+    - ericrfontaine@gmail.com
   email:
     on_success: change
     on_failure: always
-  irc:
-    channels:
-      - "irc.freenode.net#musescore"
-    on_success: change
-    on_failure: change
-  webhooks:
-    # trigger Buildtime Trend Service to parse Travis CI log
-    - https://buildtimetrend.herokuapp.com/travis
+  #webhooks:
+  #  # trigger Buildtime Trend Service to parse Travis CI log
+  #  - https://buildtimetrend.herokuapp.com/travis
