@@ -24,6 +24,7 @@
 #include "zone.h"
 #include "sample.h"
 #include "zerberus.h"
+#include "zerberusgui.h"
 
 //---------------------------------------------------------
 //   SfzRegion
@@ -331,6 +332,7 @@ bool ZInstrument::loadSfz(const QString& s)
 
       bool groupMode = false;
       zerberus->setLoadProgress(0);
+      QProgressDialog* progress = reinterpret_cast<ZerberusGui*>(zerberus->gui())->progressDialog();
 
       while (!f.atEnd()) {
             QByteArray ba = f.readLine();
@@ -340,6 +342,8 @@ bool ZInstrument::loadSfz(const QString& s)
                   continue;
             QList<QByteArray> bal = ba.split(' ');
             foreach(const QByteArray& bb, bal) {
+                  if(progress->wasCanceled())
+                        return false;
                   if (bb == "<group>") {
                         if (!groupMode && !r.isEmpty())
                               addRegion(r);

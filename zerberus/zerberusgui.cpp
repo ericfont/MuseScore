@@ -98,7 +98,7 @@ ZerberusGui::ZerberusGui(Ms::Synthesizer* s)
       connect(&_futureWatcher, SIGNAL(finished()), this, SLOT(onSoundFontLoaded()));
       _progressDialog = new QProgressDialog(tr("Loading..."), "", 0, 100, 0, Qt::FramelessWindowHint);
       _progressDialog->reset(); // required for Qt 5.5, see QTBUG-47042
-      _progressDialog->setCancelButton(0);
+      _progressDialog->setCancelButtonText(tr("Cancel"));
       _progressTimer = new QTimer(this);
       connect(_progressTimer, SIGNAL(timeout()), this, SLOT(updateProgress()));
       connect(files, SIGNAL(itemSelectionChanged()), this, SLOT(updateButtons()));
