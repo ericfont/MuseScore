@@ -694,7 +694,8 @@ bool MuseScore::saveMp3(Score* score, const QString& name)
       QProgressDialog progress(this);
       progress.setWindowFlags(Qt::WindowFlags(Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowTitleHint));
       progress.setWindowModality(Qt::ApplicationModal);
-      progress.setCancelButton(0);
+      progress.setLabelText(tr("Exporting..."));
+      progress.setCancelButtonText(tr("Cancel"));
       if (!MScore::noGui)
             progress.show();
 
@@ -822,6 +823,8 @@ bool MuseScore::saveMp3(Score* score, const QString& name)
                         }
                   playTime = endTime;
                   if (!MScore::noGui) {
+                        if (progress.wasCanceled())
+                              break;
                         progress.setValue((pass * et + playTime) / 2);
                         qApp->processEvents();
                         }
@@ -831,6 +834,8 @@ bool MuseScore::saveMp3(Score* score, const QString& name)
                   if (playTime >= et && max * peak < 0.000001)
                         break;
                   }
+            if (progress.wasCanceled())
+                  break;
             if (pass == 0 && peak == 0.0) {
                   qDebug("song is empty");
                   break;
