@@ -1,9 +1,9 @@
 env:
  global:
- #  - "ARTIFACTS_AWS_REGION=us-east-1"
- #  - "ARTIFACTS_S3_BUCKET=vtest.musescore.org"
- #  - secure: "lVj+9BBtJIjW3CwfXstvNyYVn0AkXEwTyiPmp4BprcheP78WIqZNC0uG2RjG9MgyHbZkprE7zRdqR9YPWTitg+XYkkD6+jPHRO+PQFLARuiTAX9yhUO53yQQZC2wMkQ+bFuZsFmz1rfAsPHx3bXeZAMsz+Qnh8D2yIqqV7qxwWw="
- #  - secure: "L+66yQZIZJTyIAfrG89ncKIkMAr4+UvaOZMsd420OSdnEH9kpdm5Kws8rG0VVLAtqhfQfi3K9DuC8Ub7IiXqil//h+I9WJ2LHKirWK0m/MkhTFC6hfi0uSnQCX/jud3Keewxf3ovgiKQvIw6VR37UC50YJM9+KhZKtsNYhGAdos="
+   - "ARTIFACTS_AWS_REGION=us-east-1"
+   - "ARTIFACTS_S3_BUCKET=vtest.musescore.org"
+   - secure: "lVj+9BBtJIjW3CwfXstvNyYVn0AkXEwTyiPmp4BprcheP78WIqZNC0uG2RjG9MgyHbZkprE7zRdqR9YPWTitg+XYkkD6+jPHRO+PQFLARuiTAX9yhUO53yQQZC2wMkQ+bFuZsFmz1rfAsPHx3bXeZAMsz+Qnh8D2yIqqV7qxwWw="
+   - secure: "L+66yQZIZJTyIAfrG89ncKIkMAr4+UvaOZMsd420OSdnEH9kpdm5Kws8rG0VVLAtqhfQfi3K9DuC8Ub7IiXqil//h+I9WJ2LHKirWK0m/MkhTFC6hfi0uSnQCX/jud3Keewxf3ovgiKQvIw6VR37UC50YJM9+KhZKtsNYhGAdos="
 
 addons:
   apt:
@@ -47,9 +47,9 @@ before_install:
   - "export QML2_IMPORT_PATH=`pwd`/qt5/qml"
 before_script:
   #compatibility between ruby travis artefact and GO one
-#  - "export ARTIFACTS_KEY=$ARTIFACTS_AWS_ACCESS_KEY_ID"
-#  - "export ARTIFACTS_SECRET=$ARTIFACTS_AWS_SECRET_ACCESS_KEY"
-#  - "artifacts -v || curl -sL https://raw.githubusercontent.com/meatballhat/artifacts/master/install | bash"
+  - "export ARTIFACTS_KEY=$ARTIFACTS_AWS_ACCESS_KEY_ID"
+  - "export ARTIFACTS_SECRET=$ARTIFACTS_AWS_SECRET_ACCESS_KEY"
+  - "artifacts -v || curl -sL https://raw.githubusercontent.com/meatballhat/artifacts/master/install | bash"
   - "mkdir $HOME/software"
   - "export PATH=$PATH:$HOME/bin:$HOME/software/bin"
   - "make revision"
@@ -60,18 +60,23 @@ before_script:
 script:
   - "../../build/run_tests.sh"
 after_script:
-#  - "export TRAVIS_SHORT_COMMIT=`echo $TRAVIS_COMMIT | cut -c 1-8`"
-#  - "export ARTIFACTS_TARGET_PATHS=$TRAVIS_SHORT_COMMIT"
-#  - export ARTIFACTS_PATHS=$(ls ../../vtest/html | tr "\n" ":")
-#  - "export ARTIFACTS_PERMISSIONS=public-read"
-#  - "export TRAVIS_BUILD_DIR=../../vtest/html"
-#  - "artifacts upload"
+  - "export TRAVIS_SHORT_COMMIT=`echo $TRAVIS_COMMIT | cut -c 1-8`"
+  - "export ARTIFACTS_TARGET_PATHS=$TRAVIS_SHORT_COMMIT"
+  - export ARTIFACTS_PATHS=$(ls ../../vtest/html | tr "\n" ":")
+  - "export ARTIFACTS_PERMISSIONS=public-read"
+  - "export TRAVIS_BUILD_DIR=../../vtest/html"
+  - "artifacts upload"
 notifications:
   recipients:
-    - ericrfontaine@gmail.com
+    - build@musescore.org
   email:
     on_success: change
     on_failure: always
-  #webhooks:
-  #  # trigger Buildtime Trend Service to parse Travis CI log
-  #  - https://buildtimetrend.herokuapp.com/travis
+  irc:
+    channels:
+      - "irc.freenode.net#musescore"
+    on_success: change
+    on_failure: change
+  webhooks:
+    # trigger Buildtime Trend Service to parse Travis CI log
+    - https://buildtimetrend.herokuapp.com/travis
