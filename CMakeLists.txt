@@ -123,6 +123,7 @@ else (APPLE)
       # -mno-ms-bitfields see #22048
       set(CMAKE_CXX_FLAGS_DEBUG   "-std=gnu++0x -mno-ms-bitfields -g")
       set(CMAKE_CXX_FLAGS_RELEASE "-std=gnu++0x -mno-ms-bitfields -O2 -DNDEBUG -DQT_NO_DEBUG")
+      set(CMAKE_EXE_LINKER_FLAGS "-Wl,--large-address-aware")
    else (MINGW)
       set(CMAKE_CXX_FLAGS_DEBUG   "-std=c++11 -fPIC -fPIE -g")
       set(CMAKE_CXX_FLAGS_RELEASE "-std=c++11 -fPIC -O2 -DNDEBUG -DQT_NO_DEBUG")
@@ -398,7 +399,7 @@ if (NOT MINGW AND NOT APPLE)
     #     set library search path for runtime linker to load the same
     #     qt libraries as we used at compile time
     #
-    set (CMAKE_EXE_LINKER_FLAGS "-Wl,-rpath=${_qt5Core_install_prefix}/lib")
+    set (CMAKE_EXE_LINKER_FLAGS "-Wl,--large-address-aware,-rpath=${_qt5Core_install_prefix}/lib")
     # install desktop file
     install( FILES build/mscore.desktop DESTINATION share/applications)
     # compress man pages if gzip is installed (don't on OpenBSD)
