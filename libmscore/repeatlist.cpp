@@ -325,16 +325,16 @@ void RepeatList::unwindSection(Measure* sectionStartMeasure, Measure* sectionEnd
       int repeatCount     = 0;
       bool isGoto         = false;
 
-      for (Measure* nm = sectionStartMeasure; nm; ) {
+       for (Measure* nm = sectionStartMeasure; nm; ) {
             m = nm;
             m->setPlaybackCount(m->playbackCount() + 1);
             Repeat flags = m->repeatFlags();
             bool doJump = false; // process jump after endrepeat
 
  qDebug("m%d(tick %d) %p: playbackCount %d loop %d repeatCount %d isGoto %d endRepeat %p continueAt %p flags 0x%x",
-               m->no(), m->tick(), m, m->playbackCount(), loop, repeatCount, isGoto, endRepeat, continueAt, int(flags));
+               m->no()+1, m->tick(), m, m->playbackCount(), loop, repeatCount, isGoto, endRepeat, continueAt, int(flags));
 
-            if (endRepeat) {
+             if (endRepeat) {
                   Volta* volta = _score->searchVolta(m->tick());
                   if (volta && !volta->hasEnding(m->playbackCount())) {
                         // skip measure
