@@ -73,6 +73,9 @@ class TestRepeat : public QObject, public MTest
 
       void repeat30() { repeat("repeat30.mscx", "1;1;2;1;2"); }     // #73496 single measure section at beginning of score followed by a section with end repeat (without beginning repeat)
 
+      void repeat31() { repeat("repeat31.mscx", "1;2;1;2;1;2;3;4;2;3;1;2;3;1;2;1;2;3;4;2;3;5"); } // multiple sections, each with possible DC, DS, al Fine
+      void repeat32() { repeat("repeat32.mscx", "1;2;3;2;3;4;5;6; 1;2;2;3;4;5;6; 1;2;1;2;3;4;5;6; 1;2;3;2;3;4;2;3;4;5;6; 1;2;3;2;3;2;3;4;2;3;4;5;6; 1;2;3;2;4;5;6; 1;2;3;4;5;6;1;2;3; 1;2;3;4;5;6;2;3;4;7;8;9;10;11; 1;2;3;2;4;2;5;6; 1;2;3;4;1;2;5;6;7;8;1;2;9;10;1;2;11;12; 1;2;3;4;2;3;5;6;7;8;2;9;10; 1;2;3;4;3;5;6;2;3;5;6;7;           1;2;3;4;5;6;7;8;9;10; 2;3;4;5;6;7;8;11;12; 2;3;4;5;6;7;8;13;14;15; 16;17;18; 16;17;18; 19;20;21;22;23; 5;6;7; 24;25;26; 1;2;2;2;2;2;2;2;2;3; 1;2;3;4;4;1;2; 1;2;1;3;4;5;4;6;7;8;7;9; 1;2;1;3;4;5;6;5;7;8; 1;2;3;4;1;2;4; 1;2;3;1;4;5;6;7;8;5;6; 1;2;3;1;2;3;4;5;6;7;5;8; 1;2;3;2;3;4;5;5;6; 1;2;1;2;3;2;3;4;5;6;7;6;7;8;9;10;11;9;10;12;12;13;14;13;14;15;16;13;14; 1;2;3;4;2;3;4;5;3;4;5;6; 1;2;1;2;3;4;2;3;4;5;4;5; 1;1;2;2;3; 1;2;1;2;1;2;3;4;2;3;1;2;3;1;2;1;2;3;4;2;3;5"); } // combined album of tests 1-27 exported as joined mscx in musescore 2.0.2.  Repeat List of each individual score concatenated together should be exactly equal to repeat list of joined album score.
+
       };
 
 //---------------------------------------------------------
