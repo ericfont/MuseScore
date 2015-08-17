@@ -277,12 +277,13 @@ void RepeatList::dump() const
 
 void RepeatList::unwind()
       {
-      // qDebug("unwind===================");
       qDeleteAll(*this);
       clear();
       Measure* fm = _score->firstMeasure();
       if (!fm)
             return;
+
+      // qDebug("unwind===================");
 
       for (Measure* m = fm; m; m = m->nextMeasure())
             m->setPlaybackCount(0);
@@ -313,7 +314,7 @@ void RepeatList::unwind()
 
 void RepeatList::unwindSection(Measure* sectionStartMeasure, Measure* sectionEndMeasure)
       {
-      qDebug("unwind %d-measure section starting %p through %p, next section starts %p", sectionEndMeasure->no()+1, sectionStartMeasure, sectionEndMeasure, sectionEndMeasure->nextMeasure());
+//      qDebug("unwind %d-measure section starting %p through %p, next section starts %p", sectionEndMeasure->no()+1, sectionStartMeasure, sectionEndMeasure, sectionEndMeasure->nextMeasure());
 
       QList<Jump*> jumps; // take the jumps only once so store them
       rs         = new RepeatSegment;
