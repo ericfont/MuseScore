@@ -360,15 +360,8 @@ void RepeatList::unwindSection(Measure* sectionStartMeasure, Measure* sectionEnd
                   
 
             if (isGoto && (endRepeat == m)) {
-                  if (continueAt == 0) {
- //qDebug("  isGoto && endReapeat == %p, continueAt == 0", m);
-                        rs->len = m->endTick() - rs->tick;
-                        if (rs->len)
-                              append(rs);
-                        else
-                              delete rs;
+                  if (continueAt == 0)
                         break;
-                        }
                   rs->len = m->endTick() - rs->tick;
                   append(rs);
                   rs       = new RepeatSegment;
