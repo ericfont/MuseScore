@@ -250,7 +250,7 @@ int RepeatList::utime2utick(qreal t) const
 
 void RepeatList::dump() const
       {
-#if 1
+#if 0
       qDebug("==Dump Repeat List:==");
       foreach(const RepeatSegment* s, *this) {
             qDebug("%p  tick: %3d(%d) %3d(%d) len %d(%d) beats  %f + %f", s,
