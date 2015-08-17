@@ -250,7 +250,7 @@ int RepeatList::utime2utick(qreal t) const
 
 void RepeatList::dump() const
       {
-#if 0
+#if 1
       qDebug("==Dump Repeat List:==");
       foreach(const RepeatSegment* s, *this) {
             qDebug("%p  tick: %3d(%d) %3d(%d) len %d(%d) beats  %f + %f", s,
@@ -283,7 +283,7 @@ void RepeatList::unwind()
       if (!fm)
             return;
 
-      // qDebug("unwind===================");
+      qDebug("unwind===================");
 
       for (Measure* m = fm; m; m = m->nextMeasure())
             m->setPlaybackCount(0);
@@ -314,7 +314,7 @@ void RepeatList::unwind()
 
 void RepeatList::unwindSection(Measure* sectionStartMeasure, Measure* sectionEndMeasure)
       {
-//      qDebug("unwind %d-measure section starting %p through %p, next section starts %p", sectionEndMeasure->no()+1, sectionStartMeasure, sectionEndMeasure, sectionEndMeasure->nextMeasure());
+      qDebug("unwind %d-measure section starting %p through %p, next section starts %p", sectionEndMeasure->no()+1, sectionStartMeasure, sectionEndMeasure, sectionEndMeasure->nextMeasure());
 
       QList<Jump*> jumps; // take the jumps only once so store them
       rs         = new RepeatSegment;
@@ -336,9 +336,8 @@ void RepeatList::unwindSection(Measure* sectionStartMeasure, Measure* sectionEnd
             if (isGoto && (flags & Repeat::END))
                   loop = m->repeatCount() - 1;
 
-//            qDebug("m%d(tick %7d) %p: playbackCount %d loop %d repeatCount %d isGoto %d endRepeat %p continueAt %p flags 0x%x",
-//                   m->no()+1, m->tick(), m, m->playbackCount(), loop, repeatCount, isGoto, endRepeat, continueAt, int(flags));
-
+            qDebug("m%d(tick %7d) %p: playbackCount %d loop %d repeatCount %d isGoto %d endRepeat %p continueAt %p flags 0x%x",
+                   m->no()+1, m->tick(), m, m->playbackCount(), loop, repeatCount, isGoto, endRepeat, continueAt, int(flags));
 
             if (endRepeat) {
                   Volta* volta = _score->searchVolta(m->tick());
@@ -363,7 +362,7 @@ void RepeatList::unwindSection(Measure* sectionStartMeasure, Measure* sectionEnd
 
             if (isGoto && (endRepeat == m)) {
                   if (continueAt == 0) {
-// qDebug("  isGoto && endReapeat == %p, continueAt == 0", m);
+ qDebug("  isGoto && endReapeat == %p, continueAt == 0", m);
                         rs->len = m->endTick() - rs->tick;
                         if (rs->len)
                               append(rs);
