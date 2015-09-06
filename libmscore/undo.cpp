@@ -538,7 +538,7 @@ void Score::undoChangeClef(Staff* ostaff, Segment* seg, ClefType st)
             Segment* destSeg = measure->findSegment(Segment::Type::Clef, tick);
 
             if (firstSeg                        // if at start of measure
-               && measure->prevMeasure()        // and there is a previous measure
+               && !measure->isStartOfSection()  // and not start of a section
                ) {
                   // remove clef from this segment if one exists
                   Segment* segmentToRemoveClef = measure->findSegment(Segment::Type::Clef, tick);
