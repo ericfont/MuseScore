@@ -948,7 +948,7 @@
         <set>Qt::AlignCenter</set>
        </property>
        <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::NoButtons</enum>
+        <enum>QAbstractSpinBox::UpDownArrows</enum>
        </property>
        <property name="prefix">
         <string/>
