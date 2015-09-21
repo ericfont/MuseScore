@@ -163,7 +163,7 @@ bool Album::createScore(const QString& fn)
 
       int excerptCount = firstScore->excerpts().count();
       bool joinExcerpt = true;
-	for (AlbumItem* item : _scores) {
+      for (AlbumItem* item : _scores) {
             if (item->score == 0 || item->score == firstScore)
                   continue;
             if (item->score->excerpts().count() != excerptCount) {

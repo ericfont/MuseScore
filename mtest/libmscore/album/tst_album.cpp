@@ -31,6 +31,7 @@ class TestAlbum : public QObject, public MTest
       void album01();
       void album_78521();
       void album_76101();
+      void album_78556();
 
       };
 
@@ -55,6 +56,32 @@ void TestAlbum::album01()
       album.append(new AlbumItem(root + "/" + DIR + "album01-02.mscx"));
       album.createScore("album01.mscx");
       QVERIFY(compareFiles("album01.mscx", DIR + "album01-ref.mscx"));
+      }
+
+//---------------------------------------------------------
+///  album_78556
+//--------------------------------------------------------
+
+void TestAlbum::album_78556()
+      {
+      Album* album = new Album();
+      album->setName("test");
+
+      AlbumItem* item = new AlbumItem;
+      item->path = root + "/" + DIR + "album_78556-flute-piano.mscx";
+      album->append(item);
+
+      item = new AlbumItem;
+      item->path = root + "/" + DIR + "album_78556-flute-piano.mscx";
+      album->append(item);
+
+      item = new AlbumItem;
+      item->path = root + "/" + DIR + "album_78556-flute.mscx";
+      album->append(item);
+
+      album->createScore("album_78556-ref.mscx");
+
+   //   QVERIFY(compareFiles("album01.mscx", DIR + "album01-ref.mscx"));
       }
 
 //---------------------------------------------------------
