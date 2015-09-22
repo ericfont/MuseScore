@@ -2216,21 +2216,6 @@ bool Score::layoutSystem(qreal& minWidth, qreal systemWidth, bool isFirstSystem,
 
             if (curMeasure->type() == Element::Type::HBOX) {
                   ww = point(static_cast<Box*>(curMeasure)->boxWidth());
-                  if (!isFirstMeasure) {
-                        // try to put another system on current row
-                        // if not a line break
-                        switch(_layoutMode) {
-                              case LayoutMode::FLOAT:
-                                    break;
-                              case LayoutMode::LINE:
-                              case LayoutMode::PAGE:
-                              case LayoutMode::SYSTEM:
-                                    continueFlag = !(curMeasure->lineBreak()
-                                                     || curMeasure->sectionBreak()
-                                                     || curMeasure->pageBreak());
-                                    break;
-                              }
-                        }
                   }
             else if (curMeasure->type() == Element::Type::MEASURE) {
                   Measure* m = static_cast<Measure*>(curMeasure);
@@ -2474,21 +2459,6 @@ bool Score::layoutSystem1(qreal& minWidth, bool isFirstSystem, bool longName)
 
             if (curMeasure->type() == Element::Type::HBOX) {
                   ww = point(static_cast<Box*>(curMeasure)->boxWidth());
-                  if (!isFirstMeasure) {
-                        // try to put another system on current row
-                        // if not a line break
-                        switch(_layoutMode) {
-                              case LayoutMode::FLOAT:
-                                    break;
-                              case LayoutMode::LINE:
-                              case LayoutMode::PAGE:
-                              case LayoutMode::SYSTEM:
-                                    continueFlag = !(curMeasure->lineBreak()
-                                                    || curMeasure->sectionBreak()
-                                                    || curMeasure->pageBreak());
-                                    break;
-                              }
-                        }
                   }
             else if (curMeasure->type() == Element::Type::MEASURE) {
                   Measure* m = static_cast<Measure*>(curMeasure);
