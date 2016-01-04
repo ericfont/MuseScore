@@ -214,6 +214,9 @@ QString getSharePath()
       QDir dir(QCoreApplication::applicationDirPath() + QString("/../Resources"));
       return dir.absolutePath() + "/";
 #else
+      QDir dir(QCoreApplication::applicationDirPath() + QString("/../share/" INSTALL_NAME));
+      if (dir.exists())
+            return dir.absolutePath() + "/";
       return QString( INSTPREFIX "/share/" INSTALL_NAME);
 #endif
 #endif

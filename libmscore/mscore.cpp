@@ -159,7 +159,11 @@ void MScore::init()
       QDir dir(QCoreApplication::applicationDirPath() + QString("/../Resources"));
       _globalShare = dir.absolutePath() + "/";
 #else
-      _globalShare = QString( INSTPREFIX "/share/" INSTALL_NAME);
+      QDir dir(QCoreApplication::applicationDirPath() + QString("/../share/" INSTALL_NAME));
+      if (dir.exists())
+            _globalShare = dir.absolutePath() + "/";
+      else
+            _globalShare = QString( INSTPREFIX "/share/" INSTALL_NAME);
 #endif
 
       selectColor[0].setNamedColor("#1259d0");   //blue

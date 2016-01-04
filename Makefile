@@ -80,7 +80,6 @@ debug:
       make mscore_alias;                                    \
       make -j ${CPUS};                                      \
 
-
 #
 #  win32
 #     cross compile windows package
@@ -126,6 +125,31 @@ install: release
 	     update-mime-database "${PREFIX}/share/mime"; \
 	     gtk-update-icon-cache -f -t "${PREFIX}/share/icons/hicolor"; \
 	fi
+
+# Portable target: build AppDir ready to be turned into a portable AppImage.
+# Creating the AppImage requires https://github.com/probonopd/AppImageKit
+# Portable target requires both build and runtime dependencies,
+# if Qt is in a non-standard location then be sure to add its
+# "bin" folder to PATH and "lib" folder to LD_LIBRARY_PATH. i.e.:
+#   $  export $PATH="/path/to/Qt/bin:${PATH}"
+#   $  export $LD_LIBRARY_PATH="/path/to/Qt/lib:${LD_LIBRARY_PATH}"
+#   $  make portable
+# PREFIX sets install location *and* the name of the resulting AppDir.
+# Version is appended to PREFIX in CMakeLists.txt if MSCORE_UNSTABLE=FALSE.
+portable: PREFIX=MuseScore
+portable: SUFFIX=-portable
+portable: LABEL=Portable AppImage
+portable: NO_RPATH=TRUE
+portable: UPDATE_CACHE=FALSE
+portable: install
+	build_dir="$$(pwd)/build.release" && cd "$$(cat $${build_dir}/PREFIX.txt)" \
+	&& [ -L usr ] || ln -s . usr \
+	&& dsktp="mscore${SUFFIX}.desktop" mani="install_manifest.txt" \
+	&& [ -L "$${dsktp}" ] || ln -s "share/applications/$${dsktp}" "$${dsktp}" \
+	&& <"$${build_dir}/$${mani}" >"$${mani}" \
+	   sed -rn 's/.*(share\/)(man|mime|icons|applications)(.*)/\1\2\3/p' \
+	&& "$${build_dir}/../build/Linux+BSD/portable/copy-libs" . \
+	&& ./AppRun check-depends | tee "$${build_dir}/dependencies.txt"
 
 installdebug: debug
 	cd build.debug \

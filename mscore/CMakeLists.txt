@@ -400,41 +400,43 @@ if (MINGW)
 
    install( TARGETS mscore RUNTIME DESTINATION bin )
 
+   # Keep dependencies in alphabetical order. Changes made to this list
+   # might need to be made in "build/Linux+BSD/portable/copy-libs" too.
    install( FILES
       ${CROSS}/bin/libgcc_s_dw2-1.dll
       ${CROSS}/bin/libstdc++-6.dll
       ${CROSS}/bin/libwinpthread-1.dll
-      ${CROSS}/lib/portaudio.dll
-      ${CROSS}/lib/libsndfile-1.dll
       ${CROSS}/lib/libogg.dll
+      ${CROSS}/lib/libsndfile-1.dll
       ${CROSS}/lib/libvorbis.dll
       ${CROSS}/lib/libvorbisfile.dll
-      ${CROSS}/opt/bin/ssleay32.dll
+      ${CROSS}/lib/portaudio.dll
       ${CROSS}/opt/bin/libeay32.dll
+      ${CROSS}/opt/bin/ssleay32.dll
+      ${CROSSQT}/bin/icudt53.dll
+      ${CROSSQT}/bin/icuin53.dll
+      ${CROSSQT}/bin/icuuc53.dll
+      ${CROSSQT}/bin/Qt5CLucene.dll
       ${CROSSQT}/bin/Qt5Core.dll
-      ${CROSSQT}/bin/Qt5Widgets.dll
       ${CROSSQT}/bin/Qt5Gui.dll
-      ${CROSSQT}/bin/Qt5Xml.dll
-      ${CROSSQT}/bin/Qt5Svg.dll
+      ${CROSSQT}/bin/Qt5Help.dll
+      ${CROSSQT}/bin/Qt5Multimedia.dll
+      ${CROSSQT}/bin/Qt5MultimediaWidgets.dll
       ${CROSSQT}/bin/Qt5Network.dll
+      ${CROSSQT}/bin/Qt5OpenGL.dll
+      ${CROSSQT}/bin/Qt5Positioning.dll
+      ${CROSSQT}/bin/Qt5PrintSupport.dll
+      ${CROSSQT}/bin/Qt5Qml.dll
+      ${CROSSQT}/bin/Qt5Quick.dll
+      ${CROSSQT}/bin/Qt5Sensors.dll
+      ${CROSSQT}/bin/Qt5Sql.dll
+      ${CROSSQT}/bin/Qt5Svg.dll
       ${CROSSQT}/bin/Qt5WebChannel.dll
       ${CROSSQT}/bin/Qt5WebKit.dll
       ${CROSSQT}/bin/Qt5WebKitWidgets.dll
+      ${CROSSQT}/bin/Qt5Widgets.dll
+      ${CROSSQT}/bin/Qt5Xml.dll
       ${CROSSQT}/bin/Qt5XmlPatterns.dll
-      ${CROSSQT}/bin/Qt5Qml.dll
-      ${CROSSQT}/bin/Qt5Quick.dll
-      ${CROSSQT}/bin/Qt5Sql.dll
-      ${CROSSQT}/bin/Qt5Positioning.dll
-      ${CROSSQT}/bin/Qt5PrintSupport.dll
-      ${CROSSQT}/bin/Qt5OpenGL.dll
-      ${CROSSQT}/bin/Qt5Sensors.dll
-      ${CROSSQT}/bin/Qt5Multimedia.dll
-      ${CROSSQT}/bin/Qt5MultimediaWidgets.dll
-      ${CROSSQT}/bin/icuin53.dll
-      ${CROSSQT}/bin/icuuc53.dll
-      ${CROSSQT}/bin/icudt53.dll
-      ${CROSSQT}/bin/Qt5Help.dll
-      ${CROSSQT}/bin/Qt5CLucene.dll
       ${PROJECT_SOURCE_DIR}/build/qt.conf
       DESTINATION bin)
 
@@ -464,12 +466,12 @@ if (MINGW)
     install(DIRECTORY
       ${CROSSQT}/qml
       DESTINATION .
-      REGEX ".*QtWebkit.*" EXCLUDE
-      REGEX ".*QtTest.*" EXCLUDE
-      REGEX ".*QtSensors.*" EXCLUDE
+      REGEX ".*d\\.dll" EXCLUDE
       REGEX ".*QtGraphicalEffects.*" EXCLUDE
       REGEX ".*QtMultimedia.*" EXCLUDE
-      REGEX ".*d\\.dll" EXCLUDE)
+      REGEX ".*QtSensors.*" EXCLUDE
+      REGEX ".*QtTest.*" EXCLUDE
+      REGEX ".*QtWebkit.*" EXCLUDE)
 
 else (MINGW)
    target_link_libraries(mscore
