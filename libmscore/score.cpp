@@ -967,6 +967,7 @@ void Score::reorderMidiMapping()
             }
       }
 
+#define FREE char(-1) // useful to represent unused channel or port as a byte in a machine-independent manner
 //---------------------------------------------------------
 //   removeDeletedMidiMapping
 //   Remove mappings to deleted instruments
@@ -987,8 +988,8 @@ void Score::removeDeletedMidiMapping()
             const InstrumentList* il = p->instruments();
             for (auto i = il->begin(); i != il->end() && !channelExists; ++i) {
                   const Instrument* instr = i->second;
-                  channelExists = (_midiMapping[index].articulation->channel != -1 && instr->channel().contains(_midiMapping[index].articulation)
-                      && !(_midiMapping[index].port == -1 && _midiMapping[index].channel == -1));
+                  channelExists = (_midiMapping[index].articulation->channel != FREE && instr->channel().contains(_midiMapping[index].articulation)
+                      && !(_midiMapping[index].port == FREE && _midiMapping[index].channel == FREE));
                   if (channelExists)
                         break;
                   }
@@ -1020,7 +1021,7 @@ int Score::updateMidiMapping()
       occupiedMidiChannels.reserve(_midiMapping.size()); // Bringing down the complexity of insertion to amortized O(1)
 
       for(MidiMapping mm :_midiMapping) {
-            if (mm.port == -1 || mm.channel == -1)
+            if (mm.port == FREE || mm.channel == FREE)
                   continue;
             occupiedMidiChannels.insert((int)(mm.port)*16+(int)mm.channel);
             if (maxport < mm.port)
@@ -1035,18 +1036,18 @@ int Score::updateMidiMapping()
                   for (Channel* channel : instr->channel()) {
                         bool channelExists = false;
                         for (MidiMapping mapping: _midiMapping) {
-                              if (channel == mapping.articulation && channel->channel != -1) {
+                              if (channel == mapping.articulation && channel->channel != FREE) {
                                     channelExists = true;
                                     break;
                                     }
                               }
                         // Channel could already exist, but have unassigned port or channel. Repair and continue
                         if (channelExists) {
-                              if (_midiMapping[channel->channel].port == -1) {
-                                    int nm = getNextFreeMidiMapping(-1, _midiMapping[channel->channel].channel);
+                              if (_midiMapping[channel->channel].port == FREE) {
+                                    int nm = getNextFreeMidiMapping(FREE, _midiMapping[channel->channel].channel);
                                     _midiMapping[channel->channel].port = nm / 16;
                                     }
-                              else if (_midiMapping[channel->channel].channel == -1) {
+                              else if (_midiMapping[channel->channel].channel == FREE) {
                                     if (drum) {
                                           _midiMapping[channel->channel].port = getNextFreeDrumMidiMapping() / 16;
                                           _midiMapping[channel->channel].channel = 9;
