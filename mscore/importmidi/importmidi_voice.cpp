@@ -701,6 +701,8 @@ bool updateChordTuplets(
       return true;
       }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstrict-overflow"
 int findMaxOccupiedVoiceInBar(
             const std::multimap<ReducedFraction, MidiChord>::iterator &chordIt,
             const std::multimap<ReducedFraction, MidiChord> &chords)
@@ -729,6 +731,7 @@ int findMaxOccupiedVoiceInBar(
 
       return maxVoice;
       }
+#pragma GCC diagnostic pop
 
 bool splitChordToVoice(
             std::multimap<ReducedFraction, MidiChord>::iterator &chordIt,
