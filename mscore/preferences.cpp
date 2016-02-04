@@ -65,6 +65,7 @@ struct PeriodItem {
              }
        };
 
+#if 0
 static PeriodItem updatePeriods[] = {
       PeriodItem(24,      QT_TRANSLATE_NOOP("preferences","Every Day")),
       PeriodItem(72,      QT_TRANSLATE_NOOP("preferences","Every 3 Days")),
@@ -74,6 +75,7 @@ static PeriodItem updatePeriods[] = {
       PeriodItem(2*30*24, QT_TRANSLATE_NOOP("preferences","Every 2 Months")),
       PeriodItem(-1,      QT_TRANSLATE_NOOP("preferences","Never")),
       };
+#endif
 
 //---------------------------------------------------------
 //   Preferences
