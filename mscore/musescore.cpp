@@ -1473,7 +1473,7 @@ void MuseScore::setCurrentScoreView(ScoreView* view)
 
 void MuseScore::updateViewModeCombo()
       {
-      int idx = 0;
+      int idx;
       switch (cs->layoutMode()) {
             case LayoutMode::PAGE:
             case LayoutMode::FLOAT:
@@ -1484,6 +1484,9 @@ void MuseScore::updateViewModeCombo()
                   break;
             case LayoutMode::SYSTEM:
                   idx = 2;
+                  break;
+            default:
+                  idx = 0;
                   break;
             }
       viewModeCombo->setCurrentIndex(idx);
