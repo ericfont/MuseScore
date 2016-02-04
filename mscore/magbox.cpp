@@ -141,7 +141,7 @@ double MagBox::getMag(ScoreView* canvas) const
       double cw            = canvas->width();
       double ch            = canvas->height();
       const PageFormat* pf = score->pageFormat();
-      double nmag;
+      double nmag          = 0.0;
 
       switch (idx) {
             case MagIdx::MAG_25:      nmag = 0.25 * pmag; break;

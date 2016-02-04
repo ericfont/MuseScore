@@ -2523,7 +2523,7 @@ bool Measure::setStartRepeatBarLine(bool val)
             int track    = staffIdx * VOICES;
             Staff* staff = score()->staff(staffIdx);
             BarLine* bl  = s ? static_cast<BarLine*>(s->element(track)) : nullptr;
-            int span, spanFrom, spanTo;
+            int span, spanFrom = 0, spanTo = 0;
             // if there is a bar line and has custom span, take span from it
             if (bl && bl->customSpan()) {
                   span        = bl->span();
