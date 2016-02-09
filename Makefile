@@ -19,11 +19,7 @@
 #=============================================================================
 
 REVISION  = `cat mscore/revision.h`
-CPUS      = $(shell grep -c processor /proc/cpuinfo)
-# Avoid build errors when processor=0 (as in m68k)
-ifeq ($(CPUS), 0)
-  CPUS=1
-endif
+CPUS=1
 
 PREFIX    = "/usr/local"
 VERSION   = "2.1b-${REVISION}"
@@ -120,7 +116,7 @@ version:
 
 install: release
 	cd build.release \
-	&& make install/strip \
+	&& make install \
 	&& if [ ${UPDATE_CACHE} = "TRUE" ]; then \
 	     update-mime-database "${PREFIX}/share/mime"; \
 	     gtk-update-icon-cache -f -t "${PREFIX}/share/icons/hicolor"; \
