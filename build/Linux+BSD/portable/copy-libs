@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Usage:   copy-libs  $share_path
 
@@ -6,7 +6,7 @@
 
 main() {
   # Set sources:
-  qt_prefix="/usr/lib/arm-linux-gnueabihf/qt5" #$(locateQt)"
+  qt_prefix="$(locateQt)"
   echo "qt_prefix: $qt_prefix"
 
   # Set destinations:
@@ -82,11 +82,11 @@ getCrossPlatformDependencies() {
 
   # recursively copy everything in the Qt QML directory
   # except some as listed in "mscore/CMakeLists.txt".
-  export copy copyQt # make functions available to xargs
-#  find "$qt_prefix/qml" \! -type d \
-#    | grep -vE "QtGraphicalEffects|QtMultimedia|QtSensors|QtTest|QtWebKit" \
-#    | sed "s|$qt_prefix/||" | xargs -n1 -I '%%%' \
-#        bash -c "qt_prefix='$qt_prefix' qt_dest='$qt_dest' copyQt %%%"
+  export -f copy copyQt # make functions available to xargs
+  find "$qt_prefix/qml" \! -type d \
+    | grep -vE "QtGraphicalEffects|QtMultimedia|QtSensors|QtTest|QtWebKit" \
+    | sed "s|$qt_prefix/||" | xargs -n1 -I '%%%' \
+        bash -c "qt_prefix='$qt_prefix' qt_dest='$qt_dest' copyQt %%%"
 }
 
 ##########################################################################
@@ -135,7 +135,7 @@ getLinuxOnlyDependencies() {
 }
 
 locateLib() {
-  local path="$(ldconfig -p | grep "$1" | awk '{print $4}')"
+  local path="$(ldconfig -p | grep "$1" | awk '{print $4}' | sed -n 1p)"
   [ "$path" ] || echo "$1 not found." >&2
   echo "$path"
 }
