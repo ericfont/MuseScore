@@ -16,7 +16,20 @@ main() {
   echo "qt_dest: $qt_dest"
   
   getCrossPlatformDependencies
-  getLinuxOnlyDependencies
+
+  # get linux-specific dependencies, based on which distro is making the AppImage
+  if [ "$(grep "CentOS release 6" /etc/*release*)" ]; then
+    # Building on CentOS 6
+    CentOS_6
+  elif [ "$(grep "Raspbian GNU/Linux 8 (jessie)" /etc/*release*)" ]; then
+    # Building on Raspian Jessie
+    Raspian_Jessie
+  else
+    echo "${0}: Warning: Not running on a supported build system!" >&2
+    # Try to fetch all dependencies, just in case
+    CentOS_6
+    Raspian_Jessie
+  fi
 }
 
 ##########################################################################
@@ -57,7 +70,7 @@ getCrossPlatformDependencies() {
   copyLib libQt5Sensors.so.5
   copyLib libQt5Sql.so.5
   copyLib libQt5Svg.so.5
-#  copyLib libQt5WebChannel.so.5
+#  copyLib libQt5WebChannel.so.5  #doesn't seem to exist on debian
   copyLib libQt5WebKit.so.5
   copyLib libQt5WebKitWidgets.so.5
   copyLib libQt5Widgets.so.5
@@ -71,6 +84,7 @@ getCrossPlatformDependencies() {
   copyQt plugins/imageformats/libqmng.so
   copyQt plugins/imageformats/libqsvg.so
   copyQt plugins/imageformats/libqtiff.so
+
   copyQt plugins/platforms/libqxcb.so #qwindows.dll
 
   copyQt plugins/printsupport/libcupsprintersupport.so #windowsprintersupport.dll
@@ -92,8 +106,38 @@ getCrossPlatformDependencies() {
 ##########################################################################
 # LINUX-ONLY DEPENDENCIES (no equivalents in "mscore/CMakeLists.txt")
 # Note: always check the oldest distribution first
+# Note: seperate function for CentOS 6 & Raspbian Jessie
 ##########################################################################
-getLinuxOnlyDependencies() {
+CentOS_6() {
+  # Needed by Centos 6.7:
+  dest_dir="$lib_dest"
+  copyLib libjack.so.0
+  copyLib libopenal.so.1
+  dest_dir="$qt_dest/lib"
+  copyLib libQt5Concurrent.so.5
+  copyLib libQt5DBus.so.5
+  copyLib libQt5Designer.so.5
+  copyLib libQt5Location.so.5
+  copyLib libQt5QuickParticles.so.5
+  copyLib libQt5QuickWidgets.so.5
+  copyLib libQt5Test.so.5
+  copyLib libQt5XcbQpa.so.5
+
+  # Needed by Ubuntu 12.04:
+  dest_dir="$lib_dest"
+  copyLib libcrypto.so.10
+  copyLib libjpeg.so.62
+  copyLib libssl.so.10
+  copyLib libtiff.so.3
+
+  # Needed by Fedora 22:
+  copyLib libmng.so.1
+  copyLib libpng12.so.0
+  copyLib libudev.so.0
+  copyLib liblcms.so.1
+}
+
+Raspian_Jessie() {
   # Needed by Centos 6.7:
   dest_dir="$lib_dest"
   copyLib libjack.so.0
@@ -105,21 +149,19 @@ getLinuxOnlyDependencies() {
   copyLib libQt5Concurrent.so.5
   copyLib libQt5DBus.so.5
   copyLib libQt5Designer.so.5
-#  copyLib libQt5Location.so.5
+#  copyLib libQt5Location.so.5  #can't seem to find on debian
   copyLib libQt5QuickParticles.so.5
   copyLib libQt5QuickWidgets.so.5
   copyLib libQt5Test.so.5
-#  copyLib libQt5XcbQpa.so.5
+#  copyLib libQt5XcbQpa.so.5 #note: debian sid has libqt5xcbqpa5, but not jessie
 
   # Needed by Ubuntu 12.04:
   dest_dir="$lib_dest"
-#  copyLib libcrypto.so.10
+  copyLib libcrypto.so.9
   copyLib libjpeg.so.62
-#  copyLib libssl.so.10
-#  copyLib libtiff.so.3
-  copyLib libxcb-util.so.0  #  copyLib libxcb-atom.so.1 provided by libxcb-util
-#  copyLib libxcb-aux.so.0   #provided by libxcb-util
-#  copyLib libxcb-event.so.1  #provided by libxcb-util
+  copyLib libssl.so
+  copyLib libtiff.so.5
+  copyLib libxcb-util.so.0  #libxcb-util provides both libxcb-atom, libxcb-aux, and libxcb-event
   copyLib libxcb-randr.so.0
   copyLib libxcb-render-util.so.0
   copyLib libxcb-sync.so.1
@@ -135,7 +177,7 @@ getLinuxOnlyDependencies() {
 }
 
 locateLib() {
-  local path="$(ldconfig -p | grep "$1" | awk '{print $4}' | sed -n 1p)"
+  local path="$(ldconfig -p | grep "$1" | awk '{print $4}' | head -n1)"
   [ "$path" ] || echo "$1 not found." >&2
   echo "$path"
 }
