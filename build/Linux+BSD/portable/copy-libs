@@ -157,7 +157,7 @@ Raspian_Jessie() {
 
   # Needed by Ubuntu 12.04:
   dest_dir="$lib_dest"
-  copyLib libcrypto.so.9
+  copyLib libcrypto.so.1.0.0
   copyLib libjpeg.so.62
   copyLib libssl.so
   copyLib libtiff.so.5
