@@ -5,7 +5,7 @@
 /*    Auto-fitter dummy routines to be used if no hinting should be        */
 /*    performed (body).                                                    */
 /*                                                                         */
-/*  Copyright 2003-2015 by                                                 */
+/*  Copyright 2003-2016 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -65,6 +65,7 @@
     (AF_WritingSystem_InitMetricsFunc) NULL,
     (AF_WritingSystem_ScaleMetricsFunc)NULL,
     (AF_WritingSystem_DoneMetricsFunc) NULL,
+    (AF_WritingSystem_GetStdWidthsFunc)NULL,
 
     (AF_WritingSystem_InitHintsFunc)   af_dummy_hints_init,
     (AF_WritingSystem_ApplyHintsFunc)  af_dummy_hints_apply
