@@ -457,6 +457,14 @@ void Preferences::read()
       myTemplatesPath  = s.value("myTemplatesPath",  myTemplatesPath).toString();
       myPluginsPath    = s.value("myPluginsPath",    myPluginsPath).toString();
       mySoundfontsPath = s.value("mySoundfontsPath", mySoundfontsPath).toString();
+      if (mySoundfontsPath.isEmpty()) {
+            // compatibility: 2.0.X with X < 3 was storing sfPath and included global path
+            QStringList sfPath = s.value("sfPath").toString().split(";");
+            if (sfPath.size() > 1) {
+                  sfPath.removeAll(QFileInfo(QString("%1%2").arg(mscoreGlobalShare).arg("sound")).absoluteFilePath());
+                  mySoundfontsPath = pl.join(";");
+                  }
+            }
 
       //Create directories if they are missing
       QDir dir;
