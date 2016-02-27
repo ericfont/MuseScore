@@ -94,7 +94,9 @@ void PlayPanel::relTempoChanged(double d, int)
       {
       double relTempo = d * .01;
       emit relTempoChanged(relTempo);
-
+      if (relTempo < 1.02 && relTempo > 0.98) {
+            relTempo = 1.00;
+            }
       setTempo(seq->curTempo() * relTempo);
       setRelTempo(relTempo);
       }
