@@ -159,8 +159,10 @@ Rest* Score::addRest(int tick, int track, TDuration d, Tuplet* tuplet)
             rest->setDuration(d.fraction());
       rest->setTrack(track);
       rest->setTuplet(tuplet);
-      undoAddCR(rest, measure, tick);
-      return rest;
+      if(undoAddCR(rest, measure, tick))
+            return rest;
+      else
+            return 0;
       }
 
 //---------------------------------------------------------

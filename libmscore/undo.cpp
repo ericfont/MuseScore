@@ -1306,7 +1306,7 @@ void Score::undoAddElement(Element* element)
 //   undoAddCR
 //---------------------------------------------------------
 
-void Score::undoAddCR(ChordRest* cr, Measure* measure, int tick)
+bool Score::undoAddCR(ChordRest* cr, Measure* measure, int tick)
       {
       Q_ASSERT(cr->type() != Element::Type::CHORD || !(static_cast<Chord*>(cr)->notes()).isEmpty());
       Q_ASSERT(cr->isChordRest());
@@ -1318,6 +1318,10 @@ void Score::undoAddCR(ChordRest* cr, Measure* measure, int tick)
       foreach (Staff* staff, ostaff->staffList()) {
             Score* score = staff->score();
             Measure* m   = (score == this) ? measure : score->tick2measure(tick);
+            if (m == 0) {
+                  qWarning("Aborting undoAddCR(), because unable to find measure at tick %d.", tick);
+                  return false;
+                  }
             Segment* seg = m->undoGetSegment(segmentType, tick);
 
             Q_ASSERT(seg->segmentType() == segmentType);
@@ -1407,6 +1411,7 @@ void Score::undoAddCR(ChordRest* cr, Measure* measure, int tick)
                   }
             undo(new AddElement(newcr));
             }
+      return true;
       }
 
 //---------------------------------------------------------

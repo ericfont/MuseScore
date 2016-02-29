@@ -2356,8 +2356,10 @@ bool Score::appendScore(Score* score)
                               f += cr->actualFraction();
                               }
                         }
-                  if (f.isZero())
-                        addRest(m->tick(), staffIdx*VOICES, TDuration(TDuration::DurationType::V_MEASURE), 0);
+                  if (f.isZero()) {
+                        if(addRest(m->tick(), staffIdx*VOICES, TDuration(TDuration::DurationType::V_MEASURE), 0) == 0)
+                              return false;
+                        }
                   }
             }
 
