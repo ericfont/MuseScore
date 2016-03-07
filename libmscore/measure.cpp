@@ -3938,15 +3938,13 @@ Fraction Measure::stretchedLen(Staff* staff) const
 
 Measure* Measure::cloneMeasure(Score* sc, TieMap* tieMap)
       {
-      Measure* m      = new Measure(sc);
+      Q_ASSERT(sc->nstaves() >= this->staves.size()); // destination score we're cloning into must have as many staves as measure being cloned
+
+      Measure* m      = new Measure(sc); //base on measure scores # stsaves
       m->_timesig     = _timesig;
       m->_len         = _len;
       m->_repeatCount = _repeatCount;
       m->_repeatFlags = _repeatFlags;
-
-      foreach(MStaff* ms, staves)
-            m->staves.append(new MStaff(*ms));
-
       m->_no                    = _no;
       m->_noOffset              = _noOffset;
       m->_userStretch           = _userStretch;

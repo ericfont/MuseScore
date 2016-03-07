@@ -31,7 +31,7 @@ class TestAlbum : public QObject, public MTest
       void album01();
       void album_78521();
       void album_76101();
-
+      void album_78556();
       };
 
 //---------------------------------------------------------
@@ -92,6 +92,15 @@ void TestAlbum::album_76101()
       album.append(new AlbumItem(root + "/" + DIR + "album_76101-02.mscx"));
       album.createScore("album_76101.mscx");
       QVERIFY(compareFiles("album_76101.mscx", DIR + "album_76101-ref.mscx"));
+      }
+
+void TestAlbum::album_78556()
+      {
+      Album album;
+      album.setName("test");
+      album.append(new AlbumItem(root + "/" + DIR + "album_78556-2parts-excerpted.mscx"));
+      album.append(new AlbumItem(root + "/" + DIR + "album_78556-1part-notexcerpted.mscx"));
+      album.createScore("album_78556.mscx");
       }
 
 QTEST_MAIN(TestAlbum)

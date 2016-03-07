@@ -143,7 +143,7 @@ bool Album::createScore(const QString& fn)
 
       Score* firstScore = _scores[0]->score;
       if (!firstScore) {
-            qDebug("First score is NULL. Will not attempt to join scores.");
+            qWarning("First score is NULL. Will not attempt to join scores.");
             return false;
             }
 
@@ -154,7 +154,7 @@ bool Album::createScore(const QString& fn)
                   firstScore->excerpts().at(i)->partScore()->doLayout();
                   }
             else {
-                  qDebug("First score has excerpts, but excerpt %d is NULL.  Will not attempt to join scores.", i);
+                  qWarning("First score has excerpts, but excerpt %d is NULL.  Will not attempt to join scores.", i);
                   return false;
                   }
             }
@@ -168,11 +168,29 @@ bool Album::createScore(const QString& fn)
                   continue;
             if (item->score->excerpts().count() != excerptCount) {
                   joinExcerpt = false;
-                  qDebug("Will not join parts. Album item \"%s\".  Mismatch between number of excerpts with first album item \"%s\"", qPrintable(item->name), qPrintable(_scores[0]->name));
+                  qWarning("Mismatch between number of excerpts in album item \"%s\" with first album item \"%s\".  Will still join root scores, but will not join parts.  If you want to join parts, please use same set of staff order of parts for each movement.  Mixing different organization of parts is dangerous and not supported.", qPrintable(item->name), qPrintable(_scores[0]->name));
                   break;
                   }
             }
       if (!joinExcerpt) {
+
+            // remove linked staff and measures in linked staves in excerpts
+            for (Staff* s : score->staves()) {
+                  if (s->linkedStaves()) {
+                        for (Staff* staff : s->linkedStaves()->staves()) {
+                              if (staff == s)
+                                    continue;
+                              Score* lscore = staff->score();
+                              if (lscore != score) {
+                                    lscore->removeStaff(staff);
+                                    if (staff->part()->nstaves() == 0) {
+                                          lscore->removePart(staff->part());
+                                          }
+                                    }
+                              }
+                        }
+                  }
+
             for (Excerpt* ex : score->excerpts())
                   score->removeExcerpt(ex->partScore());
             }
@@ -311,7 +329,7 @@ void Album::loadScores()
                   ip = f.path() + "/" + item->path;
                   }
             Score* score = new Score(MScore::baseStyle());  // start with built-in style
-            score->loadMsc(item->path, false);
+            score->loadMsc(ip, false);
             item->score = score;
             }
       }

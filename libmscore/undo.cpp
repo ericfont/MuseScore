@@ -1318,6 +1318,7 @@ void Score::undoAddCR(ChordRest* cr, Measure* measure, int tick)
       foreach (Staff* staff, ostaff->staffList()) {
             Score* score = staff->score();
             Measure* m   = (score == this) ? measure : score->tick2measure(tick);
+            Q_ASSERT(m);
             Segment* seg = m->undoGetSegment(segmentType, tick);
 
             Q_ASSERT(seg->segmentType() == segmentType);
