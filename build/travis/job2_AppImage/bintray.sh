@@ -43,7 +43,7 @@ fi
 BINTRAY_USER=$BINTRAY_USER # env
 BINTRAY_API_KEY=$BINTRAY_API_KEY # env
 
-BINTRAY_REPO_OWNER="musescore"
+BINTRAY_REPO_OWNER="ericfont"
 WEBSITE_URL="http://musescore.org"
 ISSUE_TRACKER_URL="https://musescore.org/project/issues"
 VCS_URL="https://github.com/musescore/MuseScore.git" # Mandatory for packages in free Bintray repos
