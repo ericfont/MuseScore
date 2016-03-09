@@ -84,7 +84,7 @@ matrix:
 
 notifications:
   recipients:
-    - build@musescore.org
+    - eric@ericfontainejazz.com
   email:
     on_success: change
     on_failure: always
