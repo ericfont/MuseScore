@@ -93,6 +93,8 @@ getCrossPlatformDependencies() {
 
   copyQt plugins/sqldrivers/libqsqlite.so
 
+  copyQt plugins/xcbglintegrations/libqxcb-glx-integration.so
+
   # recursively copy everything in the Qt QML directory
   # except some as listed in "mscore/CMakeLists.txt".
   export -f copy copyQt # make functions available to xargs
