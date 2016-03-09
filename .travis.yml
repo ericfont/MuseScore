@@ -65,7 +65,7 @@ matrix:
       services:
         - docker
       script:
-        - "./build/travis/job2_AppImage/build.sh --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
+        - "./build/travis/job2_AppImage/build.sh"
     # 3rd parallel build job - portable Linux AppImage 32-bit build on CentOS
     - env: "JOB=AppImage_32bit"
       addons:
@@ -77,7 +77,7 @@ matrix:
       services:
         - docker
       script:
-        - "./build/travis/job2_AppImage/build.sh --32bit --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
+        - "./build/travis/job2_AppImage/build.sh --32bit"
 
 notifications:
   recipients:
