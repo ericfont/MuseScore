@@ -86,7 +86,8 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-4.9
+            - gcc-arm-linux-gnueabihf
+            - binutils-arm-linux-gnueabihf
             - cmake
             - alsa
             - libsndfile1

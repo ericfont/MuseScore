@@ -12,16 +12,16 @@ set -e # exit on error
 set -x # echo commands
 
 # Set compilers
-export CC=/usr/bin/gcc-4.9
-export CXX=/usr/bin/g++-4.9
+export CC=/usr/bin/arm-linux-gnueabihf-gcc-4.9
+export CXX=/usr/bin/arm-linux-gnueabihf-g++-4.9
 
 # Get Qt
-mkdir qt5
-wget -q -O qt5.zip http://utils.musescore.org.s3.amazonaws.com/qt542.zip
-unzip -qq qt5.zip -d qt5
-export PATH="${PWD}/qt5/bin:$PATH"
-export QT_PLUGIN_PATH="${PWD}/qt5/plugins"
-export QML2_IMPORT_PATH="${PWD}/qt5/qml"
+#mkdir qt5
+#wget -q -O qt5.zip http://utils.musescore.org.s3.amazonaws.com/qt542.zip
+#unzip -qq qt5.zip -d qt5
+#export PATH="${PWD}/qt5/bin:$PATH"
+#export QT_PLUGIN_PATH="${PWD}/qt5/plugins"
+#export QML2_IMPORT_PATH="${PWD}/qt5/qml"
 
 # Setup install destination
 mkdir "$HOME/software"
