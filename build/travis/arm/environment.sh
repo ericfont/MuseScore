@@ -13,7 +13,7 @@ set -x # echo commands
 
 # Set compilers
 wget https://releases.linaro.org/archive/12.04/components/toolchain/binaries/gcc-linaro-arm-linux-gnueabi-2012.04-20120426_linux.tar.bz2
-tar -xf gcc-linaro-4.7-2012.04.tar.bz2
+tar -xf gcc-linaro-arm-linux-gnueabi-2012.04-20120426_linux.tar.bz2
 export CC="$PWD/gcc-linaro-arm-linux-gnueabi-2012.04-20120426_linux/arm-linux-gnueabi/bin/gcc"
 export CXX="$PWD/gcc-linaro-arm-linux-gnueabi-2012.04-20120426_linux/arm-linux-gnueabi/bin/c++"
 
