@@ -86,6 +86,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
+            - gcc-4.8-armhf-cross
           #  - gcc-arm-linux-gnueabihf
           #  - g++-arm-linux-gnueabihf
 # not allowed            - binutils-arm-linux-gnueabihf
@@ -113,9 +114,9 @@ matrix:
         directories:
           - $HOME/.ccache
       before_install:
-        - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-        - sudo apt-get -q update
-        - sudo apt-get install -y gcc-4.8-armhf-cross
+#        - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+#        - sudo apt-get -q update
+#        - sudo apt-get install -y gcc-4.8-armhf-cross
         - "source build/travis/arm/environment.sh"
       install:
         - "./build/travis/arm/install.sh"
