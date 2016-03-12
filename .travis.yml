@@ -88,6 +88,7 @@ matrix:
           packages:
             - gcc-arm-linux-gnueabihf
             - binutils-arm-linux-gnueabihf
+            - libc6-dev-armhf-cross
             - cmake
             - alsa
             - libsndfile1
