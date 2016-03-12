@@ -12,8 +12,8 @@ set -e # exit on error
 set -x # echo commands
 
 # Set compilers
-export CC=/usr/bin/arm-linux-gnueabihf-gcc-4.6
-export CXX=/usr/bin/arm-linux-gnueabihf-g++-4.6
+export CC=/usr/bin/arm-linux-gnueabihf-gcc-4.8
+export CXX=/usr/bin/arm-linux-gnueabihf-g++-4.8
 
 # Get Qt
 #mkdir qt5
