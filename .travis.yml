@@ -14,70 +14,6 @@ matrix:
     - env: "JOB=AppImage_64bit"
     - env: "JOB=AppImage_32bit"
   include:
-    # 1st parallel build job - debug build on Ubuntu
-#    - env: "JOB=Tests"
-#      addons:
-#        apt:
-#          sources:
-#            - ubuntu-toolchain-r-test
-#          packages:
-#            - g++-4.9
-#            - cmake
-#            - alsa
-#            - libsndfile1
-#            - wget
-#            - make
-#            - ant
-#            - curl
-#            - libasound2-dev
-#            - portaudio19-dev
- #           - libsndfile1-dev
- #           - zlib1g-dev
- #           - libfreetype6-dev
-  #          - libfontconfig1-dev
-#            - lame
-#            - libmp3lame-dev
-#            - libegl1-mesa-dev
-#            - libegl1-mesa
-#            - ccache
-#            - libpulse-dev
-#      cache:
-#        directories:
-#          - $HOME/.ccache
-#      before_install:
-#        - "source build/travis/job1_Tests/environment.sh"
- #     install:
-  #      - "./build/travis/job1_Tests/install.sh"
-  #    before_script:
- #       - "./build/travis/job1_Tests/before_script.sh"
-#      script:
-#        - "./build/travis/job1_Tests/run_tests.sh"
-#      after_script:
-#        - 'ARTIFACTS_PATHS="$(ls vtest/html | tr "\n" ":")" artifacts upload'
-    # 2nd parallel build job - portable Linux AppImage 64-bit build on CentOS
-#    - env: "JOB=AppImage_64bit"
-#      addons:
-#        apt:
-#          packages:
-#          - bsdtar
-#          - curl
-#          - zsync
-#      services:
-#        - docker
-#      script:
-#        - "./build/travis/job2_AppImage/build.sh --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
-#    # 3rd parallel build job - portable Linux AppImage 32-bit build on CentOS
-#    - env: "JOB=AppImage_32bit"
-#      addons:
-#        apt:
-#          packages:
-#          - bsdtar
-#          - curl
-#          - zsync
-#      services:
-#        - docker
-#      script:
-#        - "./build/travis/job2_AppImage/build.sh --32bit --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
 
     # ARM parallel build job
     - env: "JOB=ARM"
@@ -86,16 +22,11 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-    - lib32bz2-1.0
-    - lib32ncurses5
-    - lib32z1
-#            - gcc-4.8-armhf-cross
-          #  - gcc-arm-linux-gnueabihf
-          #  - g++-arm-linux-gnueabihf
-# not allowed            - binutils-arm-linux-gnueabihf
+            - lib32bz2-1.0
+            - lib32ncurses5
+            - lib32z1
             - libc6-dev-armhf-cross
             - cmake
-# not allowed            - alsa
             - libsndfile1
             - wget
             - make
