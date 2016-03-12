@@ -86,7 +86,10 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - gcc-4.8-armhf-cross
+    - lib32bz2-1.0
+    - lib32ncurses5
+    - lib32z1
+#            - gcc-4.8-armhf-cross
           #  - gcc-arm-linux-gnueabihf
           #  - g++-arm-linux-gnueabihf
 # not allowed            - binutils-arm-linux-gnueabihf
