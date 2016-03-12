@@ -87,10 +87,11 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - gcc-arm-linux-gnueabihf
-            - binutils-arm-linux-gnueabihf
+            - g++-arm-linux-gnueabihf
+# not allowed            - binutils-arm-linux-gnueabihf
             - libc6-dev-armhf-cross
             - cmake
-            - alsa
+# not allowed            - alsa
             - libsndfile1
             - wget
             - make
