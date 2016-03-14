@@ -1,4 +1,4 @@
-FROM debian:wheezy-backports
+FROM debian:jessie
 
 RUN dpkg --add-architecture armhf
 RUN apt-get update
@@ -14,7 +14,6 @@ RUN apt-get install -y --force-yes \
  libdrm-dev:armhf \
  libgl1-mesa-dev:armhf \
  libpulse-dev:armhf \
- libglib2.0-dev:armhf \
  \
  qtbase5-dev:armhf \
  qttools5-dev:armhf \
@@ -24,10 +23,3 @@ RUN apt-get install -y --force-yes \
  libqt5xmlpatterns5-dev:armhf \
  libqt5svg5-dev:armhf \
  libqt5webkit5-dev:armhf
-# libsndfile1:armhf \
-# lame:armhf \ 
-# \
-# qtbase5-dev-tools #\
-# perl:armhf perl-base:armhf
-# libpulse0:armhf \
-# libpulse-mainloop-glib0:armhf \
