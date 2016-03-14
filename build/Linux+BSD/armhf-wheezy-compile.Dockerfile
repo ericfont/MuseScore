@@ -16,5 +16,6 @@ RUN apt-get install -y \
  libssl-dev:armhf \
  libdrm-dev:armhf \
  libgl1-mesa-dev:armhf \
- libpulse-dev:armhf
+ libpulse-dev:armhf \
+ libglib2.0-dev:armhf
 
