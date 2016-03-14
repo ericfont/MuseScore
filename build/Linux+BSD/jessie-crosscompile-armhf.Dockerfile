@@ -6,9 +6,8 @@ RUN apt-get install -y curl
 RUN curl http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add -
 RUN dpkg --add-architecture armhf
 RUN apt-get update
-RUN apt-get install crossbuild-essential-armhf
-
 RUN apt-get install -y \
+ crossbuild-essential-armhf \
  libsndfile1-dev:armhf \
  libasound2-dev:armhf \
  portaudio19-dev:armhf \
@@ -29,6 +28,4 @@ RUN apt-get install -y \
  libqt5svg5-dev:armhf \
  libqt5webkit5-dev:armhf
 
-RUN apt-get install -y \
- binutils-arm-linux-gnueabihf 
 
