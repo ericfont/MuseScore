@@ -26,6 +26,7 @@ RUN apt-get install -y \
  qtscript5-dev:armhf \
  libqt5xmlpatterns5-dev:armhf \
  libqt5svg5-dev:armhf \
- libqt5webkit5-dev:armhf
+ libqt5webkit5-dev:armhf \
+ qemu
 
 
