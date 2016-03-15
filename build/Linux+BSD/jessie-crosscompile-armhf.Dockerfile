@@ -8,6 +8,7 @@ RUN apt-key add key && \
 
 # note: install musescore deps & qt5 for armhf arch, since cross compiling
 RUN apt-get clean && apt-get update && apt-get install -y \
+ libqt4-dev:armhf \
  libsndfile1-dev:armhf \
  libasound2-dev:armhf \
  portaudio19-dev:armhf \

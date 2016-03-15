@@ -38,20 +38,24 @@ else
 fi
 
 # Build AppImage. Are we cross-compiling?
-case "$1" in
-  --32bit )
-    shift
-    # Build MuseScore AppImage inside 32-bit Docker image
-    docker run -i -v "${PWD}:/MuseScore" toopher/centos-i386:centos6 /bin/bash -c \
-      "linux32 --32bit i386 /MuseScore/build/Linux+BSD/portable/Recipe $makefile_overrides"
-    ;;
-  * )
-    [ "$1" == "--64bit" ] && shift || true
-    # Build MuseScore AppImage inside native (64-bit) Docker image
-    docker run -i -v "${PWD}:/MuseScore" library/centos:6 /bin/bash -c \
-      "/MuseScore/build/Linux+BSD/portable/Recipe $makefile_overrides"
-    ;;
-esac
+#case "$1" in
+#  --32bit )
+#    shift
+#    # Build MuseScore AppImage inside 32-bit Docker image
+#    docker run -i -v "${PWD}:/MuseScore" toopher/centos-i386:centos6 /bin/bash -c \
+#      "linux32 --32bit i386 /MuseScore/build/Linux+BSD/portable/Recipe $makefile_overrides"
+#    ;;
+#  * )
+#    [ "$1" == "--64bit" ] && shift || true
+#    # Build MuseScore AppImage inside native (64-bit) Docker image
+#    docker run -i -v "${PWD}:/MuseScore" library/centos:6 /bin/bash -c \
+#      "/MuseScore/build/Linux+BSD/portable/Recipe $makefile_overrides"
+#    ;;
+#esac
+
+# arm build docker script...first get prebuilt AppImageKit for armv7
+tar -xvzf build/Linux+BSD/AppImageKit-5_built-in-armv7hf-jessie.tar.gz
+docker run -i -v "${PWD}:/MuseScore" -v "${PWD}/AppImageKit-5:/AppImageKit" ericfont/musescore:compile-armh
 
 # Should the AppImage be uploaded?
 if [ "$1" == "--upload-branches" ] && [ "$2" != "ALL" ]; then
