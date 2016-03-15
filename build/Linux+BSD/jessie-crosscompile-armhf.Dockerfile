@@ -29,4 +29,4 @@ RUN apt-get install -y \
  libqt5webkit5-dev:armhf \
  qemu
 
-RUN apt-get install cmake git
+RUN apt-get install -y cmake git
