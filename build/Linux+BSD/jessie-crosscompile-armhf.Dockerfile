@@ -28,8 +28,10 @@ RUN apt-get clean && apt-get update && apt-get install -y \
  libqt5svg5-dev:armhf \
  libqt5webkit5-dev:armhf \
  \
- qttools5-dev-tools \
+ qttools5-dev-tools:armhf \
  \
+ cross-gcc-dev \
+ binutils-arm-linux-gnueabihf \
  crossbuild-essential-armhf \
  qemu \
  cmake \
@@ -37,4 +39,5 @@ RUN apt-get clean && apt-get update && apt-get install -y \
  \
  curl \
  wget \
+# qtbase5-dev-tools:armhf \
 
