@@ -2181,12 +2181,11 @@ qreal Score::cautionaryWidth(Measure* m, bool& hasCourtesy)
 //---------------------------------------------------------
 //   layoutSystem
 //    return true if line continues
+//    if (undoRedo()), then no changes permitted
 //---------------------------------------------------------
 
 bool Score::layoutSystem(qreal& minWidth, qreal systemWidth, bool isFirstSystem, bool longName)
       {
-      if (undoRedo())   // no change possible in this state
-            return layoutSystem1(minWidth, isFirstSystem, longName);
       System* system = getNextSystem(isFirstSystem, false);
 
       qreal xo = 0;
@@ -2202,8 +2201,6 @@ bool Score::layoutSystem(qreal& minWidth, qreal systemWidth, bool isFirstSystem,
       bool isFirstMeasure   = true;
       Measure* firstMeasure = 0;
       Measure* lastMeasure  = 0;
-
-      qreal measureSpacing = styleD(StyleIdx::measureSpacing);
 
       for (; curMeasure;) {
             MeasureBase* nextMeasure;
@@ -2269,7 +2266,7 @@ bool Score::layoutSystem(qreal& minWidth, qreal systemWidth, bool isFirstSystem,
                                     - BarLine::layoutWidth(this, ot, mag);
                               }
                         }
-                  qreal stretch = m->userStretch() * measureSpacing;
+                  qreal stretch = m->userStretch() * styleD(StyleIdx::measureSpacing);
                   if (stretch < 1.0)
                         stretch = 1.0;
                   ww            *= stretch;
