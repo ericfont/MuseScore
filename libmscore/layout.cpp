@@ -2347,7 +2347,7 @@ bool Score::layoutSystem(qreal& minWidth, qreal systemWidth, bool isFirstSystem,
             undoChangeProperty(system->measures().last(), P_ID::BREAK_HINT, true);
             }
 
-      if (firstMeasure && lastMeasure && firstMeasure != lastMeasure)
+      if (firstMeasure && lastMeasure)
             removeGeneratedElements(firstMeasure, lastMeasure);
 
       hideEmptyStaves(system, isFirstSystem);
