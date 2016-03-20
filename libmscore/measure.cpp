@@ -2455,6 +2455,25 @@ bool Measure::isFinalMeasureOfSection() const
       }
 
 //---------------------------------------------------------
+//   isFirstMeasureOfSection
+///   Returns true either if there are no Measures between this measure and the previous section break, or if this is the first measure of the score.
+///   Returns false if encountered a Measure before encountering a section break.
+///   Searches backwards through MeasureBase objects, starting from previous MeasureBase till encouter a measure,
+///    trying to find a SectionBreak (note: previous measure base objects could contain a section break).
+//---------------------------------------------------------
+
+bool Measure::isFirstMeasureOfSection() const
+      {
+      for (const MeasureBase* mb = this->prev(); mb; mb = mb->prev()) {
+            if (mb->sectionBreak())
+                  return true; // did not encounter any Measures before encountering a section break
+            if (mb->isMeasure())
+                  return false; // encountered a Measure before encountering a section break
+            }
+      return true; // only encountered non-Measure MeasureBase objects before reaching beginning of score, therefore this is the first measure of the score (which is the beginning of a section).
+      }
+
+//---------------------------------------------------------
 //   scanElements
 //---------------------------------------------------------
 

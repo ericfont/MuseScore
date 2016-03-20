@@ -35,6 +35,8 @@ class TestClefCourtesy : public QObject, public MTest
       void clef_courtesy02();
       void clef_courtesy03();
       void clef_courtesy_78196();
+      void clef_start_of_single_measure_section_102791();
+      void clef_start_of_single_MMrest_section_102791();
       };
 
 //---------------------------------------------------------
@@ -239,6 +241,54 @@ void TestClefCourtesy::clef_courtesy_78196()
       clefCourt = static_cast<Clef*>(seg->element(0));
       QVERIFY2(clefCourt != nullptr, "No courtesy clef at end of measure 6.");
       QVERIFY2(clefCourt->bbox().width() == 0, "Courtesy clef at end of measure 6 is NOT hidden.");
+
+      delete score;
+      }
+
+//---------------------------------------------------------
+//   clef_start_of_single_measure_section_102791
+//    Input score has only single-measure sections, but no manually-inserted clefs.
+//    Should display generated clefs at beginning of every measure.
+//---------------------------------------------------------
+
+void TestClefCourtesy::clef_start_of_single_measure_section_102791()
+      {
+      Score* score = readScore(DIR + "clef_start_of_single_measure_section_102791.mscx");
+      score->doLayout();
+
+      // verify generated clef exists in segment of first tick of each single-measure section
+      for (Measure* m = score->firstMeasure(); m != nullptr; m = m->nextMeasure()) {
+            Segment* seg = m->findSegment(Segment::Type::Clef, m->tick());
+            QVERIFY2(seg != nullptr, "No SegClef at beginning of single-measure section");
+            Clef* clefInitial = static_cast<Clef*>(seg->element(0));
+            QVERIFY2(clefInitial != nullptr, "No initial generated clef at beginning of single-measure section");
+            QVERIFY2(clefInitial->bbox().width() > 0.0, "Initial generated clef at beginning of single-measure section is hidden");
+            }
+
+      delete score;
+      }
+
+//---------------------------------------------------------
+//   clef_start_of_single_MMrest_section_102791
+//    Input score has only single-Multi-Measure-rest sections, but no manually-inserted clefs.
+//    Should display generated clefs at beginning of every Multi-Measure-rest.
+//---------------------------------------------------------
+
+void TestClefCourtesy::clef_start_of_single_MMrest_section_102791()
+      {
+      Score* score = readScore(DIR + "clef_start_of_single_MMrest_section_102791.mscx");
+      score->doLayout();
+
+      // verify generated clef exists in segment of first tick of each single-Multi-Measure-rest section
+      for (Measure* m = score->firstMeasureMM(); m != nullptr; m = m->nextMeasureMM()) {
+            Segment* seg = m->findSegment(Segment::Type::Clef, m->tick());
+            QVERIFY2(seg != nullptr, "No SegClef at beginning of single Multi-Measure-rest section");
+            Clef* clefInitial = static_cast<Clef*>(seg->element(0));
+            QVERIFY2(clefInitial != nullptr, "No initial generated clef at beginning of single Multi-Measure-rest section");
+            QVERIFY2(clefInitial->bbox().width() > 0.0, "Initial generated clef at beginning of single Multi-Measure-rest section is NOT hidden");
+            }
+
+      delete score;
       }
 
 QTEST_MAIN(TestClefCourtesy)

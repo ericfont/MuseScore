@@ -35,6 +35,7 @@ class TestKeySig : public QObject, public MTest
       void keysig();
       void concertPitch();
       void keysig_78216();
+      void keysig_102676();
       };
 
 //---------------------------------------------------------
@@ -126,9 +127,35 @@ void TestKeySig::keysig_78216()
       Measure* m3 = m2->nextMeasure();
 
       // verify no keysig exists in segment of final tick of m1, m2, m3
-      QVERIFY2(m1->findSegment(Segment::Type::KeySig, m1->endTick()) == nullptr, "Should be no keysig at end of measure 1.");
-      QVERIFY2(m2->findSegment(Segment::Type::KeySig, m2->endTick()) == nullptr, "Should be no keysig at end of measure 2.");
-      QVERIFY2(m3->findSegment(Segment::Type::KeySig, m3->endTick()) == nullptr, "Should be no keysig at end of measure 3.");
+      QVERIFY2(m1->findSegment(Segment::Type::KeySigAnnounce, m1->endTick()) == nullptr, "Should be no keysig at end of measure 1.");
+      QVERIFY2(m2->findSegment(Segment::Type::KeySigAnnounce, m2->endTick()) == nullptr, "Should be no keysig at end of measure 2.");
+      QVERIFY2(m3->findSegment(Segment::Type::KeySigAnnounce, m3->endTick()) == nullptr, "Should be no keysig at end of measure 3.");
+      }
+
+//---------------------------------------------------------
+//   keysig_102676
+//    Input score has single-measure system in page view, with key sig change at beginning of meas 2 & 3.
+//    There is a line break end of meas 1 and a hbox between meas 2 & 3, so each meas is its own system.
+//    When delete the real key signature changes at beg on meas 2 or 3, the corresponding courtesy key sigs needs to be also removed at end of meas 1 & 2.
+//---------------------------------------------------------
+
+void TestKeySig::keysig_102676()
+      {
+      Score* score = readScore(DIR + "keysig_102676.mscx");
+      score->doLayout();
+
+      Measure* m1 = score->firstMeasure();
+      Measure* m2 = m1->nextMeasure();
+      Measure* m3 = m2->nextMeasure();
+
+      m2->remove(m2->findSegment(Segment::Type::KeySig, m2->tick())); // remove the key sig at beginning of meas 2
+      m3->remove(m3->findSegment(Segment::Type::KeySig, m3->tick())); // remove the key sig at beginning of meas 3
+
+      score->doLayout();
+
+      // verify no keysig exists in segment of final tick of m1, m2
+      QVERIFY2(m1->findSegment(Segment::Type::KeySigAnnounce, m1->endTick()) == nullptr, "Should be no keysig at end of measure 1.");
+      QVERIFY2(m2->findSegment(Segment::Type::KeySigAnnounce, m2->endTick()) == nullptr, "Should be no keysig at end of measure 2.");
       }
 
 void TestKeySig::concertPitch()

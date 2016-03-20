@@ -2556,23 +2556,25 @@ bool Score::layoutSystem1(qreal& minWidth, bool isFirstSystem, bool longName)
       return continueFlag && curMeasure;
       }
 
+
 //---------------------------------------------------------
 //   removeGeneratedElements (System Header + TimeSig Announce)
-//    helper function
+//    helper function to remove all generated elements from all measures in [sm;em], (except for clefs & keysigs at beginning of first measure of a system).
+//    assume: generated elements are only living in voice 0
+//    - do not remove end bar lines
+//    - set size of clefs to small
 //---------------------------------------------------------
 
 void Score::removeGeneratedElements(Measure* sm, Measure* em)
       {
+      int tickOfSectionStart = sm->isFirstMeasureOfSection() ? sm->tick() : 0; // will be sm->tick() if sm starts on a new section, else 0.
+
+   //   for (MeasureBase* mb = static_cast<MeasureBase*>(sm); mb; mb = mb->next()) {
+     //
+       //     if (mb->sectionBreak() && m->nextMeasureMM())
+         //         sectionStart = m->nextMeasureMM();
       Measure* sectionStart = sm;
       for (Measure* m = sm; m; m = m->nextMeasureMM()) {
-            //
-            // remove generated elements from all measures in [sm;em]
-            //    assume: generated elements are only living in voice 0
-            //    - do not remove end bar lines
-            //    - set size of clefs to small
-            //
-            if (m->sectionBreak() && m->nextMeasureMM())
-                  sectionStart = m->nextMeasureMM();
             for (Segment* seg = m->first(); seg; seg = seg->next()) {
                   Segment::Type st = seg->segmentType();
                   if (st == Segment::Type::EndBarLine)
