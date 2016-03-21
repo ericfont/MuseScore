@@ -112,6 +112,20 @@ void TestKeySig::keysig()
       }
 
 //---------------------------------------------------------
+//   concertPitch
+//---------------------------------------------------------
+
+void TestKeySig::concertPitch()
+      {
+      Score* score = readScore(DIR + "concert-pitch.mscx");
+      score->doLayout();
+      score->cmdConcertPitchChanged(true, true);
+      QVERIFY(saveCompareScore(score, "concert-pitch-01-test.mscx", DIR + "concert-pitch-01-ref.mscx"));
+      score->cmdConcertPitchChanged(false, true);
+      QVERIFY(saveCompareScore(score, "concert-pitch-02-test.mscx", DIR + "concert-pitch-02-ref.mscx"));
+      }
+
+//---------------------------------------------------------
 //   keysig_78216
 //    input score has section breaks on non-measure MeasureBase objects.
 //    should not display courtesy keysig at the end of final measure of each section (meas 1, 2, & 3), even if section break occurs on subsequent non-measure frame.
@@ -148,24 +162,18 @@ void TestKeySig::keysig_102676()
       Measure* m2 = m1->nextMeasure();
       Measure* m3 = m2->nextMeasure();
 
-      m2->remove(m2->findSegment(Segment::Type::KeySig, m2->tick())); // remove the key sig at beginning of meas 2
-      m3->remove(m3->findSegment(Segment::Type::KeySig, m3->tick())); // remove the key sig at beginning of meas 3
+      score->startCmd();
+      score->undoRemoveElement(m2->findSegment(Segment::Type::KeySig, m2->tick())->firstElement(0)); // remove the key sig at beginning of meas 2
+      score->endCmd();
+      score->startCmd();
+      score->undoRemoveElement(m3->findSegment(Segment::Type::KeySig, m3->tick())->firstElement(0)); // remove the key sig at beginning of meas 3
+      score->endCmd();
 
-      score->doLayout();
+      score->doLayout(); // layout should remove the generated keysigs at end of prior measures
 
       // verify no keysig exists in segment of final tick of m1, m2
       QVERIFY2(m1->findSegment(Segment::Type::KeySigAnnounce, m1->endTick()) == nullptr, "Should be no keysig at end of measure 1.");
       QVERIFY2(m2->findSegment(Segment::Type::KeySigAnnounce, m2->endTick()) == nullptr, "Should be no keysig at end of measure 2.");
-      }
-
-void TestKeySig::concertPitch()
-      {
-      Score* score = readScore(DIR + "concert-pitch.mscx");
-      score->doLayout();
-      score->cmdConcertPitchChanged(true, true);
-      QVERIFY(saveCompareScore(score, "concert-pitch-01-test.mscx", DIR + "concert-pitch-01-ref.mscx"));
-      score->cmdConcertPitchChanged(false, true);
-      QVERIFY(saveCompareScore(score, "concert-pitch-02-test.mscx", DIR + "concert-pitch-02-ref.mscx"));
       }
 
 QTEST_MAIN(TestKeySig)

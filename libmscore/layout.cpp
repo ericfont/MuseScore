@@ -2347,7 +2347,7 @@ bool Score::layoutSystem(qreal& minWidth, qreal systemWidth, bool isFirstSystem,
             undoChangeProperty(system->measures().last(), P_ID::BREAK_HINT, true);
             }
 
-      if (firstMeasure && lastMeasure && firstMeasure != lastMeasure)
+      if (firstMeasure && lastMeasure)
             removeGeneratedElements(firstMeasure, lastMeasure);
 
       hideEmptyStaves(system, isFirstSystem);
@@ -2559,7 +2559,7 @@ bool Score::layoutSystem1(qreal& minWidth, bool isFirstSystem, bool longName)
 
 //---------------------------------------------------------
 //   removeGeneratedElements (System Header + TimeSig Announce)
-//    helper function to remove all generated elements from all measures in [sm;em], (except for clefs & keysigs at beginning of first measure of a system).
+//    helper function to remove all generated elements from all measures in [sm;em], (except for clefs & keysigs at beginning of first measure of a system or section).
 //    assume: generated elements are only living in voice 0
 //    - do not remove end bar lines
 //    - set size of clefs to small
@@ -2567,13 +2567,9 @@ bool Score::layoutSystem1(qreal& minWidth, bool isFirstSystem, bool longName)
 
 void Score::removeGeneratedElements(Measure* sm, Measure* em)
       {
-      int tickOfSectionStart = sm->isFirstMeasureOfSection() ? sm->tick() : 0; // will be sm->tick() if sm starts on a new section, else 0.
+      int tickOfSectionStart = sm->tick(); //sm->isFirstMeasureOfSection() ? sm->tick() : 0; // will be sm->tick() if sm starts on a new section, else 0.
+      qDebug("tickOfSectionStart = %d", tickOfSectionStart);
 
-   //   for (MeasureBase* mb = static_cast<MeasureBase*>(sm); mb; mb = mb->next()) {
-     //
-       //     if (mb->sectionBreak() && m->nextMeasureMM())
-         //         sectionStart = m->nextMeasureMM();
-      Measure* sectionStart = sm;
       for (Measure* m = sm; m; m = m->nextMeasureMM()) {
             for (Segment* seg = m->first(); seg; seg = seg->next()) {
                   Segment::Type st = seg->segmentType();
@@ -2592,10 +2588,9 @@ void Score::removeGeneratedElements(Measure* sm, Measure* em)
                               continue;
 
                         // courtesy time sigs and key sigs: remove if not in last measure (generated or not!)
-                        // clefs & keysig: remove if generated and not at beginning of first measure of a section
+                        // clefs & keysig: remove if generated and not at beginning of first measure of a section or system
                         if ( ((st == Segment::Type::TimeSigAnnounce || st == Segment::Type::KeySigAnnounce) && m != em)
-                              || ((el->type() == Element::Type::CLEF || el->type() == Element::Type::KEYSIG) && el->generated() && seg->tick() != sectionStart->tick())
-                        )
+                              || ((el->type() == Element::Type::CLEF || el->type() == Element::Type::KEYSIG) && el->generated() && seg->tick() != tickOfSectionStart))
                               {
                               undoRemoveElement(el);
                               }
@@ -2610,8 +2605,16 @@ void Score::removeGeneratedElements(Measure* sm, Measure* em)
                               }
                         }
                   }
+
+            // done when reach end measure
             if (m == em)
                   break;
+
+            // need to search all MeasureBase objects between current Measure and nextMeasure for any sectionBreaks (which may occur on non-Measure MeasureBase objects).
+            for (MeasureBase* mb = static_cast<MeasureBase*>(m); mb && mb != static_cast<MeasureBase*>(m->nextMeasure()); mb = mb->next()) {
+                  if (mb->sectionBreak())
+                        tickOfSectionStart = mb->endTick();
+                  }
             }
       }
 
