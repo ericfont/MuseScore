@@ -48,6 +48,7 @@ release:
       export PATH=${BINPATH};                    \
       cmake -DCMAKE_BUILD_TYPE=RELEASE	       \
   	  -DCMAKE_TOOLCHAIN_FILE="${CMAKE_TOOLCHAIN_FILE}"       \
+	  -DCMAKE_LIBRARY_PATH="/usr/lib/arm-linux-gnueabihf" \
   	  -DCMAKE_INSTALL_PREFIX="${PREFIX}"       \
   	  -DMSCORE_INSTALL_SUFFIX="${SUFFIX}"      \
   	  -DMUSESCORE_LABEL="${LABEL}"             \

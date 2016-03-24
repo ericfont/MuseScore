@@ -65,7 +65,7 @@ matrix:
       services:
         - docker
       before_script:
-        - "sudo ./build/travis/job2_AppImage/set-binfmt-misc.sh"
+        - "./build/travis/job2_AppImage/set-binfmt-misc.sh"
       script:
         - "./build/travis/job2_AppImage/build.sh --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
     # 3rd parallel build job - portable Linux AppImage 32-bit build on CentOS
