@@ -33,7 +33,7 @@ RUN apt-get clean && apt-get update && apt-get install -y \
  cross-gcc-dev \
  binutils-arm-linux-gnueabihf \
  crossbuild-essential-armhf \
- qemu \
+ qemu-user-static \
  cmake \
  git \
  \

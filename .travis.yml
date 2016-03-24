@@ -11,8 +11,8 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
-    - env: "JOB=AppImage_64bit"
-    - env: "JOB=AppImage_32bit"
+          #  - env: "JOB=AppImage_64bit"
+          #  - env: "JOB=AppImage_32bit"
   include:
     # 1st parallel build job - debug build on Ubuntu
     - env: "JOB=Tests"
