@@ -40,6 +40,4 @@ RUN apt-get clean && apt-get update && apt-get install -y \
  curl \
  wget
 
-RUN apt-get download qtbase5-dev-tools:armhf && dpkg -i qtbase5-dev-tools_5.3.2+dfsg-4+deb8u1_armhf.deb
-
-
+RUN apt-get download qtbase5-dev-tools:armhf && dpkg --force-all -i qtbase5-dev-tools_5.3.2+dfsg-4+deb8u1_armhf.deb
