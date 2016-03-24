@@ -60,7 +60,7 @@ echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x2
 
 # arm build docker script...first get prebuilt AppImageKit for armv7
 tar -xvzf build/Linux+BSD/AppImageKit-5_built-in-armv7hf-jessie.tar.gz --directory ..
-docker run -i -v "${PWD}:/MuseScore" -v "${PWD}/../AppImageKit-5:/AppImageKit" ericfont/musescore:compile-armhf /bin/bash -c "cd /MuseScore && make"
+docker run -i -v "${PWD}:/MuseScore" -v "${PWD}/../AppImageKit-5:/AppImageKit" ericfont/musescore:compile-armhf /bin/bash -c "TOOLCHAIN_FILE=/MuseScore/build/Linux+BSD/jessie-crosscompile-armhf.cmake cd /MuseScore && make"
 
 
 # Should the AppImage be uploaded?
