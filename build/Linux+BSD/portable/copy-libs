@@ -205,6 +205,9 @@ building_on_Debian_Jessie() {
   copyLib libtasn1.so.6
   copyLib libwrap.so.0
   copyLib libXtst.so.6
+
+  #needed by Arch Linux
+  copyLib libpcre.so.3
 }
 
 
