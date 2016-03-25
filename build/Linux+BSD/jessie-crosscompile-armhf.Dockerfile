@@ -40,4 +40,12 @@ RUN apt-get clean && apt-get update && apt-get install -y \
  curl \
  wget
 
-RUN apt-get download qtbase5-dev-tools:armhf && dpkg --force-all -i qtbase5-dev-tools_5.3.2+dfsg-4+deb8u1_armhf.deb
+RUN apt-get download qtbase5-dev-tools:armhf && dpkg --force-all -i qtbase5-dev-tools_5.3.2+dfsg-4+deb8u1_armhf.deb && \
+ apt-get download alsa-tools:armhf && dpkg --force-all -i alsa-tools_1.0.28-1_armhf.deb && \
+ apt-get download alsa-utils:armhf && dpkg --force-all -i alsa-utils_1.0.28-1_armhf.deb && \
+ apt-get download alsa-base        && dpkg --force-all -i alsa-base_1.0.27+1_all.deb && \
+ apt-get download pkg-config:armhf && dpkg --force-all -i pkg-config_0.28-1.1_armhf.deb && \
+ apt-get download pulseaudio:armhf && dpkg --force-all -i pulseaudio_5.0-13_armhf.deb
+
+
+ 

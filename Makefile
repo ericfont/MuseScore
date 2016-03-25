@@ -41,11 +41,13 @@ NO_RPATH="FALSE"# Package maintainers may want to override this (e.g. Debian)
 # change path to include your Qt5 installation
 #
 BINPATH      = ${PATH}
+#export PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig; #/usr/lib/arm-linux-gnueabihf/pkgconfig;
 
 release:
 	if test ! -d build.release; then mkdir build.release; fi; \
       cd build.release;                          \
-      export PATH=${BINPATH};                    \
+      export PATH="/usr/bin/arm-linux-gnueabihf-pkg-config:${BINPATH}";                    \
+      export PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig;\
       cmake -DCMAKE_BUILD_TYPE=RELEASE	       \
   	  -DCMAKE_TOOLCHAIN_FILE="${CMAKE_TOOLCHAIN_FILE}"       \
 	  -DCMAKE_LIBRARY_PATH="/usr/lib/arm-linux-gnueabihf" \
