@@ -111,12 +111,12 @@ building_on_Debian_Jessie() {
   dest_dir="$lib_dest"
   copyLib libasound.so.2
   copyLib libcups.so.2
-  copyLib libdbus-1.so #removed .3 because didn't exist in arm, and don't want x86-64 version
+  copyLib libdbus-1.so && mv "$dest_dir/libdbus-1.so" "$dest_dir/libdbus-1.so.3" #renamed to .3 because didn't exist in arm, and don't want x86-64 fallback version
   copyLib libEGL.so.1
   copyLib libfontconfig.so.1
   copyLib libfreetype.so.6
   copyLib libGLESv2.so.2
-  copyLib libglib-2.0.so #removed the .0 cause didn't have
+  copyLib libglib-2.0.so && mv "$dest_dir/libglib-2.0.so" "$dest_dir/libglib-2.0.so.0" #renamed to .0 cause didn't have
   copyLib libgobject-2.0.so.0
   copyLib libgstapp-0.10.so.0
   copyLib libgstbase-0.10.so.0
@@ -160,7 +160,7 @@ building_on_Debian_Jessie() {
   copyLib libavahi-client.so.3
   copyLib libavahi-common.so.3
   copyLib libdrm.so.2
-  copyLib libexpat.so   #removed the .1 cause didn't have
+  copyLib libexpat.so && mv "$dest_dir/libexpat.so" "$dest_dir/libexpat.so.1" #renamed to .1 cause didn't have
   copyLib libffi.so.6
   copyLib libFLAC.so.8
   copyLib libgbm.so.1
@@ -171,7 +171,7 @@ building_on_Debian_Jessie() {
   copyLib libgssapi_krb5.so.2
   copyLib libgthread-2.0.so.0
   copyLib libjbig.so.0
-  copyLib libjson-c.so && mv libjson-c.so lib.json-c.so.2   #renamed to .2 cause didn't have
+  copyLib libjson-c.so && mv "$dest_dir/libjson-c.so" "$dest_dir/libjson-c.so.2" #renamed to .2 cause didn't have
   copyLib liborc-0.4.so.0
   copyLib libpulsecommon-5.0.so
   copyLib libvorbisenc.so.2
@@ -189,9 +189,8 @@ building_on_Debian_Jessie() {
   copyLib libhogweed.so.2
   copyLib libjack.so.0
   copyLib libjpeg.so.62
-  copyLib libjson-c.so.2
   copyLib libk5crypto.so.3
-  copyLib libkeyutils.so.1
+  copyLib libkeyutils.so && mv "$dest_dir/libkeyutils.so" "$dest_dir/libkeyutils.so.1" #renamed to .1 cause didn't have
   copyLib libkrb5.so.3
   copyLib libkrb5support.so.0
   copyLib libmng.so.1

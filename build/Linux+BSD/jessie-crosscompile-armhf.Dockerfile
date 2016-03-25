@@ -63,3 +63,7 @@ RUN apt-get download libjson-c-dev:armhf && dpkg --force-all -i libjson-c-dev_0.
 RUN apt-get download libexpat1-dev:armhf && dpkg --force-all -i libexpat1-dev_2.1.0-6+deb8u1_armhf.deb
 RUN apt-get download libdbus-1-3:armhf && dpkg --force-all -i libdbus-1-3_1.8.20-0+deb8u1_armhf.deb
 RUN apt-get download libglib2.0-0:armhf && dpkg --force-all -i libglib2.0-0_2.42.1-1_armhf.deb
+
+#next round of dependencies
+RUN apt-get download libkeyutils-dev:armhf && dpkg --force-all -i libkeyutils-dev_1.5.9-5+b1_armhf.deb
+RUN apt-get download libwrap0:armhf && dpkg --force-all -i libwrap0_7.6.q-25_armhf.deb
