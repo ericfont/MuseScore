@@ -56,3 +56,7 @@ RUN apt-get download libqt5sensors5:armhf            && dpkg --force-all -i libq
 RUN apt-get download libqt5webkit5:armhf             && dpkg --force-all -i libqt5webkit5_5.3.2+dfsg-4_armhf.deb
 RUN apt-get download qt5-image-formats-plugins:armhf && dpkg --force-all -i qt5-image-formats-plugins_5.3.2-2_armhf.deb
 RUN apt-get download qml-module-qtquick-controls:armhf && dpkg --force-all -i dpkg -i qml-module-qtquick-controls_5.3.2-2_armhf.deb
+
+#afer installing more non-qt libs
+RUN apt-get download libpulse0:armhf && dpkg --force-all -i libpulse0_5.0-13_armhf.deb
+RUN apt-get download libjson-c-dev:armhf && dpkg --force-all -i libjson-c-dev_0.11-4_armhf.deb

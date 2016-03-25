@@ -27,7 +27,8 @@ main() {
 #    # Try to fetch all dependencies, just in case
 #    building_on_CentOS_6
 #  fi
-  building_on_Debian_Jessie # aka "Debian 8"
+
+building_on_Debian_Jessie # aka "Debian 8"
 
   if [ "$num_failures" != "0" ]; then
     echo "Error: $num_failures libraries couldn't be copied."
@@ -155,6 +156,31 @@ building_on_Debian_Jessie() {
   copyLib libxml2.so.2
   copyLib libxslt.so.1
 
+  copyLib libavahi-client.so.3
+  copyLib libavahi-common.so.3
+  copyLib libdrm.so.2
+  copyLib libexpat.so.1
+  copyLib libffi.so.6
+  copyLib libFLAC.so.8
+  copyLib libgbm.so.1
+  copyLib libglapi.so.0
+  copyLib libgmodule-2.0.so.0
+  copyLib libgnutls-deb0.so.28
+  copyLib libgraphite2.so.3
+  copyLib libgssapi_krb5.so.2
+  copyLib libgthread-2.0.so.0
+  copyLib libjbig.so.0
+  copyLib libjson-c.so.2
+  copyLib liborc-0.4.so.0
+  copyLib libpulsecommon-5.0.so
+  copyLib libvorbisenc.so.2
+  copyLib libwayland-client.so.0
+  copyLib libwayland-server.so.0
+  copyLib libXau.so.6
+  copyLib libxcb-dri2.so.0
+  copyLib libxcb-util.so.0
+  copyLib libXdmcp.so.6
+  copyLib libXext.so.6
 }
 
 
