@@ -20,13 +20,14 @@ main() {
   getCrossPlatformDependencies
 
   # get linux-specific dependencies, based on which distro is making the AppImage
-  if [ "$(grep "CentOS release 6" /etc/*release*)" ]; then
-    building_on_CentOS_6
-  else
-    echo "${0}: Warning: Not running on a supported build system!" >&2
-    # Try to fetch all dependencies, just in case
-    building_on_CentOS_6
-  fi
+#  if [ "$(grep "CentOS release 6" /etc/*release*)" ]; then
+#    building_on_CentOS_6
+#  else
+#    echo "${0}: Warning: Not running on a supported build system!" >&2
+#    # Try to fetch all dependencies, just in case
+#    building_on_CentOS_6
+#  fi
+  building_on_Debian_Jessie # aka "Debian 8"
 
   if [ "$num_failures" != "0" ]; then
     echo "Error: $num_failures libraries couldn't be copied."
@@ -54,9 +55,9 @@ getCrossPlatformDependencies() {
   # Qt base dependencies (see "mscore/CMakeLists.txt")
   dest_dir="$qt_dest/lib"
   #dest_dir="$lib_dest"
-  copyLib libicudata.so.42 #icudt53.dll # Needed by Ubuntu 12.04
-  copyLib libicui18n.so.42 #libicuin53.so.5 # Needed by Ubuntu 12.04
-  copyLib libicuuc.so.42 #libicuuc53.so.5 # Needed by Ubuntu 12.04
+  copyLib libicudata.so.52 #icudt53.dll # Needed by Ubuntu 12.04
+  copyLib libicui18n.so.52 #libicuin53.so.5 # Needed by Ubuntu 12.04
+  copyLib libicuuc.so.52 #libicuuc53.so.5 # Needed by Ubuntu 12.04
   copyLib libQt5CLucene.so.5
   copyLib libQt5Core.so.5
   copyLib libQt5Gui.so.5
@@ -72,7 +73,7 @@ getCrossPlatformDependencies() {
   copyLib libQt5Sensors.so.5
   copyLib libQt5Sql.so.5
   copyLib libQt5Svg.so.5
-  copyLib libQt5WebChannel.so.5
+  #copyLib libQt5WebChannel.so.5  #doesn't seem to exist on debian
   copyLib libQt5WebKit.so.5
   copyLib libQt5WebKitWidgets.so.5
   copyLib libQt5Widgets.so.5
@@ -101,6 +102,15 @@ getCrossPlatformDependencies() {
     | sed "s|$qt_prefix/||" | xargs -n1 -I '%%%' \
         bash -c "qt_prefix='$qt_prefix' qt_dest='$qt_dest' copyQt %%%"
 }
+
+########################################################
+# copy libs specific if building on Debian 8 "Jessie"
+########################################################
+building_on_Debian_Jessie() {
+  dest_dir="$lib_dest"
+
+}
+
 
 ##########################################################################
 # LINUX-ONLY DEPENDENCIES (no equivalents in "mscore/CMakeLists.txt")
