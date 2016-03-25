@@ -30,20 +30,30 @@ else
 fi
 
 # Build AppImage. Are we cross-compiling?
-case "$1" in
-  --32bit )
-    shift
-    # Build MuseScore AppImage inside 32-bit Docker image
-    docker run -i -v "${PWD}:/MuseScore" toopher/centos-i386:centos6 /bin/bash -c \
-      "linux32 --32bit i386 /MuseScore/build/Linux+BSD/portable/Recipe $makefile_overrides"
-    ;;
-  * )
-    [ "$1" == "--64bit" ] && shift || true
-    # Build MuseScore AppImage inside native (64-bit) Docker image
-    docker run -i -v "${PWD}:/MuseScore" library/centos:6 /bin/bash -c \
-      "/MuseScore/build/Linux+BSD/portable/Recipe $makefile_overrides"
-    ;;
-esac
+#case "$1" in
+#  --32bit )
+#    shift
+#    # Build MuseScore AppImage inside 32-bit Docker image
+#    docker run -i -v "${PWD}:/MuseScore" toopher/centos-i386:centos6 /bin/bash -c \
+#      "linux32 --32bit i386 /MuseScore/build/Linux+BSD/portable/Recipe $makefile_overrides"
+#    ;;
+#  * )
+#    [ "$1" == "--64bit" ] && shift || true
+#    # Build MuseScore AppImage inside native (64-bit) Docker image
+#    docker run -i -v "${PWD}:/MuseScore" library/centos:6 /bin/bash -c \
+#      "/MuseScore/build/Linux+BSD/portable/Recipe $makefile_overrides"
+#    ;;
+#esac
+
+# associate arm binaries with qemu-arm-static.  https://resin.io/blog/building-arm-containers-on-any-x86-machine-even-dockerhub/
+#sudo umount binfmt_misc
+#sudo mount binfmt_misc -t binfmt_misc /proc/sys/fs/binfmt_misc
+#echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-arm-static:' > sudo /proc/sys/fs/binfmt_misc/register  
+
+# arm build docker script...first get prebuilt AppImageKit for armv7
+tar -xvzf build/Linux+BSD/AppImageKit-5_built-in-armv7hf-jessie.tar.gz --directory ..
+docker run -i -v "${PWD}:/MuseScore" -v "${PWD}/../AppImageKit-5:/AppImageKit" ericfont/musescore:compile-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArmDocker $makefile_overrides"
+
 
 # Should the AppImage be uploaded?
 if [ "$1" == "--upload-branches" ] && [ "$2" != "ALL" ]; then

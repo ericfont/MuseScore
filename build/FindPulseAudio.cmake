@@ -20,55 +20,21 @@ if (PULSEAUDIO_LIBRARIES AND PULSEAUDIO_INCLUDE_DIRS)
 else (PULSEAUDIO_LIBRARIES AND PULSEAUDIO_INCLUDE_DIRS)
   # use pkg-config to get the directories and then use these values
   # in the FIND_PATH() and FIND_LIBRARY() calls
-  if (${CMAKE_MAJOR_VERSION} EQUAL 2 AND ${CMAKE_MINOR_VERSION} EQUAL 4)
+  #  if (${CMAKE_MAJOR_VERSION} EQUAL 2 AND ${CMAKE_MINOR_VERSION} EQUAL 4)
     include(UsePkgConfig)
-    pkgconfig(libpulse _PULSEAUDIO_INCLUDEDIR _PULSEAUDIO_LIBDIR _PULSEAUDIO_LDFLAGS _PULSEAUDIO_CFLAGS)
-  else (${CMAKE_MAJOR_VERSION} EQUAL 2 AND ${CMAKE_MINOR_VERSION} EQUAL 4)
-    find_package(PkgConfig)
-    if (PKG_CONFIG_FOUND)
-      pkg_check_modules(_PULSEAUDIO libpulse)
-    endif (PKG_CONFIG_FOUND)
-  endif (${CMAKE_MAJOR_VERSION} EQUAL 2 AND ${CMAKE_MINOR_VERSION} EQUAL 4)
-  find_path(PULSEAUDIO_INCLUDE_DIR
-    NAMES
-      pulse/pulseaudio.h
-    PATHS
-      ${_PULSEAUDIO_INCLUDEDIR}
-      /usr/include
-      /usr/local/include
-      /opt/local/include
-      /sw/include
-  )
-  
-  find_library(PULSEAUDIO_LIBRARY
-    NAMES
-      pulse
-    PATHS
-      ${_PULSEAUDIO_LIBDIR}
-      /usr/lib
-      /usr/local/lib
-      /opt/local/lib
-      /sw/lib
-  )
+    pkgconfig(libpulse PULSEAUDIO_INCLUDEDIRS PULSEAUDIO_LIBDIR PULSEAUDIO_LDFLAGS PULSEAUDIO_CFLAGS)
+    #  else (${CMAKE_MAJOR_VERSION} EQUAL 2 AND ${CMAKE_MINOR_VERSION} EQUAL 4)
+    #    find_package(PkgConfig)
+    #    if (PKG_CONFIG_FOUND)
+    #     pkg_check_modules(_PULSEAUDIO libpulse)
+    #    endif (PKG_CONFIG_FOUND)
+    #  endif (${CMAKE_MAJOR_VERSION} EQUAL 2 AND ${CMAKE_MINOR_VERSION} EQUAL 4)
 
-  find_library(PULSEAUDIO_SIMPLE_LIBRARY
-    NAMES
-      pulse-simple
-    PATHS
-      ${_PULSEAUDIO_LIBDIR}
-      /usr/lib
-      /usr/local/lib
-      /opt/local/lib
-      /sw/lib
-  )
+    MESSAGE( STATUS "PULSEAUDIO_INCLUDE_DIRS: " ${PULSEAUDIO_INCLUDEDIRS} )
+    MESSAGE( STATUS "PULSEAUDIO_LIBDIR: " ${PULSEAUDIO_LIBDIR} )
 
-  if (PULSEAUDIO_LIBRARY)
+    set( PULSEAUDIO_LIBRARY "${PULSEAUDIO_LIBDIR}/libpulse.so" )
     set(PULSEAUDIO_FOUND TRUE)
-  endif (PULSEAUDIO_LIBRARY)
-
-  set(PULSEAUDIO_INCLUDE_DIRS
-    ${PULSEAUDIO_INCLUDE_DIR}
-  )
 
   if (PULSEAUDIO_FOUND)
     set(PULSEAUDIO_LIBRARIES
@@ -76,6 +42,7 @@ else (PULSEAUDIO_LIBRARIES AND PULSEAUDIO_INCLUDE_DIRS)
       ${PULSEAUDIO_SIMPLE_LIBRARY}
       ${PULSEAUDIO_LIBRARY}
     )
+    MESSAGE( STATUS "PULSEAUDIO_LIBRARIES: " ${PULSEAUDIO_LIBRARIES} )
   endif (PULSEAUDIO_FOUND)
 
   if (PULSEAUDIO_INCLUDE_DIRS AND PULSEAUDIO_LIBRARIES)
