@@ -8,7 +8,9 @@ SET(ARCH armhf) # AppImage directory's name will include this string
 # specify the cross compiler
 SET(CMAKE_C_COMPILER   /usr/bin/arm-linux-gnueabihf-gcc)
 SET(CMAKE_CXX_COMPILER /usr/bin/arm-linux-gnueabihf-g++)
-SET(CMAKE_STRIP        /usr/bin/arm-linux-gnueabihf-strip)
+
+# don't set CMAKE_STRIP, because doing so somehow causes CMakeCache to report nothing for CMAKE_STRIP:FILEPATH
+#SET(CMAKE_STRIP        /usr/bin/arm-linux-gnueabihf-strip)
 
 # where is the target environment 
 SET(CMAKE_FIND_ROOT_PATH /lib/arm-linux-gnueabihf /usr/lib/arm-linux-gnueabihf /usr/include/arm-linux-gnueabihf)
