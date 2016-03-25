@@ -111,12 +111,12 @@ building_on_Debian_Jessie() {
   dest_dir="$lib_dest"
   copyLib libasound.so.2
   copyLib libcups.so.2
-  copyLib libdbus-1.so.3
+  copyLib libdbus-1.so #removed .3 because didn't exist in arm, and don't want x86-64 version
   copyLib libEGL.so.1
   copyLib libfontconfig.so.1
   copyLib libfreetype.so.6
   copyLib libGLESv2.so.2
-  copyLib libglib-2.0.so.0
+  copyLib libglib-2.0.so #removed the .0 cause didn't have
   copyLib libgobject-2.0.so.0
   copyLib libgstapp-0.10.so.0
   copyLib libgstbase-0.10.so.0
@@ -156,10 +156,11 @@ building_on_Debian_Jessie() {
   copyLib libxml2.so.2
   copyLib libxslt.so.1
 
+  #2nd round of dependencies
   copyLib libavahi-client.so.3
   copyLib libavahi-common.so.3
   copyLib libdrm.so.2
-  copyLib libexpat.so.1
+  copyLib libexpat.so   #removed the .1 cause didn't have
   copyLib libffi.so.6
   copyLib libFLAC.so.8
   copyLib libgbm.so.1
@@ -170,7 +171,7 @@ building_on_Debian_Jessie() {
   copyLib libgssapi_krb5.so.2
   copyLib libgthread-2.0.so.0
   copyLib libjbig.so.0
-  copyLib libjson-c.so.2
+  copyLib libjson-c.so && mv libjson-c.so lib.json-c.so.2   #renamed to .2 cause didn't have
   copyLib liborc-0.4.so.0
   copyLib libpulsecommon-5.0.so
   copyLib libvorbisenc.so.2
@@ -181,6 +182,30 @@ building_on_Debian_Jessie() {
   copyLib libxcb-util.so.0
   copyLib libXdmcp.so.6
   copyLib libXext.so.6
+
+  #3rd round of dependencies
+  copyLib libasyncns.so.0
+  copyLib libgmp.so.10
+  copyLib libhogweed.so.2
+  copyLib libjack.so.0
+  copyLib libjpeg.so.62
+  copyLib libjson-c.so.2
+  copyLib libk5crypto.so.3
+  copyLib libkeyutils.so.1
+  copyLib libkrb5.so.3
+  copyLib libkrb5support.so.0
+  copyLib libmng.so.1
+  copyLib libnettle.so.4
+  copyLib libp11-kit.so.0
+  copyLib libpng12.so.0
+  copyLib libQt5Concurrent.so.5
+  copyLib libQt5DBus.so.5
+  copyLib libQt5Designer.so.5
+  copyLib libQt5QuickWidgets.so.5
+  copyLib libQt5Test.so.5
+  copyLib libtasn1.so.6
+  copyLib libwrap.so.0
+  copyLib libXtst.so.6
 }
 
 
