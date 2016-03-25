@@ -108,6 +108,52 @@ getCrossPlatformDependencies() {
 ########################################################
 building_on_Debian_Jessie() {
   dest_dir="$lib_dest"
+  copyLib libasound.so.2
+  copyLib libcups.so.2
+  copyLib libdbus-1.so.3
+  copyLib libEGL.so.1
+  copyLib libfontconfig.so.1
+  copyLib libfreetype.so.6
+  copyLib libGLESv2.so.2
+  copyLib libglib-2.0.so.0
+  copyLib libgobject-2.0.so.0
+  copyLib libgstapp-0.10.so.0
+  copyLib libgstbase-0.10.so.0
+  copyLib libgstinterfaces-0.10.so.0
+  copyLib libgstpbutils-0.10.so.0
+  copyLib libgstreamer-0.10.so.0
+  copyLib libgstvideo-0.10.so.0
+  copyLib libharfbuzz.so.0
+  copyLib libICE.so.6
+  copyLib liblcms2.so.2
+  copyLib libogg.so.0
+  copyLib libpulse.so.0
+  copyLib libSM.so.6
+  copyLib libsndfile.so.1
+  copyLib libsqlite3.so.0
+  copyLib libtiff.so.5
+  copyLib libvorbis.so.0
+  copyLib libvorbisfile.so.3
+  copyLib libwebp.so.5
+  copyLib libX11-xcb.so.1
+  copyLib libX11.so.6
+  copyLib libxcb-icccm.so.4
+  copyLib libxcb-image.so.0
+  copyLib libxcb-keysyms.so.1
+  copyLib libxcb-randr.so.0
+  copyLib libxcb-render-util.so.0
+  copyLib libxcb-render.so.0
+  copyLib libxcb-shape.so.0
+  copyLib libxcb-shm.so.0
+  copyLib libxcb-sync.so.1
+  copyLib libxcb-xfixes.so.0
+  copyLib libxcb-xkb.so.1
+  copyLib libxcb.so.1
+  copyLib libXi.so.6
+  copyLib libxkbcommon-x11.so.0
+  copyLib libxkbcommon.so.0
+  copyLib libxml2.so.2
+  copyLib libxslt.so.1
 
 }
 
