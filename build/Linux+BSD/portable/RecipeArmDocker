@@ -32,10 +32,12 @@ set -x # Be verbose
 cd MuseScore
 
 cp build/Linux+BSD/arm-linux-gnueabihf-pkg-config /usr/bin/
-export LD_LIBRARY_PATH="/usr/lib/arm-linux-gnueabihf:/usr/include/alsa"
+export LD_LIBRARY_PATH="/usr/lib/arm-linux-gnueabihf:/usr/lib/arm-linux-gnueabihf/pulseaudio:/lib/arm-linux-gnueabihf"
 export PATH="/usr/bin/arm-linux-gnueabihf-pkg-config:$PATH"
+export CMAKE_TOOLCHAIN_FILE=/MuseScore/build/Linux+BSD/jessie-crosscompile-armhf.cmake 
+
 make revision
-CMAKE_TOOLCHAIN_FILE=/MuseScore/build/Linux+BSD/jessie-crosscompile-armhf.cmake make "$@" portable
+make "$@" portable
 
 appdir="$(cat build.release/PREFIX.txt)"
 appimage="$(echo "$appdir" | sed 's|\.AppDir$|.AppImage|')"

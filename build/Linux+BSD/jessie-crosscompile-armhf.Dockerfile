@@ -67,3 +67,6 @@ RUN apt-get download libglib2.0-0:armhf && dpkg --force-all -i libglib2.0-0_2.42
 #next round of dependencies
 RUN apt-get download libkeyutils-dev:armhf && dpkg --force-all -i libkeyutils-dev_1.5.9-5+b1_armhf.deb
 RUN apt-get download libwrap0:armhf && dpkg --force-all -i libwrap0_7.6.q-25_armhf.deb
+
+#needed by AppImageKit possibly
+RUN apt-get download libacl1:armhf && dpkg --force-all -i libacl1_2.2.52-2_armhf.deb
