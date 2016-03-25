@@ -120,7 +120,7 @@ version:
 
 install: release
 	cd build.release \
-	&& make install/strip \
+	&& make install \
 	&& if [ ${UPDATE_CACHE} = "TRUE" ]; then \
 	     update-mime-database "${PREFIX}/share/mime"; \
 	     gtk-update-icon-cache -f -t "${PREFIX}/share/icons/hicolor"; \
