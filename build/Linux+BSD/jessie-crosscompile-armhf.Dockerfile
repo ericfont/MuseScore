@@ -70,3 +70,4 @@ RUN apt-get download libwrap0:armhf && dpkg --force-all -i libwrap0_7.6.q-25_arm
 
 #needed by AppImageKit possibly
 RUN apt-get download libacl1:armhf && dpkg --force-all -i libacl1_2.2.52-2_armhf.deb
+RUN apt-get download libreadline6:armhf && dpkg --force-all -i libreadline6_6.3-8+b3_armhf.deb

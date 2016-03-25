@@ -1,3 +1,0 @@
-#!/bin/bash
-
-qemu-arm /usr/lib/arm-linux-gnueabihf/qt5/bin/uic-arm "$@"
