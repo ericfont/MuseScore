@@ -5,7 +5,7 @@
 # always be uploaded unless a list of specific branches is passed in. e.g.:
 #    $   build.sh  --upload-branches  master  my-branch-1  my-branch-2
 # Builds will be for the native architecture (64 bit) unless another is
-# specified for cross-compiling. (e.g. build.sh --32bit)
+# specified for cross-compiling. (e.g. build.sh --i686 or build.sh --armhf)
 
 set -e # exit on error
 set -x # echo commands
@@ -37,33 +37,33 @@ else
   makefile_overrides="" # use Makefile defaults
 fi
 
-# Build AppImage. Are we cross-compiling?
-#case "$1" in
-#  --32bit )
-#    shift
-#    # Build MuseScore AppImage inside 32-bit Docker image
-#    docker run -i -v "${PWD}:/MuseScore" toopher/centos-i386:centos6 /bin/bash -c \
-#      "linux32 --32bit i386 /MuseScore/build/Linux+BSD/portable/Recipe $makefile_overrides"
-#    ;;
-#  * )
-#    [ "$1" == "--64bit" ] && shift || true
-#    # Build MuseScore AppImage inside native (64-bit) Docker image
-#    docker run -i -v "${PWD}:/MuseScore" library/centos:6 /bin/bash -c \
-#      "/MuseScore/build/Linux+BSD/portable/Recipe $makefile_overrides"
-#    ;;
-#esac
+# Build AppImage depending on arch specified in $1 if cross-compiling, else default build x86_64
+case "$1" in
 
-# associate arm binaries with qemu-arm-static.  https://resin.io/blog/building-arm-containers-on-any-x86-machine-even-dockerhub/
-#sudo umount binfmt_misc
-#sudo mount binfmt_misc -t binfmt_misc /proc/sys/fs/binfmt_misc
-#echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-arm-static:' > sudo /proc/sys/fs/binfmt_misc/register  
+  --armhf )
+    shift
+    # build MuseScore inside debian x86-64 multiarch image containing arm cross toolchain and libraries
+    docker run -i -v "${PWD}:/MuseScore" ericfont/musescore:jessie-crosscompile-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArm --build-only $makefile_overrides"
+    # then run inside fully emulated arm image for AppImage packing step (which has trouble inside multiarch image)
+    docker run -i --privileged multiarch/qemu-user-static:register
+    docker run -i -v "${PWD}:/MuseScore" --privileged ericfont/musescore:jessie-packaging-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArm --package-only"
+    ;;
 
-# build MuseScore inside debian x86-64 multiarch image containing arm cross toolchain and libraries
-docker run -i -v "${PWD}:/MuseScore" ericfont/musescore:jessie-crosscompile-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArm --build-only $makefile_overrides"
+  --i686 )
+    shift
+    # Build MuseScore AppImage inside 32-bit x86 Docker image
+    docker run -i -v "${PWD}:/MuseScore" toopher/centos-i386:centos6 /bin/bash -c \
+      "linux32 --32bit i386 /MuseScore/build/Linux+BSD/portable/Recipe $makefile_overrides"
+    ;;
 
-# then run inside fully emulated arm image for AppImage packing step (which has trouble inside multiarch image)
-docker run -i --privileged multiarch/qemu-user-static:register
-docker run -i -v "${PWD}:/MuseScore" --privileged ericfont/musescore:jessie-packaging-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArm --package-only"
+
+  * )
+    [ "$1" == "--x86-64" ] && shift || true
+    # Build MuseScore AppImage inside native (64-bit x86) Docker image
+    docker run -i -v "${PWD}:/MuseScore" library/centos:6 /bin/bash -c \
+      "/MuseScore/build/Linux+BSD/portable/Recipe $makefile_overrides"
+    ;;
+esac
 
 # Should the AppImage be uploaded?
 if [ "$1" == "--upload-branches" ] && [ "$2" != "ALL" ]; then

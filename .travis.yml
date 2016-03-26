@@ -11,50 +11,78 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
-          #  - env: "JOB=AppImage_64bit"
-          #  - env: "JOB=AppImage_32bit"
+            - env: "JOB=AppImage_x86-64"
+            - env: "JOB=AppImage_i686"
+            - env: "JOB=AppImage_armhf"
   include:
-    # 1st parallel build job - debug build on Ubuntu
-    #  - env: "JOB=Tests"
-    #  addons:
-    #    apt:
-    #      sources:
-    #        - ubuntu-toolchain-r-test
-    #      packages:
-    #        - g++-4.9
-    #        - cmake
-    #        - alsa
-    #        - libsndfile1
-    #        - wget
-    #        - make
-    #        - ant
-    #        - curl
-    #        - libasound2-dev
-    #        - portaudio19-dev
-    #        - libsndfile1-dev
-    #        - zlib1g-dev
-    #        - libfreetype6-dev
-    #        - libfontconfig1-dev
-    #        - lame
-    #        - libmp3lame-dev
-    #        - libegl1-mesa-dev
-    #        - libegl1-mesa
-    #        - ccache
-    #        - libpulse-dev
-    #  cache:
-    #    directories:
-    #      - $HOME/.ccache
-    #  before_install:
-    #    - "source build/travis/job1_Tests/environment.sh"
-    #  install:
-    #    - "./build/travis/job1_Tests/install.sh"
-    #  before_script:
-    #    - "./build/travis/job1_Tests/before_script.sh"
-    #  script:
-    #   - "./build/travis/job1_Tests/run_tests.sh"
-    #  after_script:
-    #    - 'ARTIFACTS_PATHS="$(ls vtest/html | tr "\n" ":")" artifacts upload'
-    # 2nd parallel build job - portable Linux AppImage 64-bit build on CentOS
+     1st parallel build job - debug build on Ubuntu
+      - env: "JOB=Tests"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.9
+            - cmake
+            - alsa
+            - libsndfile1
+            - wget
+            - make
+            - ant
+            - curl
+            - libasound2-dev
+            - portaudio19-dev
+            - libsndfile1-dev
+            - zlib1g-dev
+            - libfreetype6-dev
+            - libfontconfig1-dev
+            - lame
+            - libmp3lame-dev
+            - libegl1-mesa-dev
+            - libegl1-mesa
+            - ccache
+            - libpulse-dev
+      cache:
+        directories:
+          - $HOME/.ccache
+      before_install:
+        - "source build/travis/job1_Tests/environment.sh"
+      install:
+        - "./build/travis/job1_Tests/install.sh"
+      before_script:
+        - "./build/travis/job1_Tests/before_script.sh"
+      script:
+       - "./build/travis/job1_Tests/run_tests.sh"
+      after_script:
+        - 'ARTIFACTS_PATHS="$(ls vtest/html | tr "\n" ":")" artifacts upload'
+
+    # 2nd parallel build job - portable Linux AppImage 64-bit x86 build on CentOS
+    - env: "JOB=AppImage_x86-64"
+      addons:
+        apt:
+          packages:
+          - bsdtar
+          - curl
+          - zsync
+      services:
+        - docker
+      script:
+        - "./build/travis/job2_AppImage/build.sh --x86-64 --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
+
+    # 3rd parallel build job - portable Linux AppImage 32-bit x86 build on CentOS
+    - env: "JOB=AppImage_i686"
+      addons:
+        apt:
+          packages:
+          - bsdtar
+          - curl
+          - zsync
+      services:
+        - docker
+      script:
+        - "./build/travis/job2_AppImage/build.sh --i686 --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
+
+    # 4th parallel build job - portable Linux AppImage armhf build on Debian crosscompiler
     - env: "JOB=armhf"
       addons:
         apt:
@@ -67,19 +95,7 @@ matrix:
       before_script:
         - "sudo ./build/travis/job2_AppImage/set-binfmt-misc.sh"
       script:
-        - "./build/travis/job2_AppImage/build.sh --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
-    # 3rd parallel build job - portable Linux AppImage 32-bit build on CentOS
-    #    - env: "JOB=AppImage_32bit"
-    #  addons:
-    #    apt:
-    #      packages:
-    #      - bsdtar
-    #      - curl
-    #      - zsync
-    #  services:
-    #    - docker
-    #  script:
-    #    - "./build/travis/job2_AppImage/build.sh --32bit --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
+        - "./build/travis/job2_AppImage/build.sh --armhf --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
 
 notifications:
   recipients:
