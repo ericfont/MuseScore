@@ -41,7 +41,7 @@ fetchDependencies() {
 # BUILD MuseScore PORTABLE (Compile, not package)
 ########################################################
 build() {
-  `echo 'building'
+  echo 'building'
 
   cd MuseScore
 
