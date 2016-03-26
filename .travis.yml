@@ -16,7 +16,7 @@ matrix:
             - env: "JOB=AppImage_armhf"
   include:
      1st parallel build job - debug build on Ubuntu
-      - env: "JOB=Tests"
+     - env: "JOB=Tests"
       addons:
         apt:
           sources:
