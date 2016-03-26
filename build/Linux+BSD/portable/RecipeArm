@@ -26,7 +26,7 @@ main() {
 fetchDependencies() {
   echo 'fetching'
 
-  echo `apt-get install -y libqt5multimedia5 libqt5multimediawidgets5 libqt5positioning5 libqt5sensors5 libqt5webkit5 qt5-image-formats-plugins qml-module-qtquick-controls libicu52 libpulse0 libjson-c-dev libexpat1-dev libdbus-1-3 libglib2.0-0 libkeyutils-dev libwrap0 libacl1 libreadline6 libbz2-1.0 libpcre3`
+  echo `apt-get install -y libqt4-dev libsndfile1-dev libasound2-ev portaudio19-dev zlib1g-dev libfreetype6-dev libssl-dev libdrm-dev libgl1-mesa-dev libpulse-dev qtbase5-dev qttools5-dev libqt5multimedia5 libqt5multimediawidgets5 libqt5positioning5 libqt5sensors5 libqt5webkit5 qt5-image-formats-plugins qml-module-qtquick-controls libicu52 libpulse0 libjson-c-dev libexpat1-dev libdbus-1-3 libglib2.0-0 libkeyutils-dev libwrap0 libacl1 libreadline6 libbz2-1.0 libpcre3`
 
 }
 
