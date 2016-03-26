@@ -59,12 +59,11 @@ fi
 #echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-arm-static:' > sudo /proc/sys/fs/binfmt_misc/register  
 
 # build MuseScore inside debian x86-64 multiarch image containing arm cross toolchain and libraries
-docker run -i -v "${PWD}:/MuseScore" ericfont/musescore:compile-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArm --build $makefile_overrides"
+docker run -i -v "${PWD}:/MuseScore" ericfont/musescore:jessie-crosscompile-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArm --build $makefile_overrides"
 
 # then run inside fully emulated arm image for AppImage packing step (which has trouble inside multiarch image)
-tar -xvzf build/Linux+BSD/AppImageKit-5_built-in-armv7hf-jessie.tar.gz --directory ..
 docker run -i --privileged multiarch/qemu-user-static:register
-docker run -i -v "${PWD}:/MuseScore" -v "${PWD}../AppImageKit-5:/AppImageKit" --privileged ericfont/armv7hf-debian-qemu-musescore-dependencies /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArm --package"
+docker run -i -v "${PWD}:/MuseScore" --privileged ericfont/jessie-packaging-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArm --package"
 
 # Should the AppImage be uploaded?
 if [ "$1" == "--upload-branches" ] && [ "$2" != "ALL" ]; then
