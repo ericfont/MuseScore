@@ -23,9 +23,12 @@ main() {
       build;
       package;
   esac
+
+  echo 'RecipeARM completed'
 }
 
 ##########################################################################
+# The dependences that musescore needs? to run, to include in package
 ##########################################################################
 fetchDependencies() {
   echo 'fetching'
@@ -35,6 +38,7 @@ fetchDependencies() {
 }
 
 ########################################################
+# BUILD MuseScore PORTABLE (Compile, not package)
 ########################################################
 build() {
   `echo 'building'
@@ -52,9 +56,29 @@ build() {
 
 
 ##########################################################################
+# PACKAGE INTO APPIMAGE WITH APPIMAGEKIT
 ##########################################################################
 package() {
   echo 'packaging'
+
+  appdir="$(cat MuseScore/build.release/PREFIX.txt)"
+  appimage="$(echo "$appdir" | sed 's|\.AppDir$|.AppImage|')"
+
+  cd AppImageKit-5/AppImageAssistant.AppDir
+
+  ./package  "$appdir" "$appimage"
+
+  # allow access to AppImage from outside the chroot
+  chmod a+rwx "$appimage"
+  parent_dir="$(dirname "$appimage")"
+  while [ "$(dirname "$parent_dir")" != "$parent_dir" ]; do
+    [ "$parent_dir" == "/" ] && break
+    chmod a+rwx "$parent_dir"
+    parent_dir="$(dirname "$parent_dir")"
+  done
+
+  ls -lh "$appimage"
+
 }
 
 main "$@"
