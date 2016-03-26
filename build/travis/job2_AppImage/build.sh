@@ -63,7 +63,7 @@ docker run -i -v "${PWD}:/MuseScore" ericfont/musescore:jessie-crosscompile-armh
 
 # then run inside fully emulated arm image for AppImage packing step (which has trouble inside multiarch image)
 docker run -i --privileged multiarch/qemu-user-static:register
-docker run -i -v "${PWD}:/MuseScore" --privileged ericfont/jessie-packaging-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArm --package-only"
+docker run -i -v "${PWD}:/MuseScore" --privileged ericfont/musescore:jessie-packaging-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArm --package-only"
 
 # Should the AppImage be uploaded?
 if [ "$1" == "--upload-branches" ] && [ "$2" != "ALL" ]; then
