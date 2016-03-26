@@ -60,8 +60,9 @@ fi
 
 # arm build docker script...first get prebuilt AppImageKit for armv7
 tar -xvzf build/Linux+BSD/AppImageKit-5_built-in-armv7hf-jessie.tar.gz --directory ..
-docker run -i -v "${PWD}:/MuseScore" -v "${PWD}/../AppImageKit-5:/AppImageKit" ericfont/musescore:compile-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArmDocker $makefile_overrides"
-
+docker run -i -v "${PWD}:/MuseScore" -v "${PWD}/../AppImageKit-5:/AppImageKit" ericfont/musescore:compile-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArmDockerMakePortable $makefile_overrides"
+docker run -i --privileged multiarch/qemu-user-static:register
+docker run -i -v "${PWD}:/MuseScore" -v "${PWD}../AppImageKit-5:/AppImageKit" --privileged ericfont/armv7hf-debian-qemu-musescore-dependencies /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArmDockerPackImage
 
 # Should the AppImage be uploaded?
 if [ "$1" == "--upload-branches" ] && [ "$2" != "ALL" ]; then

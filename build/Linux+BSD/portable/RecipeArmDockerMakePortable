@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Build a portable AppImage starting from a clean system. Other examples at:
+# https://github.com/probonopd/AppImages/blob/master/recipes/scribus/Recipe
+
+# NOTES:
+#
+# 1) IT IS NOT SAFE TO RUN THIS RECIPE ON A PERSISTENT FILESYSTEM! Use either:
+#      * A chroot into a Live ISO, squashfs or Docker Image.
+#      * Or, a virtual machine on a dedicated build server (e.g. Travis CI)
+#    DO NOT RUN THE RECIPE ON A NORMAL COMPUTER OUTSIDE OF A TEMPORARY CHROOT!
+#    
+# 2) Run the recipe inside a CentOS 6 or 7 chroot. You could do it like this:
+#     $  git  clone  https://github.com/probonopd/AppImageKit.git
+#     $  ./AppImageKit/build.sh
+#     $  cd  AppImageKit/AppImageAssistant.AppDir/
+#     $  sudo  ./testappimage  CentOS-6.7-x86_64-LiveCD.iso  bash
+#       #  Now we're inside the chroot!
+#       #  Must put the recipe in the chroot if it's not already there:
+#     $  nano Recipe
+#       #  Paste recipe into terminal window (Ctrl+Shift+V)
+#       #  Save (Ctrl+O) and exit (Ctrl+X)
+#     $  chmod +x Recipe
+#     $  ./Recipe
+#
+# 3) Pass in as arguments any overrides for the "make portable" target. E.g.:
+#     $  ./Recipe PREFIX="MuseScoreDev" SUFFIX="-dev" LABEL="Development Build"
+
+set -e # Halt on errors
+set -x # Be verbose
+
+cd MuseScore
+
+cp build/Linux+BSD/arm-linux-gnueabihf-pkg-config /usr/bin/
+export LD_LIBRARY_PATH="/usr/lib/arm-linux-gnueabihf:/usr/lib/arm-linux-gnueabihf/pulseaudio:/lib/arm-linux-gnueabihf"
+export PATH="/usr/bin/arm-linux-gnueabihf-pkg-config:/usr/bin/arm-linux-gnueabihf-strip:$PATH"
+export CMAKE_TOOLCHAIN_FILE=/MuseScore/build/Linux+BSD/jessie-crosscompile-armhf.cmake 
+
+make revision
+make "$@" portable
+
