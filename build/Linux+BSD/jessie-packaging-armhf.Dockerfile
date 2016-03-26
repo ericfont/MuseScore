@@ -1,22 +1,26 @@
-FROM ericfont/armv7hf-debian-qemu
+FROM resin/armv7hf-debian:jessie
 
 RUN [ "cross-build-start" ]
 
-RUN echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list
-RUN apt-get update #so can use wheezy-backports whihc containe Qt 5.3.2
-RUN apt-get install apt-utils #I think aptitude should have this for configuring
-RUN apt-get install wget make automake gcc-4.7 g++-4.7 git cmake alsa-base libsndfile1 libasound2-dev portaudio19-dev libsndfile1-dev zlib1g-dev libfreetype6-dev libfreetype6 lame libmp3lame-dev libssl-dev libdrm-dev libgl1-mesa-dev libpulse-dev 
+# maybe in future build will want to get backports so can use latest Qt version
+#RUN echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/sources.list
 
-# get qt5, including debug symbols!
-RUN apt-get install qtbase5-dev qttools5-dev qttools5-dev-tools qtquick1-5-dev qtscript5-dev libqt5xmlpatterns5-dev libqt5svg5-dev libqt5webkit5-dev qtbase5-dbg qttools5-dbg qtquick1-5-dbg qtscript5-dbg
+RUN apt-get update
 
-# need to be able to use https for github
-RUN apt-get install ca-certificates
-RUN git config --global http.sslVerify true
+# need to be able to use https for wget
+RUN apt-get install ca-certificates wget #git
+#RUN git config --global http.sslVerify true
 
-# get and build AppImageKit
-#RUN wget https://github.com/probonopd/AppImageKit/archive/5.tar.gz
-#RUN tar -xvzf 5.tar.gz
-#RUN bash AppImageKit-5/build.sh
+# get musescore non-qt dev dependencies
+RUN apt-get install alsa-base libsndfile1 libasound2-dev portaudio19-dev libsndfile1-dev zlib1g-dev libfreetype6-dev libfreetype6 lame libmp3lame-dev libssl-dev libdrm-dev libgl1-mesa-dev libpulse-dev 
+
+# get qt5
+RUN apt-get install qtbase5-dev qttools5-dev qttools5-dev-tools qtquick1-5-dev qtscript5-dev libqt5xmlpatterns5-dev libqt5svg5-dev libqt5webkit5-dev
+
+# get other dependencies needed by gcc
+RUN wget https://raw.githubusercontent.com/ericfont/MuseScore/compile-armhf/build/Linux%2BBSD/portable/RecipeArm && chmod +x RecipeArm && ./RecipeArm --fetch-dependencies-only
+
+# get prebuilt AppImageKit
+RUN wget https://bintray.com/artifact/download/ericfont/prebuilt-AppImageKit/AppImageKit-5_built-in-armv7hf-jessie.tar.gz && tar -xvzf AppImageKit-5_built-in-armv7hf-jessie.tar.gz 
 
 RUN [ "cross-build-end" ]  
