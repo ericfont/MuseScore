@@ -4,11 +4,15 @@
 
 main() {
 
+  set -e # Halt on error
+  set -x # Be verbose
+
   case $1 in
     "--fetch-dependencies-only")
       fetchDependencies
       ;;
     "--build-only")
+      shift #need to adjust parameter list so $makefile_overrides start at $1
       build
       ;;
     "--package-only")
@@ -33,7 +37,17 @@ fetchDependencies() {
 ########################################################
 ########################################################
 build() {
-  echo 'building'
+  `echo 'building'
+
+  cd MuseScore
+
+  cp build/Linux+BSD/arm-linux-gnueabihf-pkg-config /usr/bin/
+  export LD_LIBRARY_PATH="/usr/lib/arm-linux-gnueabihf:/usr/lib/arm-linux-gnueabihf/pulseaudio:/lib/arm-linux-gnueabihf"
+  export PATH="/usr/bin/arm-linux-gnueabihf-pkg-config:/usr/bin/arm-linux-gnueabihf-strip:$PATH"
+  export CMAKE_TOOLCHAIN_FILE=/MuseScore/build/Linux+BSD/jessie-crosscompile-armhf.cmake
+
+  make revision
+  make "$@" portable
 }
 
 

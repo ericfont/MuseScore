@@ -1,4 +1,4 @@
-FROM resin/armv7hf-debian:jessie
+FROM ericfont/armv7hf-debian-qemu:jessie
 
 RUN [ "cross-build-start" ]
 
