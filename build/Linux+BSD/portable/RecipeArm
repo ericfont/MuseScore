@@ -9,19 +9,19 @@ main() {
 
   case $1 in
     "--fetch-dependencies-only")
-      fetchDependencies
+      fetchDependencies "$@"
       ;;
     "--build-only")
       shift #need to adjust parameter list so $makefile_overrides start at $1
-      build
+      build "$@"
       ;;
     "--package-only")
-      package
+      package "$@"
       ;;
     *)
-      fetchDependencies;
-      build;
-      package;
+      fetchDependencies "$@"
+      build "$@"
+      package "$@"
   esac
 
   echo 'RecipeARM completed'
