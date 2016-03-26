@@ -14,9 +14,10 @@ SET(CMAKE_CXX_COMPILER /usr/bin/arm-linux-gnueabihf-g++)
 
 # where is the target environment 
 SET(CMAKE_FIND_ROOT_PATH /lib/arm-linux-gnueabihf /usr/lib/arm-linux-gnueabihf /usr/include/arm-linux-gnueabihf)
+SET(CMAKE_LIBRARY_PATH /usr/include/arm-linux-gnueabihf)
 
 # Qt include directories
-SET(QT_INCLUDE_DIR           /usr/include/arm-linux-gnueabihf)
+SET(QT_INCLUDE_DIR           /usr/include/arm-linux-gnu)
 SET(QT_QT_INCLUDE_DIR        ${QT_INCLUDE_DIR}/qt5)
 SET(QT_QTCORE_INCLUDE_DIR    ${QT_QT_INCLUDE_DIR}/QtCore)
 SET(QT_QTXML_INCLUDE_DIR     ${QT_QT_INCLUDE_DIR}/QtXml)
@@ -28,8 +29,8 @@ SET(QT_QTWEBKIT_INCLUDE_DIR  ${QT_QT_INCLUDE_DIR}/QtWebkit)
 SET(QT_INCLUDES ${QT_INCLUDE_DIR} ${QT_QT_INCLUDE_DIR} ${QT_QTCORE_INCLUDE_DIR} ${QT_QTXML_INCLUDE_DIR} ${QT_GUI_INCLUDE_DIR} ${QT_QTNETWORK_INCLUDE_DIR} ${QT_QTWEBKIT_INCLUDE_DIR} )
 
 # Qt libraries
-SET(QT_LIBRARY_DIR  /usr/lib/arm-linux-gnueabihf)
-set(QT_CROSS_LIBRARIES QtSvg5 QtGui5 QtCore5 QtXml5 QtNetwork5 QtWebKit5 QtXmlPatterns5 QtDeclarative5)
+SET(QT_LIBRARY_DIR  ${CMAKE_LIBRARY_PATH})
+SET(QT_CROSS_LIBRARIES QtSvg5 QtGui5 QtCore5 QtXml5 QtNetwork5 QtWebKit5 QtXmlPatterns5 QtDeclarative5)
 
 # Qt binaries
 SET(QT_BINARY_DIR   /usr/lib/arm-linux-gnueabihf/qt5/bin)
@@ -48,3 +49,6 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
 # Audio library include dirs (not usre this is being used)
 SET(LAME_INCLUDE_DIR /usr/include/lame)
+
+# path make sure get arm's pkg-config
+SET(PATH /usr/bin/arm-linux-gnueabihf-pkg-config:${BINPATH})
