@@ -15,8 +15,8 @@ matrix:
             - env: "JOB=AppImage_i686"
             - env: "JOB=AppImage_armhf"
   include:
-     # 1st parallel build job - debug build on Ubuntu
-     - env: "JOB=Tests"
+    # 1st parallel build job - debug build on Ubuntu
+    - env: "JOB=Tests"
       addons:
         apt:
           sources:
@@ -52,7 +52,7 @@ matrix:
       before_script:
         - "./build/travis/job1_Tests/before_script.sh"
       script:
-       - "./build/travis/job1_Tests/run_tests.sh"
+        - "./build/travis/job1_Tests/run_tests.sh"
       after_script:
         - 'ARTIFACTS_PATHS="$(ls vtest/html | tr "\n" ":")" artifacts upload'
 
@@ -83,7 +83,7 @@ matrix:
         - "./build/travis/job2_AppImage/build.sh --i686 --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
 
     # 4th parallel build job - portable Linux AppImage armhf build on Debian crosscompiler
-    - env: "JOB=armhf"
+    - env: "JOB=AppImage_armhf"
       addons:
         apt:
           packages:
