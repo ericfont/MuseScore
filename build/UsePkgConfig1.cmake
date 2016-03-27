@@ -10,7 +10,7 @@
 # variable will be empty when the function returns, otherwise they will contain the respective information
 #
 
-FIND_PROGRAM(PKGCONFIG_EXECUTABLE NAMES pkg-config PATHS /usr/bin /usr/local/bin )
+FIND_PROGRAM(PKGCONFIG_EXECUTABLE NAMES pkg-config PATHS ${PATH} /usr/bin /usr/local/bin )
 
 MACRO(PKGCONFIG _package _minVersion _include_DIR _link_DIR _link_FLAGS _cflags)
 # reset the variables at the beginning
