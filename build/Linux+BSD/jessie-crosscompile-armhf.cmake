@@ -8,6 +8,7 @@ SET(ARCH armhf) # AppImage directory's name will include this string
 # specify the cross compiler
 SET(CMAKE_C_COMPILER   /usr/bin/arm-linux-gnueabihf-gcc)
 SET(CMAKE_CXX_COMPILER /usr/bin/arm-linux-gnueabihf-g++)
+SET(ENV{PKG_CONFIG_PATH} /usr/lib/arm-linux-gnueabihf/pkgconfig)
 
 # don't set CMAKE_STRIP, because doing so somehow causes CMakeCache to report nothing for CMAKE_STRIP:FILEPATH
 #SET(CMAKE_STRIP        /usr/bin/arm-linux-gnueabihf-strip)
@@ -51,4 +52,4 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 SET(LAME_INCLUDE_DIR /usr/include/lame)
 
 # path make sure get arm's pkg-config
-SET(PATH /usr/bin/arm-linux-gnueabihf-pkg-config:${BINPATH})
+#SET(PATH /usr/bin/arm-linux-gnueabihf-pkg-config:${BINPATH})

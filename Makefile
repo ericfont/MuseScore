@@ -46,7 +46,6 @@ release:
 	if test ! -d build.release; then mkdir build.release; fi; \
       cd build.release;                          \
       export PATH=${BINPATH};                    \
-      export PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig;\
       cmake -DCMAKE_BUILD_TYPE=RELEASE	       \
   	  -DCMAKE_TOOLCHAIN_FILE="${CMAKE_TOOLCHAIN_FILE}"       \
   	  -DCMAKE_INSTALL_PREFIX="${PREFIX}"       \
