@@ -35,7 +35,7 @@ build() {
 
   LIBARM="/lib/arm-linux-gnueabihf"
   CMAKE_TOOLCHAIN_FILE="/MuseScore/build/Linux+BSD/jessie-crosscompile-armhf.cmake" \
-  LD_LIBRARY_PATH="/usr$LIBARM:/usr$LIBARM/alsa:/usr$LIBARM/pulseaudio:$LIBARM" \
+  LD_LIBRARY_PATH="/usr$LIBARM:/usr$LIBARM/alsa-lib:/usr$LIBARM/pulseaudio:$LIBARM" \
   make "$@" portable
 }
 
