@@ -77,7 +77,7 @@ getCrossPlatformDependencies() {
   copyLib libQt5Sensors.so.5
   copyLib libQt5Sql.so.5
   copyLib libQt5Svg.so.5
-  #copyLib libQt5WebChannel.so.5  #doesn't seem to exist on debian
+  #copyLib libQt5WebChannel.so.5  # Not present on Debian, and apparently not needed
   copyLib libQt5WebKit.so.5
   copyLib libQt5WebKitWidgets.so.5
   copyLib libQt5Widgets.so.5
@@ -200,16 +200,21 @@ building_on_Debian_Jessie() {
   copyLib libnettle.so.4
   copyLib libp11-kit.so.0
   copyLib libpng12.so.0
+
+  copyLib libtasn1.so.6
+  copyLib libwrap.so.0
+  copyLib libXtst.so.6
+  dest_dir="$qt_dest/lib"
   copyLib libQt5Concurrent.so.5
   copyLib libQt5DBus.so.5
   copyLib libQt5Designer.so.5
   copyLib libQt5QuickWidgets.so.5
   copyLib libQt5Test.so.5
-  copyLib libtasn1.so.6
-  copyLib libwrap.so.0
-  copyLib libXtst.so.6
+  copyLib libQt5XcbQpa.so.5
+  copyQt plugins/xcbglintegrations/libqxcb-glx-integration.so # Needed by plugins which open a window
 
   #needed by Arch Linux
+  dest_dir="$lib_dest"
   copyLib libpcre.so.3
   copyLib libasound_module_pcm_pulse.so
 }
@@ -229,8 +234,6 @@ building_on_CentOS_6() {
   copyLib libQt5Concurrent.so.5
   copyLib libQt5DBus.so.5
   copyLib libQt5Designer.so.5
-  copyLib libQt5Location.so.5
-  copyLib libQt5QuickParticles.so.5
   copyLib libQt5QuickWidgets.so.5
   copyLib libQt5Test.so.5
   copyLib libQt5XcbQpa.so.5

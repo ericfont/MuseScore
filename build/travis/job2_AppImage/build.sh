@@ -64,7 +64,7 @@ case "$1" in
 
 
   * )
-    [ "$1" == "--x86-64" ] && shift || true
+    [ "$1" == "--x86_64" ] && shift || true
     # Build MuseScore AppImage inside native (64-bit x86) Docker image
     docker run -i -v "${PWD}:/MuseScore" library/centos:6 /bin/bash -c \
       "/MuseScore/build/Linux+BSD/portable/Recipe $makefile_overrides"

@@ -11,7 +11,7 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
-            - env: "JOB=AppImage_x86-64"
+            - env: "JOB=AppImage_x86_64"
             - env: "JOB=AppImage_i686"
             - env: "JOB=AppImage_armhf"
   include:
@@ -57,7 +57,7 @@ matrix:
         - 'ARTIFACTS_PATHS="$(ls vtest/html | tr "\n" ":")" artifacts upload'
 
     # 2nd parallel build job - portable Linux AppImage 64-bit x86 build on CentOS
-    - env: "JOB=AppImage_x86-64"
+    - env: "JOB=AppImage_x86_64"
       addons:
         apt:
           packages:
@@ -67,7 +67,7 @@ matrix:
       services:
         - docker
       script:
-        - "[[ $APPIMAGE_BUILD_ARCHS == *x86-64* ]] && ./build/travis/job2_AppImage/build.sh --x86-64 --upload-branches $APPIMAGE_UPLOAD_BRANCHES || true"
+        - "[[ $APPIMAGE_BUILD_ARCHS == *x86_64* ]] && ./build/travis/job2_AppImage/build.sh --x86_64 --upload-branches $APPIMAGE_UPLOAD_BRANCHES || true"
 
     # 3rd parallel build job - portable Linux AppImage 32-bit x86 build on CentOS
     - env: "JOB=AppImage_i686"
