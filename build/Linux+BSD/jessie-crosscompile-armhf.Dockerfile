@@ -76,3 +76,4 @@ RUN apt-get download libbz2-1.0:armhf && dpkg --force-all -i libbz2-1.0_1.0.6-7+
 
 #needed by Arch Linux
 RUN apt-get download libpcre3:armhf && dpkg --force-all -i libpcre3_2%3a8.35-3.3+deb8u2_armhf.deb
+RUN apt-get download libasound2-plugins:armhf && dpkg --force-all -i libasound2-plugins_1.0.28-1+b1_armhf.deb
