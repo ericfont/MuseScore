@@ -53,7 +53,6 @@ release:
   	  -DMUSESCORE_LABEL="${LABEL}"             \
   	  -DBUILD_LAME="${BUILD_LAME}"             \
   	  -DCMAKE_SKIP_RPATH="${NO_RPATH}"     ..; \
-      echo "${LD_LIBRARY_PATH}" \
       make lrelease;                             \
       make -j ${CPUS};                           \
 
