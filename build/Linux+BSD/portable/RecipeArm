@@ -8,9 +8,6 @@ main() {
   set -x # Be verbose
 
   case $1 in
-    "--fetch-dependencies-only")
-      fetchDependencies "$@"
-      ;;
     "--build-only")
       shift #need to adjust parameter list so $makefile_overrides start at $1
       build "$@"
@@ -19,24 +16,11 @@ main() {
       package "$@"
       ;;
     *)
-      fetchDependencies "$@"
       build "$@"
       package "$@"
   esac
 
   echo 'RecipeARM completed'
-}
-
-##########################################################################
-# The dependences that musescore needs? to run, to include in package
-##########################################################################
-fetchDependencies() {
-  echo 'fetching'
-# not using right now...currently just put all dependencies in each docker file
-# might want to split up between musescore compile dependencies, musescore runtime dependencies, & AppImageKit deps
-
-#  echo `apt-get install -y libqt4-dev libsndfile1-dev libasound2-dev portaudio19-dev zlib1g-dev libfreetype6-dev libssl-dev libdrm-dev libgl1-mesa-dev libpulse-dev qtbase5-dev qttools5-dev libqt5multimedia5 libqt5multimediawidgets5 libqt5positioning5 libqt5sensors5 libqt5webkit5 qt5-image-formats-plugins qml-module-qtquick-controls libicu52 libpulse0 libjson-c-dev libexpat1-dev libdbus-1-3 libglib2.0-0 libkeyutils-dev libwrap0 libacl1 libreadline6 libbz2-1.0 libpcre3`
-
 }
 
 ########################################################
@@ -47,13 +31,10 @@ build() {
 
   cd MuseScore
 
-#  cp build/Linux+BSD/arm-linux-gnueabihf-pkg-config /usr/bin/
-#  export LD_LIBRARY_PATH="/usr/lib/arm-linux-gnueabihf:/usr/lib/arm-linux-gnueabihf/pulseaudio:/lib/arm-linux-gnueabihf"
-#  export PATH="/usr/bin/arm-linux-gnueabihf-pkg-config:/usr/bin/arm-linux-gnueabihf-strip:$PATH"
-  echo "PATH BEFORE TOOLCHAIN $PATH"
-  export CMAKE_TOOLCHAIN_FILE=/MuseScore/build/Linux+BSD/jessie-crosscompile-armhf.cmake
-
   make revision
+
+  CMAKE_TOOLCHAIN_FILE=/MuseScore/build/Linux+BSD/jessie-crosscompile-armhf.cmake \
+  LD_LIBRARY_PATH=/usr/lib/arm-linux-gnueabihf:/lib/arm-linux-gnueabihf \
   make "$@" portable
 }
 

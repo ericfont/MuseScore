@@ -20,24 +20,23 @@ if (PULSEAUDIO_LIBRARIES AND PULSEAUDIO_INCLUDE_DIRS)
 else (PULSEAUDIO_LIBRARIES AND PULSEAUDIO_INCLUDE_DIRS)
   # use pkg-config to get the directories and then use these values
   # in the FIND_PATH() and FIND_LIBRARY() calls
-  if (${ARCH} STREQUAL armhf)
-    message("doing cross compile x86-64 to armhf")
-    include(UsePkgConfig)
-    pkgconfig(libpulse PULSEAUDIO_INCLUDEDIRS PULSEAUDIO_LIBDIR PULSEAUDIO_LDFLAGS PULSEAUDIO_CFLAGS)
-    set( PULSEAUDIO_LIBRARY "${PULSEAUDIO_LIBDIR}/libpulse.so" )
-    set(PULSEAUDIO_FOUND TRUE)
-    set(PULSEAUDIO_FOUND TRUE)
-  else (${ARCH} STREQUAL armhf)
-  if (${CMAKE_MAJOR_VERSION} EQUAL 2 AND ${CMAKE_MINOR_VERSION} EQUAL 4)
+  if (DEFINED CMAKE_TOOLCHAIN_FILE)
+    message ("doing cross compile x86-64 to armhf")
+    include (UsePkgConfig)
+    pkgconfig (libpulse PULSEAUDIO_INCLUDEDIRS PULSEAUDIO_LIBDIR PULSEAUDIO_LDFLAGS PULSEAUDIO_CFLAGS)
+    set (PULSEAUDIO_LIBRARY "${PULSEAUDIO_LIBDIR}/libpulse.so" )
+    set (PULSEAUDIO_FOUND TRUE)
+  else (DEFINED CMAKE_TOOLCHAIN_FILE)
+    if (${CMAKE_MAJOR_VERSION} EQUAL 2 AND ${CMAKE_MINOR_VERSION} EQUAL 4)
     include(UsePkgConfig)
     pkgconfig(libpulse _PULSEAUDIO_INCLUDEDIR _PULSEAUDIO_LIBDIR _PULSEAUDIO_LDFLAGS _PULSEAUDIO_CFLAGS)
-  else (${CMAKE_MAJOR_VERSION} EQUAL 2 AND ${CMAKE_MINOR_VERSION} EQUAL 4)
+    else (${CMAKE_MAJOR_VERSION} EQUAL 2 AND ${CMAKE_MINOR_VERSION} EQUAL 4)
     find_package(PkgConfig)
     if (PKG_CONFIG_FOUND)
       pkg_check_modules(_PULSEAUDIO libpulse)
     endif (PKG_CONFIG_FOUND)
-  endif (${CMAKE_MAJOR_VERSION} EQUAL 2 AND ${CMAKE_MINOR_VERSION} EQUAL 4)
-  find_path(PULSEAUDIO_INCLUDE_DIR
+    endif (${CMAKE_MAJOR_VERSION} EQUAL 2 AND ${CMAKE_MINOR_VERSION} EQUAL 4)
+    find_path(PULSEAUDIO_INCLUDE_DIR
     NAMES
       pulse/pulseaudio.h
     PATHS
@@ -46,9 +45,9 @@ else (PULSEAUDIO_LIBRARIES AND PULSEAUDIO_INCLUDE_DIRS)
       /usr/local/include
       /opt/local/include
       /sw/include
-  )
-  
-  find_library(PULSEAUDIO_LIBRARY
+    )
+
+    find_library(PULSEAUDIO_LIBRARY
     NAMES
       pulse
     PATHS
@@ -57,9 +56,9 @@ else (PULSEAUDIO_LIBRARIES AND PULSEAUDIO_INCLUDE_DIRS)
       /usr/local/lib
       /opt/local/lib
       /sw/lib
-  )
+    )
 
-  find_library(PULSEAUDIO_SIMPLE_LIBRARY
+    find_library(PULSEAUDIO_SIMPLE_LIBRARY
     NAMES
       pulse-simple
     PATHS
@@ -68,16 +67,16 @@ else (PULSEAUDIO_LIBRARIES AND PULSEAUDIO_INCLUDE_DIRS)
       /usr/local/lib
       /opt/local/lib
       /sw/lib
-  )
+    )
 
-  if (PULSEAUDIO_LIBRARY)
+    if (PULSEAUDIO_LIBRARY)
     set(PULSEAUDIO_FOUND TRUE)
-  endif (PULSEAUDIO_LIBRARY)
+    endif (PULSEAUDIO_LIBRARY)
 
-  set(PULSEAUDIO_INCLUDE_DIRS
+    set(PULSEAUDIO_INCLUDE_DIRS
     ${PULSEAUDIO_INCLUDE_DIR}
-  )
- endif (${ARCH} STREQUAL armhf)
+    )
+  endif (DEFINED CMAKE_TOOLCHAIN_FILE)
 
   if (PULSEAUDIO_FOUND)
     set(PULSEAUDIO_LIBRARIES

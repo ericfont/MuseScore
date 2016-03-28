@@ -67,7 +67,7 @@ matrix:
       services:
         - docker
       script:
-        - "./build/travis/job2_AppImage/build.sh --x86-64 --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
+        - [[ "$APPIMAGE_BUILD_ARCHS" == *x86-64* ]] && "./build/travis/job2_AppImage/build.sh --x86-64 --upload-branches $APPIMAGE_UPLOAD_BRANCHES" || true
 
     # 3rd parallel build job - portable Linux AppImage 32-bit x86 build on CentOS
     - env: "JOB=AppImage_i686"
@@ -80,7 +80,7 @@ matrix:
       services:
         - docker
       script:
-        - "./build/travis/job2_AppImage/build.sh --i686 --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
+        - [[ "$APPIMAGE_BUILD_ARCHS" == *i686* ]] && "./build/travis/job2_AppImage/build.sh --i686 --upload-branches $APPIMAGE_UPLOAD_BRANCHES" || true
 
     # 4th parallel build job - portable Linux AppImage armhf build on Debian crosscompiler
     - env: "JOB=AppImage_armhf"
@@ -95,7 +95,7 @@ matrix:
       before_script:
         - "sudo ./build/travis/job2_AppImage/set-binfmt-misc.sh"
       script:
-        - "./build/travis/job2_AppImage/build.sh --armhf --upload-branches $APPIMAGE_UPLOAD_BRANCHES"
+        - [[ "$APPIMAGE_BUILD_ARCHS" == *armhf* ]] && "./build/travis/job2_AppImage/build.sh --armhf --upload-branches $APPIMAGE_UPLOAD_BRANCHES" || true
 
 notifications:
   recipients:

@@ -43,10 +43,16 @@ case "$1" in
   --armhf )
     shift
     # build MuseScore inside debian x86-64 multiarch image containing arm cross toolchain and libraries
-    docker run -i -v "${PWD}:/MuseScore" ericfont/musescore:jessie-crosscompile-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArm --build-only $makefile_overrides"
+    docker run -i -v "${PWD}:/MuseScore" \
+      ericfont/musescore:jessie-crosscompile-armhf \
+      /bin/bash -c \
+      "/MuseScore/build/Linux+BSD/portable/RecipeArm --build-only $makefile_overrides"
     # then run inside fully emulated arm image for AppImage packing step (which has trouble inside multiarch image)
     docker run -i --privileged multiarch/qemu-user-static:register
-    docker run -i -v "${PWD}:/MuseScore" --privileged ericfont/musescore:jessie-packaging-armhf /bin/bash -c "/MuseScore/build/Linux+BSD/portable/RecipeArm --package-only"
+    docker run -i -v "${PWD}:/MuseScore" --privileged \
+      ericfont/musescore:jessie-packaging-armhf \
+      /bin/bash -c \
+      "/MuseScore/build/Linux+BSD/portable/RecipeArm --package-only"
     ;;
 
   --i686 )

@@ -50,6 +50,3 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
 # Audio library include dirs (not usre this is being used)
 SET(LAME_INCLUDE_DIR /usr/include/lame)
-
-# path make sure get arm's pkg-config
-#SET(PATH /usr/bin/arm-linux-gnueabihf-pkg-config:${BINPATH})
