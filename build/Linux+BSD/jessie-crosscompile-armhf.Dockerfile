@@ -44,7 +44,8 @@ RUN apt-get download qtbase5-dev-tools:armhf && dpkg --force-all -i qtbase5-dev-
  apt-get download pkg-config:armhf && dpkg --force-all -i pkg-config_0.28-1.1_armhf.deb && \
  apt-get download pulseaudio:armhf && dpkg --force-all -i pulseaudio_5.0-13_armhf.deb && \
  apt-get download liblcms2-2:armhf && dpkg --force-all -i liblcms2-2_2.6-3+b3_armhf.deb && \
- apt-get download libmng1:armhf    && dpkg --force-all -i libmng1_1.0.10+dfsg-3.1+b3_armhf.deb
+ apt-get download libmng1:armhf    && dpkg --force-all -i libmng1_1.0.10+dfsg-3.1+b3_armhf.deb && \
+ apt-get download libicu52:armhf   && dpkg --force-all -i libicu52_52.1-8+deb8u3_armhf.deb
 
 #now get dependencies that aren't eneded for compiling, but which are needed by copy-libs for AppImage
 RUN apt-get download libicu52:armhf                  && dpkg --force-all -i libicu52_52.1-8+deb8u3_armhf.deb && \
