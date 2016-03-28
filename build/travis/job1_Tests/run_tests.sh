@@ -3,13 +3,14 @@
 
 cd build.debug/mtest
 
-xvfb-run -a ctest -j2 -VV -O output.log
+PROC_RET=0
 
-PROC_RET=$?
+while [ "$PROC_RET" -eq 0 ]; do
+  xvfb-run -a ctest -R tst_instrumentchange -j2 -VV -O output.log
+  PROC_RET=$?
+done
 
-if [ "$PROC_RET" -ne 0 ]; then
-  cat output.log
-fi
+cat output.log
 
 # Searching for merge conflicts, by searching for the begin/end markers.
 # Searching for the middle marker '=======)" won't work though as that is
