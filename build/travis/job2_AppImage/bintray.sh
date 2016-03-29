@@ -87,8 +87,14 @@ case "${ARCH}" in
   i686|i386|i[345678]86 )
     SYSTEM="${ARCH} (32 bit Intel/AMD)"
     ;;
-  *[Aa][Rr][Mm]* )
-    SYSTEM="${ARCH} (32 bit ARM)"
+  armel )
+    SYSTEM="${ARCH} (32-bit ARMv4t and above, software float)"
+    ;;
+  armhf )
+    SYSTEM="${ARCH} (32-bit ARMv7 and above, hardware float)"
+    ;;
+  aarch64 )
+    SYSTEM="${ARCH} (64-bit ARMv8 and above)"
     ;;
   * )
     echo "Error: unrecognised architecture '${ARCH}'" >&2
