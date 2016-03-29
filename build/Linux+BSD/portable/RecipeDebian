@@ -113,6 +113,10 @@ fetch-package-dependencies() {
     libbz2-1.0 $ARCH \
     libpcre3 $ARCH \
     qml-module-qtquick-controls $ARCH \
+    qml-module-qtquick-dialogs $ARCH \
+    qml-module-qtquick-layouts $ARCH \
+    qml-module-qtquick2 $ARCH \
+    qml-module-qtqml-models2 $ARCH \
     qt5-image-formats-plugins $ARCH \
     libwrap0 $ARCH 
 }
