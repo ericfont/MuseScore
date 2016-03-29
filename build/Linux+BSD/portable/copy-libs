@@ -131,7 +131,6 @@ building_on_Debian_Jessie() {
   copyLib libICE.so.6
   copyLib liblcms2.so.2
   copyLib libogg.so.0
-  copyLib libpulse.so.0
   copyLib libSM.so.6
   copyLib libsndfile.so.1
   copyLib libsqlite3.so.0
@@ -176,7 +175,6 @@ building_on_Debian_Jessie() {
   copyLib libjbig.so.0
   copyLib libjson-c.so && mv "$dest_dir/libjson-c.so" "$dest_dir/libjson-c.so.2" #renamed to .2 cause didn't have
   copyLib liborc-0.4.so.0
-  copyLib libpulsecommon-5.0.so
   copyLib libvorbisenc.so.2
   copyLib libwayland-client.so.0
   copyLib libwayland-server.so.0
@@ -216,6 +214,10 @@ building_on_Debian_Jessie() {
   #needed by Arch Linux
   dest_dir="$lib_dest"
   copyLib libpcre.so.3
+
+  #needed if don't have pulseaudio installed
+  copyLib libpulse.so.0
+  copyLib libpulsecommon-5.0.so
   copyLib libasound_module_pcm_pulse.so
 }
 
@@ -252,8 +254,11 @@ building_on_CentOS_6() {
   copyLib libudev.so.0
   copyLib liblcms.so.1
 
-  # Needed by Gentoo 2.2:
+  # Needed if don't have pulseaudio installed
   copyLib libpulse.so.0
+  copyLib libpulsecommon-5.0.so
+  copyLib libasound_module_pcm_pulse.so
+}
 }
 
 locateLib() {
