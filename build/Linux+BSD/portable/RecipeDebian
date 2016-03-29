@@ -68,7 +68,7 @@ fetch-build-dependencies() {
     qttools5-dev-tools:$ARCH 
 
   # forcibly install because will break aptitude dependency rules 
-  force-install qtbase5-dev-tools
+  force-install qtbase5-dev-tools $ARCH
 }
 
 ###################################################################################
