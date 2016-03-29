@@ -259,7 +259,6 @@ building_on_CentOS_6() {
   copyLib libpulsecommon-5.0.so
   copyLib libasound_module_pcm_pulse.so
 }
-}
 
 locateLib() {
   # First search $LD_LIBRARY_PATH
