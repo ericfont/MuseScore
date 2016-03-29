@@ -67,8 +67,8 @@ fetch-build-dependencies() {
     libqt5webkit5-dev:$ARCH \
     qttools5-dev-tools:$ARCH 
 
-  # qtbase5-dev-tools 
-  apt-get download qtbase5-dev-tools:$ARCH && dpkg --force-all -i qtbase5-dev-tools_5.3.2+dfsg-4+deb8u1_$ARCH.deb
+  # forcibly install because will break aptitude dependency rules 
+  force-install qtbase5-dev-tools
 }
 
 ###################################################################################
@@ -77,36 +77,36 @@ fetch-build-dependencies() {
 fetch-package-dependencies() {
   echo "fetching AppImage packaging + runtime dependencies for arch: $ARCH"
 
-  apt-get install -y \
-    alsa-tools:$ARCH \
-    alsa-utils:$ARCH \
-    alsa-base \
-    pkg-config:$ARCH \
-    pulseaudio:$ARCH \
-    liblcms2-2:$ARCH \
-    libmng1:$ARCH \
-    libicu52:$ARCH \
-    libqt5quickwidgets5:$ARCH \
-    qtquick1-5-dev:$ARCH \
-    qml-module-qtquick-controls:$ARCH \
-    libqt5multimedia5:$ARCH \
-    libqt5multimediawidgets5:$ARCH \
-    libqt5positioning5:$ARCH \
-    libqt5sensors5:$ARCH \
-    libqt5webkit5:$ARCH \
-    qt5-image-formats-plugins:$ARCH \
-    libpulse0:$ARCH \
-    libjson-c-dev:$ARCH \
-    libexpat1-dev:$ARCH \
-    libdbus-1-3:$ARCH \
-    libglib2.0-0:$ARCH \
-    libkeyutils-dev:$ARCH \
-    libwrap0:$ARCH \
-    libacl1:$ARCH \
-    libreadline6:$ARCH \
-    libbz2-1.0:$ARCH \
-    libpcre3:$ARCH \
-    libasound2-plugins:$ARCH
+  force-install \
+    alsa-base any \
+    alsa-tools $ARCH \
+    alsa-utils $ARCH \
+    libasound2-plugins $ARCH \
+    pulseaudio $ARCH \
+    pkg-config $ARCH \
+    liblcms2-2 $ARCH \
+    libmng1 $ARCH \
+    libicu52 $ARCH \
+    libqt5quickwidgets5 $ARCH \
+    qtquick1-5-dev $ARCH \
+    libqt5multimedia5 $ARCH \
+    libqt5multimediawidgets5 $ARCH \
+    libqt5positioning5 $ARCH \
+    libqt5sensors5 $ARCH \
+    libqt5webkit5 $ARCH \
+    libpulse0 $ARCH \
+    libjson-c-dev $ARCH \
+    libexpat1-dev $ARCH \
+    libdbus-1-3 $ARCH \
+    libglib2.0-0 $ARCH \
+    libkeyutils-dev $ARCH \
+    libwrap0 $ARCH \
+    libacl1 $ARCH \
+    libreadline6 $ARCH \
+    libbz2-1.0 $ARCH \
+    libpcre3 $ARCH \
+    qml-module-qtquick-controls $ARCH \
+    qt5-image-formats-plugins $ARCH
 }
 
 ########################################################
@@ -154,6 +154,17 @@ package() {
 
   ls -lh "$appimage"
 
+}
+
+########################################################################
+# helper function needed for forcibly installing packages
+# which would break aptitude's dependency requirements
+########################################################################
+force-install() {
+  while (($#)); do
+    apt-get download $1:$2 && dpkg --force-all -i $1*
+    shift 2
+  done
 }
 
 main "$@"
