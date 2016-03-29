@@ -6,7 +6,7 @@ cd build.debug/mtest
 PROC_RET=0
 
 while [ "$PROC_RET" -eq 0 ]; do
-  xvfb-run -a ctest -R tst_instrumentchange -j2 -VV -O output.log
+  xvfb-run -a ctest -R tst_instrumentchange -VV -O output.log
   PROC_RET=$?
 done
 
