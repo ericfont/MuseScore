@@ -271,9 +271,9 @@ locateLib() {
       echo "$d/$1"
       return
     else
-      library="$(ls "$d/$1."* | grep -Em1 "$1.[0-9]+")" 
-      if [ "$library" ]; then
-        echo "$library"
+      path="$(ls "$d/$1."* | grep -Em1 "$1.[0-9]+")" 
+      if [ "$path" ]; then
+        echo "$path"
         return
       fi
     fi
