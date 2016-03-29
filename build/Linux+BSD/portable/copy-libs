@@ -256,10 +256,12 @@ building_on_CentOS_6() {
   copyLib libudev.so.0
   copyLib liblcms.so.1
 
-  # Needed if don't have pulseaudio installed
-  copyLib libpulse.so.0
-  copyLib libpulsecommon-5.0.so
-  copyLib libasound_module_pcm_pulse.so
+  # Needed if don't have pulseaudio installed, but only more advanced distros like
+  # Arch, Gentoo, Debain minimal, CentOS 6 don't have pulse installed, so leave it out.
+  # So leave it out here
+  #copyLib libpulse.so.0
+  #copyLib libpulsecommon-8.0.so
+  #copyLib libasound_module_pcm_pulse.so  # found in /usr/lib64/alsa-lib/
 }
 
 locateLib() {
