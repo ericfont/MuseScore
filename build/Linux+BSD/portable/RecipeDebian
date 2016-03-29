@@ -26,8 +26,8 @@ main() {
       package
       ;;
     *)
-      fetch-package-dependencies
       fetch-build-dependencies
+      fetch-package-dependencies
       build "$@"
       package
   esac
