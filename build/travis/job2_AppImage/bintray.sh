@@ -82,19 +82,19 @@ ARCH="$(basename "$FILE" | sed -r 's|^.*-([^-]*)\.AppImage$|\1|')"
 
 case "${ARCH}" in
   x86_64|amd64 )
-    SYSTEM="${ARCH} (64 bit Intel/AMD)"
+    SYSTEM="${ARCH} (64-bit Intel/AMD)"
     ;;
   i686|i386|i[345678]86 )
-    SYSTEM="${ARCH} (32 bit Intel/AMD)"
+    SYSTEM="${ARCH} (32-bit Intel/AMD)"
     ;;
   armel )
-    SYSTEM="${ARCH} (32-bit ARMv4t and above, software float)"
+    SYSTEM="${ARCH} (old 32-bit ARM)"
     ;;
   armhf )
-    SYSTEM="${ARCH} (32-bit ARMv7 and above, hardware float)"
+    SYSTEM="${ARCH} (new 32-bit ARM)"
     ;;
   aarch64 )
-    SYSTEM="${ARCH} (64-bit ARMv8 and above)"
+    SYSTEM="${ARCH} (64-bit ARM)"
     ;;
   * )
     echo "Error: unrecognised architecture '${ARCH}'" >&2
