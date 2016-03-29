@@ -65,7 +65,13 @@ fetch-build-dependencies() {
     libqt5xmlpatterns5-dev:$ARCH \
     libqt5svg5-dev:$ARCH \
     libqt5webkit5-dev:$ARCH \
-    qttools5-dev-tools:$ARCH 
+    qttools5-dev-tools:$ARCH \
+    cross-gcc-dev \
+    binutils-arm-linux-gnueabihf \
+    crossbuild-essential-armhf \
+    qemu-user-static \
+    cmake \
+    git
 
   # forcibly install because will break aptitude dependency rules 
   force-install qtbase5-dev-tools $ARCH
