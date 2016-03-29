@@ -13,11 +13,11 @@ main() {
   shift 2 #need to adjust parameter list so $makefile_overrides start at $1
 
   case $COMMAND in
-    "--fetch-compile-dependencies-only")
-      fetch-compile-dependencies
+    "--fetch-build-dependencies-only")
+      fetch-build-dependencies
       ;;
-    "--fetch-runtime-dependencies-only")
-      fetch-runtime-dependencies
+    "--fetch-package-dependencies-only")
+      fetch-package-dependencies
       ;;
     "--build-only")
       build "$@"
@@ -26,8 +26,8 @@ main() {
       package
       ;;
     *)
-      fetch-compile-dependencies
-      fetch-runtime-dependencies
+      fetch-package-dependencies
+      fetch-build-dependencies
       build "$@"
       package
   esac
@@ -38,12 +38,12 @@ main() {
 #################################################################################
 # Fetch compile-time dependencies only
 ##################################################################################
-fetch-compile-dependencies() {
+fetch-build-dependencies() {
   echo "fetching dependencies for arm arch: $ARCH"
 
   # get cross compiler toolchain
   apt-key adv --fetch-keys http://emdebian.org/tools/debian/emdebian-toolchain-archive.key
-  echo deb http://emdebian.org/tools/debian/ jessie main > /etc/apt/sources.list.d/crosstools.list
+  echo "deb http://emdebian.org/tools/debian/ jessie main" > /etc/apt/sources.list.d/crosstools.list
 
   # allow to download $ARCH-specific packages
   dpkg --add-architecture $ARCH
@@ -67,19 +67,46 @@ fetch-compile-dependencies() {
     libqt5webkit5-dev:$ARCH \
     qttools5-dev-tools:$ARCH 
 
-  apt-
+  # qtbase5-dev-tools 
+  apt-get download qtbase5-dev-tools:$ARCH && dpkg --force-all -i qtbase5-dev-tools_5.3.2+dfsg-4+deb8u1_$ARCH.deb
 }
 
 ###################################################################################
 # Fetch run-time dependencies only...to be run after fetching compile dependencies
 ###################################################################################
-fetch-runtime-dependencies() {
-  echo "fetching runtime dependencies for arch: $ARCH"
+fetch-package-dependencies() {
+  echo "fetching AppImage packaging + runtime dependencies for arch: $ARCH"
 
- qtquick1-5-dev:$ARCH
-libqt5quickwidgets5:$ARCH
-qml-module-qtquick-controls:$ARCH
-    libicu52:$ARCH
+  apt-get install -y \
+    alsa-tools:$ARCH \
+    alsa-utils:$ARCH \
+    alsa-base \
+    pkg-config:$ARCH \
+    pulseaudio:$ARCH \
+    liblcms2-2:$ARCH \
+    libmng1:$ARCH \
+    libicu52:$ARCH \
+    libqt5quickwidgets5:$ARCH \
+    qtquick1-5-dev:$ARCH \
+    qml-module-qtquick-controls:$ARCH \
+    libqt5multimedia5:$ARCH \
+    libqt5multimediawidgets5:$ARCH \
+    libqt5positioning5:$ARCH \
+    libqt5sensors5:$ARCH \
+    libqt5webkit5:$ARCH \
+    qt5-image-formats-plugins:$ARCH \
+    libpulse0:$ARCH \
+    libjson-c-dev:$ARCH \
+    libexpat1-dev:$ARCH \
+    libdbus-1-3:$ARCH \
+    libglib2.0-0:$ARCH \
+    libkeyutils-dev:$ARCH \
+    libwrap0:$ARCH \
+    libacl1:$ARCH \
+    libreadline6:$ARCH \
+    libbz2-1.0:$ARCH \
+    libpcre3:$ARCH \
+    libasound2-plugins:$ARCH
 }
 
 ########################################################
@@ -93,7 +120,6 @@ build() {
   make revision
 
   if [ "$ARCH" == "armhf" ]; then
-    shift
     LIBARM="/lib/arm-linux-gnueabihf" # might generalize in future to support other archs
     CMAKE_TOOLCHAIN_FILE="/MuseScore/build/Linux+BSD/jessie-crosscompile-armhf.cmake" \
     LD_LIBRARY_PATH="/usr$LIBARM:/usr$LIBARM/alsa-lib:/usr$LIBARM/pulseaudio:$LIBARM" \
