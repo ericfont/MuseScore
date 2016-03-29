@@ -208,9 +208,9 @@ building_on_Debian_Jessie() {
   copyLib libQt5Designer.so.5
   copyLib libQt5QuickWidgets.so.5
   copyLib libQt5Test.so.5
-  copyLib libQt5XcbQpa.so.5
 
   #jessie doesn't seem to have the following, although in sid this is provided by libqt5gui5
+  #copyLib libQt5XcbQpa.so.5
   #copyQt plugins/xcbglintegrations/libqxcb-glx-integration.so # Needed by plugins which open a window
 
   #needed by Arch Linux
