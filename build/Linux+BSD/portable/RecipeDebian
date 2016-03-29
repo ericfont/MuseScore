@@ -93,8 +93,9 @@ fetch-package-dependencies() {
     liblcms2-2 $ARCH \
     libmng1 $ARCH \
     libicu52 $ARCH \
-    libqt5quickwidgets5 $ARCH \
     qtquick1-5-dev $ARCH \
+    libqt5quickwidgets5 $ARCH \
+    libqt5gui5 $ARCH \
     libqt5multimedia5 $ARCH \
     libqt5multimediawidgets5 $ARCH \
     libqt5positioning5 $ARCH \
@@ -112,7 +113,8 @@ fetch-package-dependencies() {
     libbz2-1.0 $ARCH \
     libpcre3 $ARCH \
     qml-module-qtquick-controls $ARCH \
-    qt5-image-formats-plugins $ARCH
+    qt5-image-formats-plugins $ARCH \
+    libwrap0 $ARCH 
 }
 
 ########################################################
@@ -127,7 +129,7 @@ build() {
 
   if [ "$ARCH" == "armhf" ]; then
     LIBARM="/lib/arm-linux-gnueabihf" # might generalize in future to support other archs
-    CMAKE_TOOLCHAIN_FILE="/MuseScore/build/Linux+BSD/jessie-crosscompile-armhf.cmake" \
+    CMAKE_TOOLCHAIN_FILE="/MuseScore/build/Linux+BSD/portable/ARM/jessie-crosscompile-armhf.cmake" \
     LD_LIBRARY_PATH="/usr$LIBARM:/usr$LIBARM/alsa-lib:/usr$LIBARM/pulseaudio:$LIBARM" \
     make "$@" portable
   else

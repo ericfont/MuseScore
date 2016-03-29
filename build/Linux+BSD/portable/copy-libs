@@ -209,7 +209,9 @@ building_on_Debian_Jessie() {
   copyLib libQt5QuickWidgets.so.5
   copyLib libQt5Test.so.5
   copyLib libQt5XcbQpa.so.5
-  copyQt plugins/xcbglintegrations/libqxcb-glx-integration.so # Needed by plugins which open a window
+
+  #jessie doesn't seem to have the following, although in sid this is provided by libqt5gui5
+  #copyQt plugins/xcbglintegrations/libqxcb-glx-integration.so # Needed by plugins which open a window
 
   #needed by Arch Linux
   dest_dir="$lib_dest"
@@ -268,6 +270,12 @@ locateLib() {
     if [ -e "$d/$1" ]; then
       echo "$d/$1"
       return
+    else
+      library="$(ls "$d/$1."* | grep -Em1 "$1.[0-9]+")" 
+      if [ "$library" ]; then
+        echo "$library"
+        return
+      fi
     fi
   done
   # If it wasn't found then search library cache
