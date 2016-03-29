@@ -251,6 +251,9 @@ building_on_CentOS_6() {
   copyLib libpng12.so.0
   copyLib libudev.so.0
   copyLib liblcms.so.1
+
+  # Needed by Gentoo 2.2:
+  copyLib libpulse.so.0
 }
 
 locateLib() {

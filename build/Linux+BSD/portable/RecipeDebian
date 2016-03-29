@@ -1,22 +1,26 @@
 #!/bin/bash
 
-# This file is designed to run in debian jessie docker images
+# This file is designed to run in debian jessie docker images.
+
+COMMAND=$1
+ARCH=$2
 
 main() {
 
   set -e # Halt on error
   set -x # Be verbose
 
-  case $1 in
-    "--build-only")
-      shift #need to adjust parameter list so $makefile_overrides start at $1
-      build "$@"
-      ;;
+  shift 2 #need to adjust parameter list so $makefile_overrides start at $1
+
+  case $COMMAND in
     "--fetch-compile-dependencies-only")
       fetch-compile-dependencies
       ;;
     "--fetch-runtime-dependencies-only")
       fetch-runtime-dependencies
+      ;;
+    "--build-only")
+      build "$@"
       ;;
     "--package-only")
       package
@@ -28,23 +32,23 @@ main() {
       package
   esac
 
-  echo 'RecipeARM completed'
+  echo 'RecipeDebianCross completed'
 }
 
-########################################################
-# Fetch dependencies only
-########################################################
+#################################################################################
+# Fetch compile-time dependencies only
+##################################################################################
 fetch-compile-dependencies() {
-  ARCH=armhf
   echo "fetching dependencies for arm arch: $ARCH"
 
-  `apt-key adv --fetch-keys http://emdebian.org/tools/debian/emdebian-toolchain-archive.key`
-  `echo deb http://emdebian.org/tools/debian/ jessie main > /etc/apt/sources.list.d/crosstools.list`
+  # get cross compiler toolchain
+  apt-key adv --fetch-keys http://emdebian.org/tools/debian/emdebian-toolchain-archive.key
+  echo deb http://emdebian.org/tools/debian/ jessie main > /etc/apt/sources.list.d/crosstools.list
 
-  ` dpkg --add-architecture armhf`
+  # allow to download $ARCH-specific packages
+  dpkg --add-architecture $ARCH
 
-
-  `apt-get install -y \
+  apt-get clean && apt-get update && apt-get install -y \
     libsndfile1-dev:$ARCH \
     libasound2-dev:$ARCH \
     portaudio19-dev:$ARCH \
@@ -61,12 +65,16 @@ fetch-compile-dependencies() {
     libqt5xmlpatterns5-dev:$ARCH \
     libqt5svg5-dev:$ARCH \
     libqt5webkit5-dev:$ARCH \
-    qttools5-dev-tools:$ARCH `
+    qttools5-dev-tools:$ARCH 
 
+  apt-
 }
 
+###################################################################################
+# Fetch run-time dependencies only...to be run after fetching compile dependencies
+###################################################################################
 fetch-runtime-dependencies() {
-  echo "fetching runtime dependencies for arm arch: $1"
+  echo "fetching runtime dependencies for arch: $ARCH"
 
  qtquick1-5-dev:$ARCH
 libqt5quickwidgets5:$ARCH
@@ -78,16 +86,21 @@ qml-module-qtquick-controls:$ARCH
 # BUILD MuseScore PORTABLE (Compile, not package)
 ########################################################
 build() {
-  echo 'building'
+  echo "building MuseScore Portable for arch: $ARCH"
 
   cd MuseScore
 
   make revision
 
-  LIBARM="/lib/arm-linux-gnueabihf" # might generalize in future to support other arms
-  CMAKE_TOOLCHAIN_FILE="/MuseScore/build/Linux+BSD/jessie-crosscompile-armhf.cmake" \
-  LD_LIBRARY_PATH="/usr$LIBARM:/usr$LIBARM/alsa-lib:/usr$LIBARM/pulseaudio:$LIBARM" \
-  make "$@" portable
+  if [ "$ARCH" == "armhf" ]; then
+    shift
+    LIBARM="/lib/arm-linux-gnueabihf" # might generalize in future to support other archs
+    CMAKE_TOOLCHAIN_FILE="/MuseScore/build/Linux+BSD/jessie-crosscompile-armhf.cmake" \
+    LD_LIBRARY_PATH="/usr$LIBARM:/usr$LIBARM/alsa-lib:/usr$LIBARM/pulseaudio:$LIBARM" \
+    make "$@" portable
+  else
+    echo "This bash script only supports armhf cross at the moment"
+  fi
 }
 
 
