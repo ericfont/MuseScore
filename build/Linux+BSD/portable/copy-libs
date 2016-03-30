@@ -217,11 +217,15 @@ building_on_Debian_Jessie() {
   dest_dir="$lib_dest"
   copyLib libpcre.so.3
 
-  #needed if don't have pulseaudio installed
+  # needed if don't have pulseaudio installed (e.g. in a minimal chroot on Android)
   copyLib libpulse.so.0
   copyLib libpulsecommon-5.0.so
-  dest_dir="$lib_dest/alsa-lib"
-  copyLib libasound_module_pcm_pulse.so
+
+  # If AppImage is run with alsa, then will complain:
+  # "Cannot open shared library /usr/lib/arm-linux-gnueabihf/alsa-lib/libasound_module_pcm_pulse.so"
+  # but cannot seem to figure out how to get the AppImage, so exclude for now, hopefully figure out later.
+  #dest_dir="$lib_dest/alsa-lib"
+  #copyLib libasound_module_pcm_pulse.so #can add, but if mscore run without alsa, will complain missing
 }
 
 
