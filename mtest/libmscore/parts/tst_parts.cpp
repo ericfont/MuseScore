@@ -1072,6 +1072,7 @@ void TestParts::removeSelect_105251()
 
       // select the first chordrest
       Element* e = score->firstMeasure()->findChordRest(0, 0);
+      qDebug( "%d", e->selected());
       QVERIFY(e->selected() == false);
       score->select(e, SelectType::SINGLE, 0);
 

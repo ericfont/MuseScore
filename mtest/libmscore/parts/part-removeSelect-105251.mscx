@@ -5,10 +5,9 @@
     <currentLayer>0</currentLayer>
     <Division>480</Division>
     <Style>
-      <lastSystemFillLimit>0</lastSystemFillLimit>
       <page-layout>
-        <page-height>1683.36</page-height>
-        <page-width>1190.88</page-width>
+        <page-height>1683.78</page-height>
+        <page-width>1190.55</page-width>
         <page-margins type="even">
           <left-margin>56.6929</left-margin>
           <right-margin>56.6929</right-margin>
@@ -29,7 +28,7 @@
     <showFrames>1</showFrames>
     <showMargins>0</showMargins>
     <metaTag name="arranger"></metaTag>
-    <metaTag name="composer">Composer</metaTag>
+    <metaTag name="composer"></metaTag>
     <metaTag name="copyright"></metaTag>
     <metaTag name="lyricist"></metaTag>
     <metaTag name="movementNumber"></metaTag>
@@ -38,7 +37,7 @@
     <metaTag name="source"></metaTag>
     <metaTag name="translator"></metaTag>
     <metaTag name="workNumber"></metaTag>
-    <metaTag name="workTitle">Title</metaTag>
+    <metaTag name="workTitle">testpart1</metaTag>
     <PageList>
       <Page>
         <System>
@@ -50,49 +49,72 @@
     <Part>
       <Staff id="1">
         <StaffType group="pitched">
-          <name>stdNormal</name>
+          <name>Standard</name>
           </StaffType>
+        <bracket type="-1" span="0"/>
         </Staff>
-      <trackName>Piano</trackName>
+      <trackName>Alto</trackName>
       <Instrument>
-        <longName>Piano</longName>
-        <shortName>Pno.</shortName>
-        <trackName>Piano</trackName>
-        <minPitchP>21</minPitchP>
-        <maxPitchP>108</maxPitchP>
-        <minPitchA>21</minPitchA>
-        <maxPitchA>108</maxPitchA>
-        <clef staff="2">F</clef>
+        <longName>Alto</longName>
+        <shortName>A.</shortName>
+        <trackName>Alto</trackName>
+        <minPitchP>55</minPitchP>
+        <maxPitchP>77</maxPitchP>
+        <minPitchA>55</minPitchA>
+        <maxPitchA>74</maxPitchA>
         <Articulation>
           <velocity>100</velocity>
-          <gateTime>95</gateTime>
-          </Articulation>
-        <Articulation name="staccatissimo">
-          <velocity>100</velocity>
-          <gateTime>33</gateTime>
+          <gateTime>100</gateTime>
           </Articulation>
         <Articulation name="staccato">
           <velocity>100</velocity>
-          <gateTime>50</gateTime>
-          </Articulation>
-        <Articulation name="portato">
-          <velocity>100</velocity>
-          <gateTime>67</gateTime>
+          <gateTime>85</gateTime>
           </Articulation>
         <Articulation name="tenuto">
           <velocity>100</velocity>
           <gateTime>100</gateTime>
-          </Articulation>
-        <Articulation name="marcato">
-          <velocity>120</velocity>
-          <gateTime>67</gateTime>
           </Articulation>
         <Articulation name="sforzato">
           <velocity>120</velocity>
           <gateTime>100</gateTime>
           </Articulation>
         <Channel>
-          <program value="0"/>
+          </Channel>
+        </Instrument>
+      </Part>
+    <Part>
+      <Staff id="2">
+        <StaffType group="pitched">
+          <name>Standard</name>
+          </StaffType>
+        <bracket type="-1" span="0"/>
+        </Staff>
+      <trackName>Tenor</trackName>
+      <Instrument>
+        <longName>Tenor</longName>
+        <shortName>T.</shortName>
+        <trackName>Tenor</trackName>
+        <minPitchP>48</minPitchP>
+        <maxPitchP>72</maxPitchP>
+        <minPitchA>48</minPitchA>
+        <maxPitchA>69</maxPitchA>
+        <Articulation>
+          <velocity>100</velocity>
+          <gateTime>100</gateTime>
+          </Articulation>
+        <Articulation name="staccato">
+          <velocity>100</velocity>
+          <gateTime>85</gateTime>
+          </Articulation>
+        <Articulation name="tenuto">
+          <velocity>100</velocity>
+          <gateTime>100</gateTime>
+          </Articulation>
+        <Articulation name="sforzato">
+          <velocity>120</velocity>
+          <gateTime>100</gateTime>
+          </Articulation>
+        <Channel>
           </Channel>
         </Instrument>
       </Part>
@@ -101,6 +123,31 @@
         <height>10</height>
         </VBox>
       <Measure number="1">
+        <Clef>
+          <concertClefType>G</concertClefType>
+          <transposingClefType>G</transposingClefType>
+          </Clef>
+        <TimeSig>
+          <sigN>4</sigN>
+          <sigD>4</sigD>
+          <showCourtesySig>1</showCourtesySig>
+          </TimeSig>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        <BarLine>
+          <subtype>end</subtype>
+          <span>1</span>
+          </BarLine>
+        </Measure>
+      </Staff>
+    <Staff id="2">
+      <Measure number="1">
+        <Clef>
+          <concertClefType>G8vb</concertClefType>
+          <transposingClefType>G8vb</transposingClefType>
+          </Clef>
         <TimeSig>
           <sigN>4</sigN>
           <sigD>4</sigD>
