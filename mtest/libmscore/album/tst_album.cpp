@@ -31,6 +31,7 @@ class TestAlbum : public QObject, public MTest
       void album01();
       void album_78521();
       void album_76101();
+      void album_105646();
 
       };
 
@@ -94,6 +95,20 @@ void TestAlbum::album_76101()
       QVERIFY(compareFiles("album_76101.mscx", DIR + "album_76101-ref.mscx"));
       }
 
+//---------------------------------------------------------
+//   album_105646
+//    appends two scores that were saved in continous mode
+//    Results in a Assert failure
+//--------------------------------------------------------
+
+void TestAlbum::album_105646()
+      {
+      Album album;
+      album.setName("test");
+      album.append(new AlbumItem(root + "/" + DIR + "album_layout2-assert-staves.mscx"));
+      album.append(new AlbumItem(root + "/" + DIR + "album_layout2-assert-staves.mscx"));
+      album.createScore("album_layout2-assert-staves_joined.mscz"); // assert failure occurs when creating .mscz (not .mscx)
+      }
 QTEST_MAIN(TestAlbum)
 #include "tst_album.moc"
 
