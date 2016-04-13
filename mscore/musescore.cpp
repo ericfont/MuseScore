@@ -1034,6 +1034,137 @@ MuseScore::MuseScore()
 MuseScore::~MuseScore()
       {
       delete synti;
+
+      // delete in reverse order of creation in MuseScore constructor:
+      delete cornerLabel;
+      delete autoSaveTimer;
+      delete menuWorkspaces;
+      delete _playButton;
+      delete mag;
+      delete tab2;
+      delete tab1;
+      delete splitter;
+      delete importmidiShowPanel;
+      delete importmidiPanel;
+      delete _navigator;
+      delete layout;
+      delete mainWindow;
+      delete playMode;
+      delete _modeText; // delete _modeText before delete _statusBar because status bar deconstructor will delete _modeText
+      delete _positionLabel; // delete _positionLabel before delete _statusBar because status bar deconstructor will delete _positionLabel
+      delete _statusBar;
+      delete ucheck;
+
+      // delete all pointers in MuseScore object
+      // might end up calling deleting twice, but not a problem because delete first checks if pointer is null
+      //delete cv; //someone else deletes this...shouldn't do it here...should remain as dynamically allocated object
+      /*delete ucheck;
+      delete layout;
+      delete splitter;
+      delete tab1;
+      delete tab2;
+      delete _navigator;
+      delete importmidiPanel;
+      delete importmidiShowPanel;
+      delete mainWindow;
+      delete menuView;
+      delete openRecent;
+      delete mag;
+      delete viewModeCombo;
+      delete playId;
+      delete _progressBar;
+      delete preferenceDialog;
+      delete cpitchTools;
+      delete fileTools;
+      delete transportTools;
+      delete entryTools;
+      delete _textTools;
+      delete _pianoTools;
+      delete _mediaDialog;
+      delete _drumTools;
+      delete voiceTools;
+      delete instrList;
+      delete measuresDialog;
+      delete insertMeasuresDialog;
+      // delete masterPalette; //-Wdelete-incomplete....no deconstructor
+      delete _pluginCreator;
+      delete pluginManager;
+      delete selectionWindow;
+      delete _fileMenu;
+      delete menuEdit;
+      delete menuNotes;
+      delete menuLayout;
+      delete menuStyle;
+      // delete albumManager; //-Wdelete-incomplete....no deconstructor
+      delete _searchDialog;
+      delete searchCombo;
+      delete playPanel;
+      delete mixer;
+      delete synthControl;
+      delete debugger;
+      delete measureListEdit;
+      delete pageSettings;
+      delete symbolDialog;
+      delete clefPalette;
+      delete keyPalette;
+      delete keyEditor;
+      delete chordStyleEditor;
+      //delete _statusBar; // already deleted
+      //delete _modeText; // already deleted
+      delete _positionLabel;
+      //delete newWizard; //-Wdelete-incomplete....no deconstructor
+      delete helpBrowser;
+      delete manualDock;
+      delete paletteBox;
+      delete _inspector;
+      //delete omrPanel; //-Wdelete-incomplete....no deconstructor
+      //delete se; //-Wdelete-incomplete....no deconstructor
+      delete autoSaveTimer;
+      qDeleteAll(qmlPluginActions);
+      qDeleteAll(pluginActions);
+      delete pluginMapper;
+      delete pianorollEditor;
+      delete drumrollEditor;
+      delete startcenter;
+      delete loginDialog;
+      delete uploadScoreDialog;
+      delete _loginManager;
+      delete loadScoreDialog;
+      delete saveScoreDialog;
+      delete loadStyleDialog;
+      delete saveStyleDialog;
+      delete saveImageDialog;
+      delete loadChordStyleDialog;
+      delete saveChordStyleDialog;
+      delete loadSfzFileDialog;
+      delete loadBackgroundDialog;
+      delete loadScanDialog;
+      delete loadAudioDialog;
+      delete loadDrumsetDialog;
+      delete loadPluginDialog;
+      delete loadPaletteDialog;
+      delete savePaletteDialog;
+      delete saveDrumsetDialog;
+      delete savePluginDialog;
+      delete editRasterDialog;
+      delete hRasterAction;
+      delete vRasterAction;
+      delete menuWorkspaces;
+      delete workspaces;
+      delete layerSwitch;
+      delete playMode;
+      delete networkManager;
+      delete lastCmd;
+      delete lastShortcut;
+      delete _helpEngine;
+      delete countInAction;
+      delete metronomeAction;
+      delete loopAction;
+      delete loopInAction;
+      delete loopOutAction;
+      delete panAction;
+      delete cornerLabel;
+      delete _playButton;*/
       }
 
 //---------------------------------------------------------
