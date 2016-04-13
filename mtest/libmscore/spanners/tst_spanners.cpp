@@ -51,6 +51,7 @@ class TestSpanners : public QObject, public MTest
       void spanners11();            // remove a measure entirely containing a LyricsLine and undo
       void spanners12();            // remove a measure containing the middle portion of a LyricsLine and undo
       void spanners13();            // drop a line break at the middle of a LyricsLine and check LyricsLineSegments
+      void spanners_105951();       // delete multiple spanners where some cross linebreak
       };
 
 //---------------------------------------------------------
@@ -596,6 +597,41 @@ void TestSpanners::spanners13()
       delete score;
       }
 
+//---------------------------------------------------------
+///  spanners_105951
+///   delete multiple spanners where some cross linebreak
+//
+//---------------------------------------------------------
+
+void TestSpanners::spanners_105951()
+      {
+      DropData          dropData;
+      Score*            score;
+
+      score = readScore(DIR + "spanners_105951-slur-over-linebreak.mscx");
+      QVERIFY(score);
+      score->doLayout();
+
+      delete score;
+
+      score = readScore(DIR + "spanners_105951-tie-over-linebreak.mscx");
+      QVERIFY(score);
+      score->doLayout();
+
+      delete score;
+
+      score = readScore(DIR + "spanners_105951-gliss-over-linebreak.mscx");
+      QVERIFY(score);
+      score->doLayout();
+
+      delete score;
+
+      score = readScore(DIR + "spanners_105951-hairpin-over-linebreak.mscx");
+      QVERIFY(score);
+      score->doLayout();
+
+      delete score;
+      }
 
 QTEST_MAIN(TestSpanners)
 #include "tst_spanners.moc"
