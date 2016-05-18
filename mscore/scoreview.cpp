@@ -3588,6 +3588,8 @@ void ScoreView::select(QMouseEvent* ev)
             else if (keyState & Qt::ControlModifier) {
                   if (curElement->isMeasure())
                         return;
+#if 0
+                  // deselection of current element now handled in elementNear
                   if (curElement->selected()) {
                         if (ev->type() == QEvent::MouseButtonPress) {
                               // do not deselect on ButtonPress, only on ButtonRelease
@@ -3599,6 +3601,7 @@ void ScoreView::select(QMouseEvent* ev)
                               }
                         return;
                         }
+#endif
                   addSelect = true;
                   st = SelectType::ADD;
                   }
@@ -3639,7 +3642,8 @@ bool ScoreView::mousePress(QMouseEvent* ev)
       {
       startMoveI     = ev->pos();
       data.startMove = imatrix.map(QPointF(startMoveI));
-      curElement     = elementNear(data.startMove);
+      bool next      = ev->modifiers() & Qt::ControlModifier;
+      curElement     = elementNear(data.startMove, !next);
 
       if (curElement && curElement->isMeasure()) {
             System* dragSystem = (System*)(curElement->parent());
@@ -5973,7 +5977,10 @@ static bool elementLower(const Element* e1, const Element* e2)
       {
       if (!e1->selectable())
             return false;
-      if (e1->z() == e2->z()) {
+      int z1 = e1->z();
+      int z2 = e2->z();
+      Note n;           // to get z value
+      if (z1 == z2) {
             if (e1->type() == e2->type()) {
                   if (e1->type() == ElementType::NOTEDOT) {
                         const NoteDot* n1 = static_cast<const NoteDot*>(e1);
@@ -5993,14 +6000,19 @@ static bool elementLower(const Element* e1, const Element* e2)
                         }
                   }
             }
-      return e1->z() < e2->z();
+      // force z of stem to be seen as higher than note
+      else if (e1->type() == Element::Type::STEM)
+            z1 = n.z() + 1;
+      else if (e2->type() == Element::Type::STEM)
+            z2 = n.z() + 1;
+      return z1 < z2;
       }
 
 //---------------------------------------------------------
 //   elementNear
 //---------------------------------------------------------
 
-Element* ScoreView::elementNear(QPointF p)
+Element* ScoreView::elementNear(QPointF p, bool first)
       {
       Page* page = point2page(p);
       if (!page) {
@@ -6044,8 +6056,31 @@ Element* ScoreView::elementNear(QPointF p)
       foreach(const Element* e, ll)
             qDebug("  %s selected %d z %d", e->name(), e->selected(), e->z());
 #endif
-      Element* e = ll.at(0);
-      return e;
+      if (first) {
+            // return first element in z-order
+            Element* e = ll.at(0);
+            return e;
+            }
+      else {
+            // return element after last selected element
+            // (fall back to first element if nothing selected)
+            Element* rc = 0;
+            bool previousSelected = true;
+            for (Element* e : ll) {
+                  if (e->selected()) {
+                        score()->deselect(e);
+                        score()->setUpdateAll();
+                        previousSelected = true;
+                        }
+                  else if (previousSelected) {
+                        // don't take a measure if there is something better
+                        if (!e->isMeasure() || !rc)
+                              rc = e;
+                        previousSelected = false;
+                        }
+                  }
+            return rc;
+            }
       }
 
 //---------------------------------------------------------
