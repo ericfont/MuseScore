@@ -58,8 +58,6 @@ matrix:
         - 'ARTIFACTS_PATHS="$(ls vtest/html | tr "\n" ":")" artifacts upload'
 
 notifications:
-  recipients:
-    - $NOTIFICATION_EMAIL
   email:
     on_success: always
     on_failure: always
