@@ -57,64 +57,12 @@ matrix:
         - ARTIFACTS_CACHE_CONTROL='public, max-age=315360000'
         - 'ARTIFACTS_PATHS="$(ls vtest/html | tr "\n" ":")" artifacts upload'
 
-    # 2nd parallel build job - portable Linux AppImage 64-bit x86 build on CentOS
-    - env: "JOB=AppImage_x86_64"
-      addons:
-        apt:
-          packages:
-          - bsdtar
-          - curl
-          - zsync
-      services:
-        - docker
-      script:
-        - "[[ $APPIMAGE_BUILD_ARCHS == *x86_64* ]] && ./build/travis/job2_AppImage/build.sh --x86_64 --upload-branches $APPIMAGE_UPLOAD_BRANCHES || true"
-
-    # 3rd parallel build job - portable Linux AppImage 32-bit x86 build on CentOS
-    - env: "JOB=AppImage_i686"
-      addons:
-        apt:
-          packages:
-          - bsdtar
-          - curl
-          - zsync
-      services:
-        - docker
-      script:
-        - "[[ $APPIMAGE_BUILD_ARCHS == *i686* ]] && ./build/travis/job2_AppImage/build.sh --i686 --upload-branches $APPIMAGE_UPLOAD_BRANCHES || true"
-
-    # 4th parallel build job - portable Linux AppImage armhf build on Debian crosscompiler
-    - env: "JOB=AppImage_armhf"
-      addons:
-        apt:
-          packages:
-          - bsdtar
-          - curl
-          - zsync
-      services:
-        - docker
-      before_script:
-        - "sudo ./build/travis/job2_AppImage/set-binfmt-misc.sh"
-      script:
-        - "[[ $APPIMAGE_BUILD_ARCHS == *armhf* ]] && ./build/travis/job2_AppImage/build.sh --armhf --upload-branches $APPIMAGE_UPLOAD_BRANCHES || true"
-    # 5th parallel build job - mac osx build
-    - env: "JOB=MacOSX"
-      os: osx
-      osx_image: xcode7.3
-      #cache:
-      #  directories:
-      #    - /usr/local/Cellar
-      before_install:
-        - source build/travis/job_macos/before_install.sh
-      install:
-        - "[[ $BUILD_MAC ]] && ./build/travis/job_macos/install.sh"
-      script:
-        - "[[ $BUILD_MAC ]] && ./build/travis/job_macos/script.sh"
-
 notifications:
+  recipients:
+    - $NOTIFICATION_EMAIL
   email:
-    recipients:
-      - $NOTIFICATION_EMAIL
+    on_success: always
+    on_failure: always
   webhooks:
     # trigger Buildtime Trend Service to parse Travis CI log
     - https://buildtimetrend.herokuapp.com/travis
