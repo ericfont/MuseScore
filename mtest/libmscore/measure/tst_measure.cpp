@@ -54,6 +54,7 @@ class TestMeasure : public QObject, public MTest
       void spanner_C();
       void spanner_D();
       void minWidth();
+      void removeTitleFrame();
       };
 
 //---------------------------------------------------------
@@ -331,6 +332,27 @@ void TestMeasure::spanner_D()
       score->endCmd();
 
       QVERIFY(saveCompareScore(score, "measure-9.mscx", DIR + "measure-9-ref.mscx"));
+      delete score;
+      }
+
+//---------------------------------------------------------
+///   removeTitleFrame
+///    input score has a title frame then a measure
+///    try to delete the title frame
+//
+//---------------------------------------------------------
+
+void TestMeasure::removeTitleFrame()
+      {
+      MasterScore* score = readScore(DIR + "measure-118246-removeTitleFrame.mscx");
+
+      score->startCmd();
+      MeasureBase* m = score->first();
+      score->select(m);
+      score->cmdDeleteSelectedMeasures();
+      score->endCmd();
+
+      QVERIFY(saveCompareScore(score, "measure-118246-removeTitleFrame.mscx", DIR + "measure-118246-removeTitleFrame-ref.mscx"));
       delete score;
       }
 
