@@ -60,7 +60,7 @@ matrix:
 notifications:
   email:
     recipients:
-      - secure: "ThisIsNotActuallyReallyAnEncryptedEmail"
+      - ericfontainejazz@gmail.com
     on_success: always
     on_failure: always
   webhooks:
