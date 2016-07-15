@@ -58,8 +58,10 @@ matrix:
         - 'ARTIFACTS_PATHS="$(ls vtest/html | tr "\n" ":")" artifacts upload'
 
 notifications:
+  recipients:
+    - secure: "ThisIsNotActuallyReallyAnEncryptedEmail"
   email:
-    on_success: changed
+    on_success: always
     on_failure: always
   webhooks:
     # trigger Buildtime Trend Service to parse Travis CI log
