@@ -39,6 +39,7 @@ class TestLinks : public QObject, public MTest
       void test3LinkedParts_99796();
       void test4LinkedParts_94911();
       void test5LinkedParts_94911();
+      void test6LinkedStaffTranspose_62416();
       };
 
 //---------------------------------------------------------
@@ -448,6 +449,39 @@ void TestLinks::test5LinkedParts_94911()
       QVERIFY(score->excerpts().size() == 1);
       }
 
+//---------------------------------------------------------
+//   test6LinkedStaffTranspose_62416
+///  Load score of linked part
+///  Change transposition of staff in parent
+///  Check that child score's linked staff is transposed correctly
+//---------------------------------------------------------
+
+void TestLinks::test6LinkedStaffTranspose_62416()
+      {
+      MCursor c;
+      c.setTimeSig(Fraction(4,4));
+      c.createScore("test");
+      c.addPart("electric-guitar");
+      c.move(0, 0);     // move to track 0 tick 0
+
+      c.addKeySig(Key(1));
+      c.addTimeSig(Fraction(4,4));
+      c.addChord(60, TDuration(TDuration::DurationType::V_WHOLE));
+
+      Score* score = c.score();
+      score->addText("title", "Title");
+      score->doLayout();
+      // delete chord
+      Measure* m = score->firstMeasure();
+      Segment* s = m->first(Segment::Type::ChordRest);
+      Element* e = s->element(0);
+      QVERIFY(e->type() == Element::Type::CHORD);
+      score->select(e);
+      score->cmdDeleteSelection();
+      e = s->element(0);
+      QVERIFY(e->type() == Element::Type::REST);
+      QVERIFY(e->links() == nullptr);
+      }
 
 QTEST_MAIN(TestLinks)
 #include "tst_links.moc"
