@@ -59,7 +59,7 @@ matrix:
 
 notifications:
   email:
-    on_success: always
+    on_success: changed
     on_failure: always
   webhooks:
     # trigger Buildtime Trend Service to parse Travis CI log
