@@ -114,8 +114,8 @@ matrix:
 notifications:
   email:
     recipients:
-      - "build@musescore.org"
-    on_success: change
+      - "eric@ericfontainejazz.com"
+    on_success: always
     on_failure: always
   irc:
     channels:
