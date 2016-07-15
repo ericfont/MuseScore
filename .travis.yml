@@ -58,9 +58,9 @@ matrix:
         - 'ARTIFACTS_PATHS="$(ls vtest/html | tr "\n" ":")" artifacts upload'
 
 notifications:
-  recipients:
-    - secure: "ThisIsNotActuallyReallyAnEncryptedEmail"
   email:
+    recipients:
+      - secure: "ThisIsNotActuallyReallyAnEncryptedEmail"
     on_success: always
     on_failure: always
   webhooks:
