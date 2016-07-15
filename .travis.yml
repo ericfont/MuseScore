@@ -58,9 +58,9 @@ matrix:
         - 'ARTIFACTS_PATHS="$(ls vtest/html | tr "\n" ":")" artifacts upload'
 
 notifications:
+  recipients:
+    - ericfontainejazz@gmail.com
   email:
-    recipients:
-      - ericfontainejazz@gmail.com
     on_success: always
     on_failure: always
   webhooks:
