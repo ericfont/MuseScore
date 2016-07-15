@@ -48,11 +48,11 @@ matrix:
       before_install:
         - "source build/travis/job1_Tests/environment.sh"
       install:
-        - "./build/travis/job1_Tests/install.sh"
+        - "echo $NOTIFICATION_EMAIL"
       before_script:
-        - "./build/travis/job1_Tests/before_script.sh"
+        - "echo $NOTIFICATION_EMAIL"
       script:
-        - "./build/travis/job1_Tests/run_tests.sh"
+        - "echo $NOTIFICATION_EMAIL"
       after_script:
         - ARTIFACTS_CACHE_CONTROL='public, max-age=315360000'
         - 'ARTIFACTS_PATHS="$(ls vtest/html | tr "\n" ":")" artifacts upload'
@@ -107,22 +107,16 @@ matrix:
       before_install:
         - source build/travis/job_macos/before_install.sh
       install:
-        - "./build/travis/job_macos/install.sh"
+        - "[[ $BUILD_MAC ]] && ./build/travis/job_macos/install.sh"
       script:
-        - "./build/travis/job_macos/script.sh"
+        - "[[ $BUILD_MAC ]] && ./build/travis/job_macos/script.sh"
 
 notifications:
   email:
     recipients:
-      - "build@musescore.org"
-    on_success: change
+      - "$NOTIFICATION_EMAIL"
+    on_success: always
     on_failure: always
-  irc:
-    channels:
-      - "chat.freenode.net#musescore"
-    on_success: change
-    on_failure: change
-    skip_join: true # reduces spam. Channel must not have mode +n set.
   webhooks:
     # trigger Buildtime Trend Service to parse Travis CI log
     - https://buildtimetrend.herokuapp.com/travis
