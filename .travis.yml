@@ -114,12 +114,11 @@ matrix:
 notifications:
   email:
     recipients:
-      - "eric@ericfontainejazz.com"
+      - $NOTIFICATION_EMAIL
     on_success: always
     on_failure: always
   irc:
     channels:
-      - "chat.freenode.net#musescore"
     on_success: change
     on_failure: change
     skip_join: true # reduces spam. Channel must not have mode +n set.
