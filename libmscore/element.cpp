@@ -1282,7 +1282,6 @@ Element* Element::create(Element::Type type, Score* score)
             case Element::Type::MARKER:            return new Marker(score);
             case Element::Type::JUMP:              return new Jump(score);
             case Element::Type::REPEAT_MEASURE:    return new RepeatMeasure(score);
-            case Element::Type::REPEAT_TWO_MEASURES: return new RepeatTwoMeasures(score);
             case Element::Type::ICON:              return new Icon(score);
             case Element::Type::NOTE:              return new Note(score);
             case Element::Type::SYMBOL:            return new Symbol(score);

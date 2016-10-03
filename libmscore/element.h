@@ -88,7 +88,6 @@ class HairpinSegment;
 class Bend;
 class TremoloBar;
 class RepeatMeasure;
-class RepeatTwoMeasures;
 class Tuplet;
 class NoteDot;
 class Dynamic;

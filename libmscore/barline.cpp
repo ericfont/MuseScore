@@ -50,6 +50,7 @@ const std::vector<BarLineTableItem> BarLine::barLineTable {
       { BarLineType::END,              QT_TRANSLATE_NOOP("Palette", "Final barline"),    "end" },
       { BarLineType::END_START_REPEAT, QT_TRANSLATE_NOOP("Palette", "End-start repeat"), "end-start-repeat" },
       { BarLineType::DOTTED,           QT_TRANSLATE_NOOP("Palette", "Dotted barline"),   "dotted" },
+      { BarLineType::TWO_MEASURE_REPEAT,QT_TRANSLATE_NOOP("Palette", "Two-Measure Repeat"),"two-measure-repeat" },
       };
 
 //---------------------------------------------------------
@@ -478,6 +479,11 @@ void BarLine::draw(QPainter* painter) const
                         drawSymbol(SymId::reversedBracketBottom, painter, QPointF(x - w1, y2));
                         }
                   }
+                  break;
+
+            case BarLineType::TWO_MEASURE_REPEAT:
+                  painter->drawLine(QLineF(lw * .5, y1, lw * .5, y2));
+                  drawSymbol(SymId::repeat2Bars, painter, QPointF(0, 0));
                   break;
             }
       Segment* s = segment();
