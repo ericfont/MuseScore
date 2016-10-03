@@ -46,5 +46,31 @@ class RepeatMeasure : public Rest {
 
 
 }     // namespace Ms
+
+//---------------------------------------------------------
+//   @@ RepeatTwoMeasures
+//---------------------------------------------------------
+
+class RepeatTwoMeasures : public Barline {
+      Q_OBJECT
+
+      QPainterPath path;
+
+   public:
+      RepeatTwoMeasures(Score*);
+      RepeatTwoMeasures &operator=(const RepeatTwoMeasures&) = delete;
+      virtual RepeatTwoMeasures* clone() const override   { return new RepeatTwoMeasures(*this); }
+      virtual Element* linkedClone() override         { return Element::linkedClone(); }
+      virtual Element::Type type() const override     { return Element::Type::REPEAT_TWO_MEASURES; }
+      virtual void draw(QPainter*) const override;
+      virtual void layout() override;
+      virtual Fraction duration() const override;
+      Fraction actualDuration() const { return Rest::duration(); }
+
+      virtual QString accessibleInfo() const override;
+      };
+
+
+}     // namespace Ms
 #endif
 
