@@ -130,6 +130,7 @@ Measure::Measure(Score* s)
       _breakMultiMeasureRest    = false;
       _mmRest                   = 0;
       _mmRestCount              = 0;
+      _mmRepeatRemaining        = 0;
       setFlag(ElementFlag::MOVABLE, true);
       }
 
@@ -153,6 +154,7 @@ Measure::Measure(const Measure& m)
       _breakMultiMeasureRest = m._breakMultiMeasureRest;
       _mmRest                = m._mmRest;
       _mmRestCount           = m._mmRestCount;
+      _mmRepeatRemaining     = m._mmRepeatRemaining;
       _playbackCount         = m._playbackCount;
       }
 
@@ -1498,6 +1500,10 @@ void Measure::write(Xml& xml, int staff, bool writeSystemElements) const
 
       if (_mmRestCount > 0)
             xml.tag("multiMeasureRest", _mmRestCount);
+
+      if (_mmRepeatRemaining > 0)
+            xml.tag("multiMeasureRepeat", _mmRepeatRemaining);
+
       if (writeSystemElements) {
             if (repeatStart())
                   xml.tagE("startRepeat");
@@ -1990,6 +1996,12 @@ void Measure::read(XmlReader& e, int staffIdx)
                   }
             else if (tag == "multiMeasureRest") {
                   _mmRestCount = e.readInt();
+                  // set tick to previous measure
+                  setTick(e.lastMeasure()->tick());
+                  e.initTick(e.lastMeasure()->tick());
+                  }
+            else if (tag == "multiMeasureRepeat") {
+                  _mmRepeatRemaining = e.readInt();
                   // set tick to previous measure
                   setTick(e.lastMeasure()->tick());
                   e.initTick(e.lastMeasure()->tick());

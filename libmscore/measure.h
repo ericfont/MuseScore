@@ -115,6 +115,16 @@ class Measure : public MeasureBase {
                               // 0 if this is the start of a mm rest (_mmRest != 0)
                               // < 0 if this measure is covered by a mm rest
 
+      int _mmRepeatRemaining; // = 0 if this is measure is not part of a multi-measure repeat.
+                              // > 0 if this is a multi measure repeat.
+                              // if this measure's value is > 0 and immediately follows a measure with value 0 or 1, then this is the first measure of a multi-measure repeat,
+                              //    and the value in this first measure indicates the size of the multi-measure repeat.
+                              // value decreases by for each subesquent measure of the multi-measure repeat, down untill
+                              // = 1 if this is the final measure of a multi measure repeat, and increases by one up
+                              // For example, a series of measures with _mmRepeatRemaining values of 0,0,0,2,1,3,2,1 indicates
+                              // the first 3 measures are regular measures, the next two measures are a two-measure repeat of meas 2 & 3,
+                              // and the final 3 measures are a multi-measure repeat of the prior 3 measures, which would ultimately resolve to measures 3, 2, then 3.
+
       int _playbackCount;     // temp. value used in RepeatList
                               // counts how many times this measure was already played
 
