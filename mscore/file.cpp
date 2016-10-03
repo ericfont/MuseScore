@@ -58,6 +58,7 @@
 #include "libmscore/keysig.h"
 #include "magbox.h"
 #include "libmscore/measure.h"
+#include "libmscore/multimeasurerepeat.h"
 #include "libmscore/undo.h"
 #include "libmscore/repeatlist.h"
 #include "scoretab.h"

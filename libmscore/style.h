@@ -333,6 +333,10 @@ enum class StyleIdx : int {
 
       tremoloBarLineWidth,
 
+      multiMeasureRepeatY,
+      multiMeasureRepeatLineWidth,
+      multiMeasureRepeatLineStyle,
+
       STYLES
       };
 

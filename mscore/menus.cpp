@@ -59,6 +59,7 @@
 #include "libmscore/drumset.h"
 #include "libmscore/spacer.h"
 #include "libmscore/measure.h"
+#include "libmscore/multimeasurerepeat.h"
 #include "libmscore/fret.h"
 #include "libmscore/staffstate.h"
 #include "libmscore/fingering.h"
@@ -370,6 +371,12 @@ Palette* MuseScore::newRepeatsPalette()
 
       RepeatMeasure* rm = new RepeatMeasure(gscore);
       sp->append(rm, tr("Repeat measure sign"));
+
+      MultiMeasureRepeat *mmRepeat = new MultiMeasureRepeat(gscore);
+      mmRepeat->setLen(gscore->spatium() * 8);
+      mmRepeat->setBeginHook(false);
+      mmRepeat->setEndHook(false);
+      sp->append(mmRepeat, QT_TRANSLATE_NOOP("Palette", "Multi-Measure Repeat"));
 
       for (int i = 0; i < markerTypeTableSize(); i++) {
             if(markerTypeTable[i].type == Marker::Type::CODETTA) //not in smufl

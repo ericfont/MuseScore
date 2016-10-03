@@ -319,6 +319,10 @@ static const StyleType styleTypes[] {
       { StyleIdx::textLinePosBelow,          "textLinePosBelow",          Spatium(3.5) },
 
       { StyleIdx::tremoloBarLineWidth,          "tremoloBarLineWidth",          Spatium(0.1) },
+
+      { StyleIdx::multiMeasureRepeatY,                  "multiMeasureRepeatY",                  Spatium(3.5) },
+      { StyleIdx::multiMeasureRepeatLineWidth,          "multiMeasureRepeatLineWidth",          Spatium(.5) },
+      { StyleIdx::multiMeasureRepeatLineStyle,          "multiMeasureRepeatLineStyle",          QVariant(int(Qt::SolidLine)) },
       };
 
 //---------------------------------------------------------

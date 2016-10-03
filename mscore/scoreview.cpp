@@ -54,6 +54,7 @@
 #include "libmscore/lasso.h"
 #include "libmscore/lyrics.h"
 #include "libmscore/measure.h"
+#include "libmscore/multimeasurerepeat.h"
 #include "libmscore/navigate.h"
 #include "libmscore/notedot.h"
 #include "libmscore/note.h"

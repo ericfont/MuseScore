@@ -39,6 +39,7 @@
 #include "libmscore/lyrics.h"
 #include "libmscore/marker.h"
 #include "libmscore/measure.h"
+#include "libmscore/multimeasurerepeat.h"
 #include "libmscore/mscore.h"
 #include "libmscore/note.h"
 #include "libmscore/part.h"

@@ -48,6 +48,7 @@
 #include "marker.h"
 #include "measure.h"
 #include "mscore.h"
+#include "multimeasurerepeat.h"
 #include "notedot.h"
 #include "note.h"
 #include "noteline.h"
@@ -184,7 +185,9 @@ static const ElementName elementNames[] = {
       ElementName("FBox",                 QT_TRANSLATE_NOOP("elementName", "Fretboard Diagram Frame")),
       ElementName("Icon",                 QT_TRANSLATE_NOOP("elementName", "Icon")),
       ElementName("Ossia",                QT_TRANSLATE_NOOP("elementName", "Ossia")),
-      ElementName("BagpipeEmbellishment", QT_TRANSLATE_NOOP("elementName", "Bagpipe Embellishment"))
+      ElementName("BagpipeEmbellishment", QT_TRANSLATE_NOOP("elementName", "Bagpipe Embellishment")),
+      ElementName("MultiMeasureRepeat",   QT_TRANSLATE_NOOP("elementName", "Multi-Measure Repeat")),
+      ElementName("MultiMeasureRepeatSegment",   QT_TRANSLATE_NOOP("elementName", "Multi-Measure Repeat Segment"))
       };
 
 //---------------------------------------------------------
@@ -1310,6 +1313,7 @@ Element* Element::create(Element::Type type, Score* score)
             case Element::Type::IMAGE:             return new Image(score);
             case Element::Type::BAGPIPE_EMBELLISHMENT: return new BagpipeEmbellishment(score);
             case Element::Type::AMBITUS:           return new Ambitus(score);
+            case Element::Type::MULTI_MEASURE_REPEAT: return new MultiMeasureRepeat(score);
 
             case Element::Type::TEXTLINE_BASE:
             case Element::Type::TEXTLINE_SEGMENT:
@@ -1340,6 +1344,7 @@ Element* Element::create(Element::Type type, Score* score)
             case Element::Type::ELEMENT_LIST:
             case Element::Type::STAFF_LIST:
             case Element::Type::MEASURE_LIST:
+            case Element::Type::MULTI_MEASURE_REPEAT_SEGMENT:
             case Element::Type::MAXTYPE:
             case Element::Type::INVALID:
                   break;
@@ -1590,7 +1595,7 @@ void Element::readProperty(XmlReader& e, P_ID id)
 bool Element::isSLine() const
       {
       return isHairpin() || isOttava() || isPedal()
-         || isTrill() || isVolta() || isTextLine() || isNoteLine() || isGlissando();
+         || isTrill() || isVolta() || isTextLine() || isNoteLine() || isGlissando() || isMultiMeasureRepeat();
       }
 
 //---------------------------------------------------------
@@ -1601,7 +1606,7 @@ bool Element::isSLineSegment() const
       {
       return isHairpinSegment() || isOttavaSegment() || isPedalSegment()
          || isTrillSegment() || isVoltaSegment() || isTextLineSegment()
-         || isGlissandoSegment();
+         || isGlissandoSegment() || isMultiMeasureRepeatSegment();
       }
 
 //---------------------------------------------------------

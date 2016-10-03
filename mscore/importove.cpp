@@ -41,6 +41,7 @@
 #include "libmscore/layoutbreak.h"
 #include "libmscore/lyrics.h"
 #include "libmscore/measure.h"
+#include "libmscore/multimeasurerepeat.h"
 #include "libmscore/note.h"
 #include "libmscore/accidental.h"
 #include "libmscore/ottava.h"

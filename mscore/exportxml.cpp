@@ -52,6 +52,7 @@
 #include "libmscore/staff.h"
 #include "libmscore/part.h"
 #include "libmscore/measure.h"
+#include "libmscore/multimeasurerepeat.h"
 #include "libmscore/style.h"
 #include "musicxml.h"
 #include "libmscore/slur.h"

@@ -398,6 +398,7 @@ MS_QML_ENUM(TextStyleType, signed char,\
       FOOTER,\
       INSTRUMENT_CHANGE,\
       FIGURED_BASS,\
+      MULTI_MEASURE_REPEAT,\
       \
       TEXT_STYLES\
       )

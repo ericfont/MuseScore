@@ -56,6 +56,7 @@
 #include "lyrics.h"
 #include "pitchspelling.h"
 #include "measure.h"
+#include "multimeasurerepeat.h"
 #include "tempo.h"
 #include "sig.h"
 #include "undo.h"

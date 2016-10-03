@@ -108,6 +108,8 @@ class Symbol;
 class FSymbol;
 class Fingering;
 class NoteHead;
+class MultiMeasureRepeat;
+class MultiMeasureRepeatSegment;
 
 enum class SymId;
 
@@ -198,7 +200,7 @@ struct ElementName {
 //    @P pos        point                 position relative to parent
 //    @P selected   bool                  true if the element is currently selected
 //    @P track      int                   the track the elment belongs to
-//    @P type       enum (Element.ACCIDENTAL, .ACCIDENTAL, .AMBITUS, .ARPEGGIO, .BAGPIPE_EMBELLISHMENT, .BAR_LINE, .BEAM, .BEND, .BRACKET, .BREATH, .CHORD, .CHORDLINE, .CLEF, .COMPOUND, .DYNAMIC, .ELEMENT, .ELEMENT_LIST, .FBOX, .FIGURED_BASS, .FINGERING, .FRET_DIAGRAM, .FSYMBOL, .GLISSANDO, .GLISSANDO_SEGMENT, .HAIRPIN, .HAIRPIN_SEGMENT, .HARMONY, .HBOX, .HOOK, .ICON, .IMAGE, .INSTRUMENT_CHANGE, .INSTRUMENT_NAME, .JUMP, .KEYSIG, .LASSO, .LAYOUT_BREAK, .LEDGER_LINE, .LINE, .LYRICS, .LYRICSLINE, .LYRICSLINE_SEGMENT, .MARKER, .MEASURE, .MEASURE_LIST, .NOTE, .NOTEDOT, .NOTEHEAD, .NOTELINE, .OSSIA, .OTTAVA, .OTTAVA_SEGMENT, .PAGE, .PEDAL, .PEDAL_SEGMENT, .REHEARSAL_MARK, .REPEAT_MEASURE, .REST, .SEGMENT, .SELECTION, .SHADOW_NOTE, .SLUR, .SLUR_SEGMENT, .SPACER, .STAFF_LINES, .STAFF_LIST, .STAFF_STATE, .STAFF_TEXT, .STEM, .STEM_SLASH, .SYMBOL, .SYSTEM, .TAB_DURATION_SYMBOL, .TBOX, .TEMPO_TEXT, .TEXT, .TEXTLINE, .TEXTLINE_SEGMENT, .TIE, .TIMESIG, .TREMOLO, .TREMOLOBAR, .TRILL, .TRILL_SEGMENT, .TUPLET, .VBOX, .VOLTA, .VOLTA_SEGMENT) (read only)
+//    @P type       enum (Element.ACCIDENTAL, .ACCIDENTAL, .AMBITUS, .ARPEGGIO, .BAGPIPE_EMBELLISHMENT, .BAR_LINE, .BEAM, .BEND, .BRACKET, .BREATH, .CHORD, .CHORDLINE, .CLEF, .COMPOUND, .DYNAMIC, .ELEMENT, .ELEMENT_LIST, .FBOX, .FIGURED_BASS, .FINGERING, .FRET_DIAGRAM, .FSYMBOL, .GLISSANDO, .GLISSANDO_SEGMENT, .HAIRPIN, .HAIRPIN_SEGMENT, .HARMONY, .HBOX, .HOOK, .ICON, .IMAGE, .INSTRUMENT_CHANGE, .INSTRUMENT_NAME, .JUMP, .KEYSIG, .LASSO, .LAYOUT_BREAK, .LEDGER_LINE, .LINE, .LYRICS, .LYRICSLINE, .LYRICSLINE_SEGMENT, .MARKER, .MEASURE, .MEASURE_LIST, .NOTE, .NOTEDOT, .NOTEHEAD, .NOTELINE, .OSSIA, .OTTAVA, .OTTAVA_SEGMENT, .PAGE, .PEDAL, .PEDAL_SEGMENT, .REHEARSAL_MARK, .REPEAT_MEASURE, .REST, .SEGMENT, .SELECTION, .SHADOW_NOTE, .SLUR, .SLUR_SEGMENT, .SPACER, .STAFF_LINES, .STAFF_LIST, .STAFF_STATE, .STAFF_TEXT, .STEM, .STEM_SLASH, .SYMBOL, .SYSTEM, .TAB_DURATION_SYMBOL, .TBOX, .TEMPO_TEXT, .TEXT, .TEXTLINE, .TEXTLINE_SEGMENT, .TIE, .TIMESIG, .TREMOLO, .TREMOLOBAR, .TRILL, .TRILL_SEGMENT, .TUPLET, .VBOX, .VOLTA, .VOLTA_SEGMENT, .MULTI_MEASURE_REPEAT, .MULTI_MEASURE_REPEAT_SEGMENT) (read only)
 //    @P userOff    point                 manual offset to position determined by layout
 //    @P visible    bool
 //-------------------------------------------------------------------
@@ -337,6 +339,9 @@ class Element : public QObject, public ScoreElement {
             ICON,
             OSSIA,
             BAGPIPE_EMBELLISHMENT,
+
+            MULTI_MEASURE_REPEAT,
+            MULTI_MEASURE_REPEAT_SEGMENT,
 
             MAXTYPE
             };
@@ -742,6 +747,8 @@ class Element : public QObject, public ScoreElement {
       CONVERT(FSymbol,       FSYMBOL)
       CONVERT(Fingering,     FINGERING)
       CONVERT(NoteHead,      NOTEHEAD)
+      CONVERT(MultiMeasureRepeat,         MULTI_MEASURE_REPEAT)
+      CONVERT(MultiMeasureRepeatSegment,  MULTI_MEASURE_REPEAT_SEGMENT)
 #undef CONVERT
       };
 
@@ -841,6 +848,8 @@ static inline const a* to##a(const Element* e) { Q_ASSERT(e == 0 || e->type() ==
       CONVERT(FSymbol,       FSYMBOL)
       CONVERT(Fingering,     FINGERING)
       CONVERT(NoteHead,      NOTEHEAD)
+      CONVERT(MultiMeasureRepeat,         MULTI_MEASURE_REPEAT)
+      CONVERT(MultiMeasureRepeatSegment,  MULTI_MEASURE_REPEAT_SEGMENT)
 #undef CONVERT
 
 //---------------------------------------------------------

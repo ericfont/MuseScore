@@ -27,6 +27,7 @@
 #include "libmscore/tie.h"
 #include "libmscore/staff.h"
 #include "libmscore/measure.h"
+#include "libmscore/multimeasurerepeat.h"
 #include "libmscore/style.h"
 #include "libmscore/part.h"
 #include "libmscore/timesig.h"

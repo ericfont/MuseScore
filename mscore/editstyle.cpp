@@ -264,6 +264,9 @@ EditStyle::EditStyle(Score* s, QWidget* parent)
       { StyleIdx::textLinePlacement,       false, textLinePlacement, resetTextLinePlacement },
       { StyleIdx::textLinePosAbove,        false, textLinePosAbove,             resetTextLinePosAbove },
       { StyleIdx::textLinePosBelow,        false, textLinePosBelow,             resetTextLinePosBelow },
+
+  //    { StyleIdx::multiMeasureRepeatY,                  false, multiMeasureRepeatY,                  0 }, //todo add buttons for resetMultiMeasureRepeatY },
+  //    { StyleIdx::multiMeasureRepeatLineWidth,          false, multiMeasureRepeatLineWidth,          0 }, //todo add buttons for resetMultiMeasureRepeatLineWidth },
       };
 
       for (QComboBox* cb : std::vector<QComboBox*> { lyricsPlacement, textLinePlacement }) {

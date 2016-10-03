@@ -66,7 +66,7 @@ class LineSegment : public SpannerSegment {
 
 //---------------------------------------------------------
 //   @@ SLine
-///    virtual base class for Hairpin, Trill and TextLine
+///    virtual base class for Glissando, Lyrics, MultiMeasureRepeat, Trill, and TextLine (and all TextLine-derived elements)
 //---------------------------------------------------------
 
 class SLine : public Spanner {
