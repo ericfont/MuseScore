@@ -243,6 +243,8 @@ enum class P_ID : int {
       PLAYBACK_VOICE4,
       SYMBOL,
 
+      MULTI_MEASURE_REPEAT_SHOW_NUMBER_OF_MEASURES,
+
       END
       };
 

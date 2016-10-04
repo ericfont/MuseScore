@@ -237,7 +237,7 @@ void ScoreView::dragEnterEvent(QDragEnterEvent* event)
 
             Element* el = Element::create(type, score());
             if (el) {
-                  if (type == Element::Type::BAR_LINE || type == Element::Type::ARPEGGIO || type == Element::Type::BRACKET)
+                  if (type == Element::Type::BAR_LINE || type == Element::Type::ARPEGGIO || type == Element::Type::BRACKET || type == Element::Type::MULTI_MEASURE_REPEAT)
                         el->setHeight(_spatium * 5);
                   dragElement = el;
                   dragElement->setParent(0);
@@ -378,6 +378,7 @@ void ScoreView::dragMoveEvent(QDragMoveEvent* event)
                   case Element::Type::TREMOLOBAR:
                   case Element::Type::FIGURED_BASS:
                   case Element::Type::LYRICS:
+                  case Element::Type::MULTI_MEASURE_REPEAT:
                         {
                         QList<Element*> el = elementsAt(pos);
                         bool found = false;
@@ -569,6 +570,7 @@ void ScoreView::dropEvent(QDropEvent* event)
                   case Element::Type::TREMOLOBAR:
                   case Element::Type::FIGURED_BASS:
                   case Element::Type::LYRICS:
+                  case Element::Type::MULTI_MEASURE_REPEAT:
                         {
                         Element* el = 0;
                         for (const Element* e : elementsAt(pos)) {

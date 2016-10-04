@@ -489,6 +489,8 @@ void initStyle(MStyle* s)
          false, QColor(Qt::black), QColor(255, 255, 255, 0),                   // default params
          TextStyleHidden::IN_EDITOR));                                         // don't show in Style Editor
 
+      s->addTextStyle(TextStyle(QT_TRANSLATE_NOOP ("TextStyle", "Multi-Measure Repeat"), ff,  12, true, false, false,
+         AlignmentFlags::LEFT | AlignmentFlags::BOTTOM, QPointF(0, -3.0), OffsetType::SPATIUM, true));
 #undef MM
 
 #ifndef NDEBUG

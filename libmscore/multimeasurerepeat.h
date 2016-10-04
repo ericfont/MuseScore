@@ -61,9 +61,6 @@ class MultiMeasureRepeat : public SLine {
       bool _showNumberOfMeasures;
       int _numberOfMeasures;
 
-   protected:
-      QPointF linePos(Grip, System**) const override;
-
    public:
       MultiMeasureRepeat(Score* s);
 
@@ -82,12 +79,14 @@ class MultiMeasureRepeat : public SLine {
       void increaseNumberOfMeasures()            { _numberOfMeasures++;        }
       void decreaseNumberOfMeasures()            { _numberOfMeasures--;        }
 
+      void undoSetShowNumberOfMeasures(bool);
+
       // property methods
       virtual StyleIdx getPropertyStyle(P_ID) const override;
-      virtual bool setProperty(P_ID propertyId, const QVariant& val) override;
-      virtual QVariant propertyDefault(P_ID propertyId) const override;
-      virtual PropertyStyle propertyStyle(P_ID id) const override;
-      virtual void resetProperty(P_ID id) override;
+      virtual bool setProperty(P_ID, const QVariant&) override;
+      virtual QVariant propertyDefault(P_ID) const override;
+      virtual PropertyStyle propertyStyle(P_ID) const override;
+      virtual void resetProperty(P_ID) override;
       virtual void styleChanged() override;
       };
 

@@ -374,8 +374,6 @@ Palette* MuseScore::newRepeatsPalette()
 
       MultiMeasureRepeat *mmRepeat = new MultiMeasureRepeat(gscore);
       mmRepeat->setLen(gscore->spatium() * 8);
-      mmRepeat->setBeginHook(false);
-      mmRepeat->setEndHook(false);
       sp->append(mmRepeat, QT_TRANSLATE_NOOP("Palette", "Multi-Measure Repeat"));
 
       for (int i = 0; i < markerTypeTableSize(); i++) {

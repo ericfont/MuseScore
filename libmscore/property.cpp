@@ -252,6 +252,8 @@ static const PropertyData propertyList[] = {
       { P_ID::PLAYBACK_VOICE4,     false, "playbackVoice4",        P_TYPE::BOOL  },
       { P_ID::SYMBOL,              true,  "symbol",                P_TYPE::SYMID },
 
+      { P_ID::MULTI_MEASURE_REPEAT_SHOW_NUMBER_OF_MEASURES, true, 0, P_TYPE::BOOL  },
+
       { P_ID::END,                 false, "",                      P_TYPE::INT   }
       };
 
