@@ -58,7 +58,7 @@ struct BarLineTableItem {
 //---------------------------------------------------------
 //   @@ BarLine
 //
-//   @P barLineType  enum  (BarLineType.NORMAL, .DOUBLE, .START_REPEAT, .END_REPEAT, .BROKEN, .END, .END_START_REPEAT, .DOTTED)
+//   @P barLineType  enum  (BarLineType.NORMAL, .DOUBLE, .START_REPEAT, .END_REPEAT, .BROKEN, .END, .END_START_REPEAT, .TWO_MEASURE_REPEAT, .DOTTED)
 //---------------------------------------------------------
 
 class BarLine : public Element {

@@ -732,6 +732,9 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                                     case 6:
                                           t = BarLineType::END_START_REPEAT;
                                           break;
+                                    case 7:
+                                          t = BarLineType::TWO_MEASURE_REPEAT;
+                                          break;
                                     }
                               barLine->setBarLineType(t);
                               }

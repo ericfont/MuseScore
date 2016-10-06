@@ -2493,6 +2493,10 @@ qreal Measure::createEndBarLines(bool isLastMeasureInSystem)
             t = BarLineType::START_REPEAT;
             force = true;
             }
+     /* else if (SOMETHING ABOUT BEING NEXT TO TWO_MEASURE_REPEAT) {
+            t = BarLineType::TWO_MEASURE_REPEAT;
+            force = true; //WHAT DOES FORCE DO???
+            }*/
 
       qreal w = 0.0;
       for (int staffIdx = 0; staffIdx < nstaves; ++staffIdx) {

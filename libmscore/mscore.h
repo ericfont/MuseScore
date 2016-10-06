@@ -414,7 +414,8 @@ MS_QML_ENUM(BarLineType, int,\
       BROKEN           = 0x10,\
       END              = 0x20,\
       END_START_REPEAT = 0x40,\
-      DOTTED           = 0x80\
+      DOTTED           = 0x80,\
+      TWO_MEASURE_REPEAT = 0x100
       )
 
 constexpr BarLineType operator| (BarLineType t1, BarLineType t2) {

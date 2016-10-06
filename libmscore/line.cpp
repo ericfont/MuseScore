@@ -737,6 +737,10 @@ QPointF SLine::linePos(Grip grip, System** sys) const
                                                 // center on leftmost (thicker) barline
                                                 x += score()->styleS(StyleIdx::endBarWidth).val() * _spatium * 0.5;
                                                 break;
+                                          case BarLineType::TWO_MEASURE_REPEAT:
+                                                // skip dots
+                                                x += symWidth(SymId::repeat2Bars);
+                                                x += score()->styleS(StyleIdx::endBarDistance).val() * _spatium;
                                           default:
                                                 // center on barline
                                                 x += score()->styleS(StyleIdx::barWidth).val() * _spatium * 0.5;

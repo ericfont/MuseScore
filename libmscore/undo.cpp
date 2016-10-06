@@ -3721,6 +3721,13 @@ void Score::undoChangeBarLine(Measure* measure, BarLineType barType)
                         if (nm)
                               s->undoChangeProperty(nm, P_ID::REPEAT_START, true);
                         break;
+
+                  // make two neighboring measures
+                  case BarLineType::TWO_MEASURE_REPEAT:
+                        s->undoChangeProperty(m, P_ID::REPEAT_MEASURE, true);
+                        if (nm)
+                              s->undoChangeProperty(nm, P_ID::REPEAT_MEASURE, true);
+                        break;
                   }
             }
       }

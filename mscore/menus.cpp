@@ -394,6 +394,7 @@ Palette* MuseScore::newRepeatsPalette()
                   case BarLineType::START_REPEAT:
                   case BarLineType::END_REPEAT:
                   case BarLineType::END_START_REPEAT:
+                  case BarLineType::TWO_MEASURE_REPEAT:
                         break;
                   default:
                         continue;
