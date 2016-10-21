@@ -3769,18 +3769,20 @@ qreal Measure::createEndBarLines(bool isLastMeasureInSystem)
 
       // fix segment layout
       Segment* ps = seg->prev();
-      qreal x = ps->rxpos();
-      for (Segment* s = ps; s;) {
-            if (s->enabled()) {
-                  s->rxpos() = x;
-                  Segment* ns = s->next();
-                  qreal w     = ns ? s->minHorizontalDistance(ns, false) : s->minRight();
-                  s->setWidth(w);
-                  x += w;
-                  s = ns;
+      if (ps) {
+            qreal x = ps->rxpos();
+            for (Segment* s = ps; s;) {
+                  if (s->enabled()) {
+                        s->rxpos() = x;
+                        Segment* ns = s->next();
+                        qreal w     = ns ? s->minHorizontalDistance(ns, false) : s->minRight();
+                        s->setWidth(w);
+                        x += w;
+                        s = ns;
+                        }
+                  else
+                        s = s->next();
                   }
-            else
-                  s = s->next();
             }
 
       setWidth(basicWidth());
