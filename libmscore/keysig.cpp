@@ -110,7 +110,7 @@ void KeySig::layout()
             clef = staff()->clef(segment()->tick());
 
       int accidentals = 0, naturals = 0;
-      int t1 = int(_sig.key());
+      int t1 = int(_sig.keyWritten());
       switch (qAbs(t1)) {
             case 7: accidentals = 0x7f; break;
             case 6: accidentals = 0x3f; break;
@@ -302,40 +302,10 @@ Element* KeySig::drop(const DropData& data)
 //   setKey
 //---------------------------------------------------------
 
-void KeySig::setKey(Key keyConcertPitch)
+void KeySig::setKey(Key keyWritten, Key keyConcertPitch)
       {
       KeySigEvent e;
-
-      // enforce limits for transposed key
-
-      if (score()->styleB(StyleIdx::concertPitch))
-            e.setKey(keyConcertPitch, keyConcertPitch);
-      else {
-
-            int diff = ->part()->instrument()->transpose().chromatic;
-
-            int keyTransposed = transposeTpc(int(key) + 14, interval, false) - 14;
-            // check for valid key sigs
-            if (tpc > 21)
-                  tpc -= 12; // no more than 7 sharps in keysig
-            if (tpc < 7)
-                  tpc += 12; // no more than 7 flats in keysig
-            return Key(tpc - 14);
-
-
-            if (_key < -score()->styleI(StyleIdx::keySigTransposedMaxFlats)) {
-                  _key += Key::MIN;
-                  msg = "key < -7";
-                  }
-            else if (_key > Key::MAX) {
-                  _key = Key::MAX;
-                  msg = "key > 7";
-                  }
-            if (msg)
-            qDebug("KeySigEvent: %s", msg);
-      }
-
-      e.setKey(key);
+      e.setKey(keyWritten, keyConcertPitch);
       setKeySigEvent(e);
       }
 
@@ -360,7 +330,8 @@ void KeySig::write(XmlWriter& xml) const
                   }
             }
       else {
-            xml.tag("accidental", int(_sig.key()));
+            xml.tag("accidental", int(_sig.keyWritten()));
+            xml.tag("concertPitch", int(_sig.keyConcertPitch()));
             }
       switch (_sig.mode()) {
             case KeyMode::NONE:     xml.tag("mode", "none"); break;

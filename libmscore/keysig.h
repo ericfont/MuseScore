@@ -49,7 +49,7 @@ class KeySig : public Element {
       virtual qreal mag() const override;
 
       //@ sets the key of the key signature
-      Q_INVOKABLE void setKey(Key);
+      Q_INVOKABLE void setKey(Key keyWritten, Key keyConcertPitch);
 
       Segment* segment() const            { return (Segment*)parent(); }
       Measure* measure() const            { return parent() ? (Measure*)parent()->parent() : nullptr; }

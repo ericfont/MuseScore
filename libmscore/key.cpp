@@ -41,12 +41,12 @@ KeySigEvent::KeySigEvent(const KeySigEvent& k)
 void KeySigEvent::enforceLimits()
       {
       const char* msg = 0;
-      if (_key < Key::MIN) {
-            _key = Key::MIN;
+      if (_keyWritten < Key::MIN) {
+            _keyWritten = Key::MIN;
             msg = "key < -7";
             }
-      else if (_key > Key::MAX) {
-            _key = Key::MAX;
+      else if (_keyWritten > Key::MAX) {
+            _keyWritten = Key::MAX;
             msg = "key > 7";
             }
       if (msg)
@@ -68,7 +68,7 @@ void KeySigEvent::print() const
             else if (custom())
                   qDebug("custom>");
             else
-                  qDebug("accidental %d>", int(_key));
+                  qDebug("accidental keyWritten %d, concertPitch %d>", int(_keyWritten), int(_keyConcertPitch));
             }
       }
 
@@ -102,7 +102,7 @@ bool KeySigEvent::operator==(const KeySigEvent& e) const
                   }
             return true;
             }
-      return e._key == _key;
+      return (e._keyWritten == _keyWritten) && (e._keyConcertPitch == _keyConcertPitch);
       }
 
 //---------------------------------------------------------
@@ -167,11 +167,12 @@ void KeySigEvent::initFromSubtype(int st)
             };
       U a;
       a.subtype       = st;
-      _key            = Key(a._key);
+      _keyWritten     = Key(a._key);
 //      _customType     = a._customType;
       _custom         = a._custom;
+      _keyConcertPitch = Key::INVALID;
       if (a._invalid)
-            _key = Key::INVALID;
+            _keyWritten = Key::INVALID;
       enforceLimits();
       }
 
