@@ -67,7 +67,8 @@ struct KeySym {
 //---------------------------------------------------------
 
 class KeySigEvent {
-      Key _key            { Key::INVALID };          // -7 -> +7
+      Key _keyConcertPitch { Key::INVALID };          // -7 -> +7.  the key in concert pitch
+      Key _keyWritten      { Key::INVALID };          // -7 -> +7.  the key as currently written (will be same as _keyConcertPitch if ConcertPitch is toggled ON)
       KeyMode _mode       { KeyMode::UNKNOWN };
       bool _custom        { false };
       QList<KeySym> _keySymbols;
@@ -83,12 +84,13 @@ class KeySigEvent {
       void setKey(Key v);
       void print() const;
 
-      Key key() const            { return _key;                    }
+      Key keyConcertPitch() const { return _keyConcertPitch;       }
+      Key keyWritten() const     { return _keyWritten;             }
       KeyMode mode() const       { return _mode;                   }
       void setMode(KeyMode m)    { _mode = m;                      }
       bool custom() const        { return _custom;                 }
-      void setCustom(bool val)   { _custom = val; _key = Key::C;   }
-      bool isValid() const       { return _key != Key::INVALID;    }
+      void setCustom(bool val)   { _custom = val; _keyWritten = Key::C; _keyConcertPitch = Key::C;   }
+      bool isValid() const       { return _keyConcertPitch != Key::INVALID;    }
       bool isAtonal() const      { return _mode == KeyMode::NONE;  }
       void initFromSubtype(int);    // for backward compatibility
       void initLineList(char*);

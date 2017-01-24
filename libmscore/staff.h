@@ -182,7 +182,7 @@ class Staff : public ScoreElement {
       const Groups& group(int tick) const;
 
       KeyList* keyList()               { return &_keys;                  }
-      Key key(int tick) const          { return keySigEvent(tick).key(); }
+      Key key(int tick) const          { return keySigEvent(tick).keyWritten(); }
       KeySigEvent keySigEvent(int tick) const;
       int nextKeyTick(int tick) const;
       int currentKeyTick(int tick) const;
