@@ -302,9 +302,39 @@ Element* KeySig::drop(const DropData& data)
 //   setKey
 //---------------------------------------------------------
 
-void KeySig::setKey(Key key)
+void KeySig::setKey(Key keyConcertPitch)
       {
       KeySigEvent e;
+
+      // enforce limits for transposed key
+
+      if (score()->styleB(StyleIdx::concertPitch))
+            e.setKey(keyConcertPitch, keyConcertPitch);
+      else {
+
+            int diff = ->part()->instrument()->transpose().chromatic;
+
+            int keyTransposed = transposeTpc(int(key) + 14, interval, false) - 14;
+            // check for valid key sigs
+            if (tpc > 21)
+                  tpc -= 12; // no more than 7 sharps in keysig
+            if (tpc < 7)
+                  tpc += 12; // no more than 7 flats in keysig
+            return Key(tpc - 14);
+
+
+            if (_key < -score()->styleI(StyleIdx::keySigTransposedMaxFlats)) {
+                  _key += Key::MIN;
+                  msg = "key < -7";
+                  }
+            else if (_key > Key::MAX) {
+                  _key = Key::MAX;
+                  msg = "key > 7";
+                  }
+            if (msg)
+            qDebug("KeySigEvent: %s", msg);
+      }
+
       e.setKey(key);
       setKeySigEvent(e);
       }

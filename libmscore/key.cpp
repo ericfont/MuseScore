@@ -25,7 +25,8 @@ namespace Ms {
 
 KeySigEvent::KeySigEvent(const KeySigEvent& k)
       {
-      _key        = k._key;
+      _keyWritten = k._keyWritten;
+      _keyConcertPitch = k._keyConcertPitch;
       _mode       = k._mode;
       _custom     = k._custom;
       _keySymbols = k._keySymbols;
@@ -75,9 +76,10 @@ void KeySigEvent::print() const
 //   setKey
 //---------------------------------------------------------
 
-void KeySigEvent::setKey(Key v)
+void KeySigEvent::setKey(Key keyWritten, Key keyConcertPitch)
       {
-      _key      = v;
+      _keyWritten      = keyWritten;
+      _keyConcertPitch = keyConcertPitch;
       _custom   = false;
       enforceLimits();
       }

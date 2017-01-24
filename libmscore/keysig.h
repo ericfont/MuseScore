@@ -56,7 +56,9 @@ class KeySig : public Element {
       virtual void write(XmlWriter&) const override;
       virtual void read(XmlReader&) override;
       //@ returns the key of the key signature (from -7 (flats) to +7 (sharps) )
-      Q_INVOKABLE Key key() const         { return _sig.key(); }
+      Q_INVOKABLE Key keyWritten() const      { return _sig.keyWritten(); }
+      Q_INVOKABLE Key keyConcertPitch() const { return _sig.keyConcertPitch(); }
+
       bool isCustom() const               { return _sig.custom(); }
       bool isAtonal() const               { return _sig.isAtonal(); }
       KeySigEvent keySigEvent() const     { return _sig; }

@@ -81,7 +81,7 @@ class KeySigEvent {
 
       bool operator==(const KeySigEvent& e) const;
 
-      void setKey(Key v);
+      void setKey(Key keyWritten, Key keyConcertPitch);
       void print() const;
 
       Key keyConcertPitch() const { return _keyConcertPitch;       }

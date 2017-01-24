@@ -647,6 +647,9 @@ enum class StyleIdx {
       figuredBassFontItalic,
       figuredBassFontUnderline,
 
+      keySigTransposedMaxSharps,
+      keySigTransposedMaxFlats,
+
       user1FontFace,
       user1FontSize,
       user1FontBold,

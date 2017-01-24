@@ -664,6 +664,9 @@ static const StyleType styleTypes[] {
       { StyleIdx::figuredBassFontBold,           "figuredBassFontBold",          false },
       { StyleIdx::figuredBassFontItalic,         "figuredBassFontItalic",        false },
       { StyleIdx::figuredBassFontUnderline,      "figuredBassFontUnderline",     false },
+
+      { StyleIdx::keySigTransposedMaxSharps,     "keySigTransposedMaxSharps",    QVariant(7) },
+      { StyleIdx::keySigTransposedMaxFlats,      "keySigTransposedMaxFlats",     QVariant(7) },
       };
 #undef MM
 

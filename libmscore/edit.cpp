@@ -1790,7 +1790,6 @@ void Score::deleteMeasures(MeasureBase* is, MeasureBase* ie)
       KeySigEvent lastDeletedKeySigEvent;
       TimeSig* lastDeletedSig   = 0;
       KeySig* lastDeletedKeySig = 0;
-      bool transposeKeySigEvent = false;
 
       for (MeasureBase* mb = ie;; mb = mb->prev()) {
             if (mb->isMeasure()) {
@@ -1801,16 +1800,8 @@ void Score::deleteMeasures(MeasureBase* is, MeasureBase* ie)
                   sts = m->findSegment(Segment::Type::KeySig, m->tick());
                   if (sts && !lastDeletedKeySig) {
                         lastDeletedKeySig = toKeySig(sts->element(0));
-                        if (lastDeletedKeySig) {
+                        if (lastDeletedKeySig)
                               lastDeletedKeySigEvent = lastDeletedKeySig->keySigEvent();
-                              if (!styleB(StyleIdx::concertPitch) && !lastDeletedKeySigEvent.isAtonal() && !lastDeletedKeySigEvent.custom()) {
-                                    // convert to concert pitch
-                                    transposeKeySigEvent = true;
-                                    Interval v = staff(0)->part()->instrument(m->tick())->transpose();
-                                    if (!v.isZero())
-                                          lastDeletedKeySigEvent.setKey(transposeKey(lastDeletedKeySigEvent.key(), v));
-                                    }
-                              }
                         }
                   if (lastDeletedSig && lastDeletedKeySig)
                         break;
@@ -1869,16 +1860,10 @@ printf("undoRemoveMeasures %p %p\n", is, ie);
                   if (!s) {
                         Segment* ns = mAfterSel->undoGetSegment(Segment::Type::KeySig, mAfterSel->tick());
                         for (int staffIdx = 0; staffIdx < score->nstaves(); staffIdx++) {
-                              KeySigEvent nkse = lastDeletedKeySigEvent;
-                              if (transposeKeySigEvent) {
-                                    Interval v = score->staff(staffIdx)->part()->instrument(0)->transpose();
-                                    v.flip();
-                                    nkse.setKey(transposeKey(nkse.key(), v));
-                                    }
                               KeySig* nks = new KeySig(score);
                               nks->setTrack(staffIdx * VOICES);
                               nks->setParent(ns);
-                              nks->setKeySigEvent(nkse);
+                              nks->setKeySigEvent(lastDeletedKeySigEvent);
                               score->undoAddElement(nks);
                               }
                         }
