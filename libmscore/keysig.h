@@ -34,6 +34,7 @@ class KeySig : public Element {
 
       bool _showCourtesy;
       bool _hideNaturals;     // used in layout to override score style (needed for the Continuous panel)
+      bool _transposedInstrumentKeyExceededAccidentalLimit;
       KeySigEvent _sig;
       void addLayout(SymId sym, qreal x, int y);
 

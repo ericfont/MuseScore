@@ -679,6 +679,8 @@ static const StyleType styleTypes[] {
       { StyleIdx::user2FontItalic,               "user2FontItalic",              false },
       { StyleIdx::user2FontUnderline,            "user2FontUnderline",           false },
 
+      { StyleIdx::keySigTransposedMaxSharps,     "keySigTransposedMaxSharps",    QVariant(7) },
+      { StyleIdx::keySigTransposedMaxFlats,      "keySigTransposedMaxFlats",     QVariant(7) },
       };
 #undef MM
 
