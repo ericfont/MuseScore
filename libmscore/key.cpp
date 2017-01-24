@@ -172,14 +172,14 @@ void KeySigEvent::setTransposedInstrumentKey(const Interval& interval, int sharp
             }
 
       // perform the transposition
-      _key = Key(transposeTpc(int(_key) + 14, interval, false) - 14);
+      _key = Key(transposeTpc(int(_key) + 14, interval, true) - 14);
 
       // convert to enharmonic equivalent if now beyond the accidental limit
       if (_key > sharpLimit) {
             _key -= Key::DELTA_ENHARMONIC; // convert to flat enharmonic
             _transposedInstrumentKeyExceededAccidentalLimit = TransposedInstrumentKeyExceededAccidentalLimit::EXCEEDED_SHARP_LIMIT;
             }
-      else if (_key < flatLimit) {
+      else if (_key < -flatLimit) {
             _key += Key::DELTA_ENHARMONIC; // convert to sharp enharmonic
             _transposedInstrumentKeyExceededAccidentalLimit = TransposedInstrumentKeyExceededAccidentalLimit::EXCEEDED_FLAT_LIMIT;
             }
