@@ -29,6 +29,7 @@ KeySigEvent::KeySigEvent(const KeySigEvent& k)
       _mode       = k._mode;
       _custom     = k._custom;
       _keySymbols = k._keySymbols;
+      _transposedInstrumentKeyExceededAccidentalLimit = k._transposedInstrumentKeyExceededAccidentalLimit;
       }
 
 //---------------------------------------------------------
@@ -79,6 +80,7 @@ void KeySigEvent::setKey(Key v)
       {
       _key      = v;
       _custom   = false;
+      _transposedInstrumentKeyExceededAccidentalLimit = false;  // since forcibly set key, should no longer track whether the key exceeded the transposed instrument accidental limit
       enforceLimits();
       }
 
@@ -144,6 +146,30 @@ Key transposeKey(Key key, const Interval& interval)
       if (tpc < 7)
             tpc += 12; // no more than 7 flats in keysig
       return Key(tpc - 14);
+      }
+
+
+//---------------------------------------------------------
+//   setTransposedInstrumentKey
+//    an alternative to setKey used only for setting a transposed instrument key according user's Style-defined limits
+//    sets _transposedInstrumentKeyExceededAccidentalLimit flag if transposition exceeds those limits
+//---------------------------------------------------------
+
+void KeySigEvent::setTransposedInstrumentKey(Key key, const Interval& interval, int sharpLimit, int flatLimit)
+      {
+      _custom   = false;
+      _transposedInstrumentKeyExceededAccidentalLimit = false;
+
+      _key = Key(transposeTpc(int(key) + 14, interval, false) - 14);
+      // check for valid key sigs
+      if (_key > sharpLimit) {
+            _key -= Key::DELTA_ENHARMONIC; // convert to enharmonic
+            _transposedInstrumentKeyExceededAccidentalLimit = true;
+            }
+      else if (_key < flatLimit) {
+            _key += Key::DELTA_ENHARMONIC; // convert to enharmonic
+            _transposedInstrumentKeyExceededAccidentalLimit = true;
+            }
       }
 
 //---------------------------------------------------------

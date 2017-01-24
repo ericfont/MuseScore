@@ -70,6 +70,7 @@ class KeySigEvent {
       Key _key            { Key::INVALID };          // -7 -> +7
       KeyMode _mode       { KeyMode::UNKNOWN };
       bool _custom        { false };
+      bool _transposedInstrumentKeyExceededAccidentalLimit;
       QList<KeySym> _keySymbols;
 
       void enforceLimits();
@@ -81,9 +82,12 @@ class KeySigEvent {
       bool operator==(const KeySigEvent& e) const;
 
       void setKey(Key v);
+      void setTransposedInstrumentKey(Key key, const Interval& interval, int sharpLimit, int flatLimit);
       void print() const;
 
       Key key() const            { return _key;                    }
+      bool transposedInstrumentKeyExceededAccidentalLimit() const            { return _transposedInstrumentKeyExceededAccidentalLimit;                    }
+      bool setTransposedInstrumentKeyExceededAccidentalLimit(bool val) { _transposedInstrumentKeyExceededAccidentalLimit = val; }
       KeyMode mode() const       { return _mode;                   }
       void setMode(KeyMode m)    { _mode = m;                      }
       bool custom() const        { return _custom;                 }

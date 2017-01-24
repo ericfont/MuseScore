@@ -51,7 +51,6 @@ KeySig::KeySig(Score* s)
       setFlags(ElementFlag::SELECTABLE | ElementFlag::ON_STAFF);
       _showCourtesy = true;
       _hideNaturals = false;
-      _transposedInstrumentKeyExceededAccidentalLimit = false;
       }
 
 KeySig::KeySig(const KeySig& k)
@@ -60,7 +59,6 @@ KeySig::KeySig(const KeySig& k)
       _showCourtesy = k._showCourtesy;
       _sig          = k._sig;
       _hideNaturals = false;
-      _transposedInstrumentKeyExceededAccidentalLimit = k._transposedInstrumentKeyExceededAccidentalLimit; // not sure if best to set this as default false or if to copy...
       }
 
 //---------------------------------------------------------
@@ -333,8 +331,8 @@ void KeySig::write(XmlWriter& xml) const
             }
       else {
             xml.tag("accidental", int(_sig.key()));
-            if (_transposedInstrumentKeyExceededAccidentalLimit) // default is false, so only write if true
-                  xml.tag("transposedInstrumentKeyExceededAccidentalLimit", _transposedInstrumentKeyExceededAccidentalLimit);
+            if (_sig.transposedInstrumentKeyExceededAccidentalLimit()) // default is false, so only write if true
+                  xml.tag("transposedInstrumentKeyExceededAccidentalLimit", _sig.transposedInstrumentKeyExceededAccidentalLimit());
             }
       switch (_sig.mode()) {
             case KeyMode::NONE:     xml.tag("mode", "none"); break;
@@ -392,7 +390,7 @@ void KeySig::read(XmlReader& e)
             else if (tag == "accidental")
                   _sig.setKey(Key(e.readInt()));
             else if (tag == "transposedInstrumentKeyExceededAccidentalLimit")
-                  _transposedInstrumentKeyExceededAccidentalLimit = e.readBool();
+                  _sig.setTransposedInstrumentKeyExceededAccidentalLimit(e.readBool());
             else if (tag == "natural")                // obsolete
                   e.readInt();
             else if (tag == "custom") {
