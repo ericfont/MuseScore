@@ -672,6 +672,9 @@ enum class StyleIdx {
       user2FontItalic,
       user2FontUnderline,
 
+      keySigTransposedMaxSharps,
+      keySigTransposedMaxFlats,
+
       STYLES
       };
 

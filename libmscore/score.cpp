@@ -2348,7 +2348,7 @@ void Score::adjustKeySigs(int sidx, int eidx, KeyList km)
                   KeySigEvent nKey = oKey;
                   int diff = -staff->part()->instrument(tick)->transpose().chromatic;
                   if (diff != 0 && !styleB(StyleIdx::concertPitch) && !oKey.custom() && !oKey.isAtonal())
-                        nKey.setKey(transposeKey(nKey.key(), diff));
+                        nKey.setTransposedInstrumentKey(diff, styleI(StyleIdx::keySigTransposedMaxSharps), styleI(StyleIdx::keySigTransposedMaxFlats));
                   staff->setKey(tick, nKey);
                   KeySig* keysig = new KeySig(this);
                   keysig->setTrack(staffIdx * VOICES);
@@ -3870,19 +3870,17 @@ QString Score::extractLyrics()
 
 int Score::keysig()
       {
-      Key result = Key::C;
       for (int staffIdx = 0; staffIdx < nstaves(); ++staffIdx) {
             Staff* st = staff(staffIdx);
-            Key key = st->key(0);
-            if (st->staffType(0)->group() == StaffGroup::PERCUSSION || st->keySigEvent(0).custom() || st->keySigEvent(0).isAtonal())       // ignore percussion and custom / atonal key
+            KeySigEvent kse = st->keySigEvent(0);
+            if (st->staffType(0)->group() == StaffGroup::PERCUSSION || kse.custom() || kse.isAtonal())       // ignore percussion and custom / atonal key
                   continue;
-            result = key;
             int diff = st->part()->instrument()->transpose().chromatic;
             if (!styleB(StyleIdx::concertPitch) && diff)
-                  result = transposeKey(key, diff);
-            break;
+                  kse.setTransposedInstrumentKey(diff, styleI(StyleIdx::keySigTransposedMaxSharps), styleI(StyleIdx::keySigTransposedMaxFlats));
+            return int(kse.key());
             }
-      return int(result);
+      return int(Key::C);
       }
 
 //---------------------------------------------------------

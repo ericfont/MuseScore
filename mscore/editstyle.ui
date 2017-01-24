@@ -155,7 +155,7 @@
       </item>
       <item>
        <property name="text">
-        <string>Accidentals</string>
+        <string>Accidentals, Key Signatures</string>
        </property>
       </item>
       <item>
@@ -8387,6 +8387,73 @@
             <widget class="QRadioButton" name="radioKeySigNatAfter">
              <property name="text">
               <string>After key signature if changing to fewer ♯ or ♭. Before if changing between ♯ and ♭</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="keySigTransposedMaxAccidentalsGroup">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::StrongFocus</enum>
+          </property>
+          <property name="title">
+           <string>Convert transposed instrument key signatures into enharmonic equivalent when number of accidentals in transposition exceeds the following limits:</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_26">
+           <item row="0" column="1">
+            <widget class="QSpinBox" name="keySigTransposedMaxSharps">
+             <property name="frame">
+              <bool>true</bool>
+             </property>
+             <property name="minimum">
+              <number>4</number>
+             </property>
+             <property name="maximum">
+              <number>7</number>
+             </property>
+             <property name="value">
+              <number>6</number>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_142">
+             <property name="text">
+              <string>Maximum Number of Sharps</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_128">
+             <property name="text">
+              <string>Maximum Number of Flats</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="keySigTransposedMaxFlats">
+             <property name="minimum">
+              <number>4</number>
+             </property>
+             <property name="maximum">
+              <number>6</number>
+             </property>
+             <property name="value">
+              <number>6</number>
              </property>
             </widget>
            </item>
