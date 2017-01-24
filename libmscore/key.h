@@ -13,6 +13,8 @@
 #ifndef __KEY__H__
 #define __KEY__H__
 
+#include "interval.h"
+
 namespace Ms {
 
 class XmlWriter;
@@ -87,7 +89,7 @@ class KeySigEvent {
 
       Key key() const            { return _key;                    }
       bool transposedInstrumentKeyExceededAccidentalLimit() const            { return _transposedInstrumentKeyExceededAccidentalLimit;                    }
-      bool setTransposedInstrumentKeyExceededAccidentalLimit(bool val) { _transposedInstrumentKeyExceededAccidentalLimit = val; }
+      void setTransposedInstrumentKeyExceededAccidentalLimit(bool val) { _transposedInstrumentKeyExceededAccidentalLimit = val; }
       KeyMode mode() const       { return _mode;                   }
       void setMode(KeyMode m)    { _mode = m;                      }
       bool custom() const        { return _custom;                 }

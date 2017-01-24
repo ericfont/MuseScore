@@ -519,16 +519,15 @@ void Score::transposeKeys(int staffStart, int staffEnd, int tickStart, int tickE
                         createKey = false;
                   if (!ks->isCustom() && !ks->isAtonal()) {
                         Key key  = st->key(s->tick());
-                        Key nKey = transposeKey(key, segmentInterval);
                         // remove initial C major key signatures
-                        if (nKey == Key::C && s->tick() == 0) {
+                        if (transposeKey(key, segmentInterval) == Key::C && s->tick() == 0) {
                               undo(new RemoveElement(ks));
                               if (s->empty())
                                     undo(new RemoveElement(s));
                               }
                         else {
                               KeySigEvent ke;
-                              ke.setKey(nKey);
+                              ke.setTransposedInstrumentKey(key, segmentInterval, score()->styleI(StyleIdx::keySigTransposedMaxSharps), score()->styleI(StyleIdx::keySigTransposedMaxFlats));
                               undo(new ChangeKeySig(ks, ke, ks->showCourtesy()));
                               }
                         }

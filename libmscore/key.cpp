@@ -80,7 +80,7 @@ void KeySigEvent::setKey(Key v)
       {
       _key      = v;
       _custom   = false;
-      _transposedInstrumentKeyExceededAccidentalLimit = false;  // since forcibly set key, should no longer track whether the key exceeded the transposed instrument accidental limit
+      _transposedInstrumentKeyExceededAccidentalLimit = false;  // since forcibly set key, should no longer track whether the key exceeded the transposed instrument accidental limit if previously set
       enforceLimits();
       }
 

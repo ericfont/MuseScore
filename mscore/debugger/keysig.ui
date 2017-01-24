@@ -96,6 +96,13 @@
         </property>
        </widget>
       </item>
+      <item row="2" column="3">
+       <widget class="QCheckBox" name="transposedKeyExceededAccidentalLimit">
+        <property name="text">
+         <string notr="true">transposedKeyExceededAccidentalLimit</string>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="1">
        <widget class="QCheckBox" name="atonal">
         <property name="text">
