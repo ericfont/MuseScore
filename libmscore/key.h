@@ -42,6 +42,12 @@ enum class KeyMode {
       NONE, MAJOR, MINOR
       };
 
+enum class TransposedInstrumentKeyExceededAccidentalLimit {
+      EXCEEDED_FLAT_LIMIT = -1,
+      HAS_NOT_EXCEEDED_LIMIT = 0,
+      EXCEEDED_SHARP_LIMIT = 1
+      };
+
 static inline bool operator<  (Key a, Key b) { return int(a) < int(b); }
 static inline bool operator>  (Key a, Key b) { return int(a) > int(b); }
 static inline bool operator>  (Key a, int b) { return int(a) > b; }
@@ -72,7 +78,7 @@ class KeySigEvent {
       Key _key            { Key::INVALID };          // -7 -> +7
       KeyMode _mode       { KeyMode::UNKNOWN };
       bool _custom        { false };
-      bool _transposedInstrumentKeyExceededAccidentalLimit;
+      TransposedInstrumentKeyExceededAccidentalLimit _transposedInstrumentKeyExceededAccidentalLimit;
       QList<KeySym> _keySymbols;
 
       void enforceLimits();
@@ -84,12 +90,12 @@ class KeySigEvent {
       bool operator==(const KeySigEvent& e) const;
 
       void setKey(Key v);
-      void setTransposedInstrumentKey(Key key, const Interval& interval, int sharpLimit, int flatLimit);
+      void setTransposedInstrumentKey(const Interval& interval, int sharpLimit, int flatLimit);
       void print() const;
 
       Key key() const            { return _key;                    }
-      bool transposedInstrumentKeyExceededAccidentalLimit() const            { return _transposedInstrumentKeyExceededAccidentalLimit;                    }
-      void setTransposedInstrumentKeyExceededAccidentalLimit(bool val) { _transposedInstrumentKeyExceededAccidentalLimit = val; }
+      TransposedInstrumentKeyExceededAccidentalLimit transposedInstrumentKeyExceededAccidentalLimit() const            { return _transposedInstrumentKeyExceededAccidentalLimit;                    }
+      void setTransposedInstrumentKeyExceededAccidentalLimit(TransposedInstrumentKeyExceededAccidentalLimit val) { _transposedInstrumentKeyExceededAccidentalLimit = val; }
       KeyMode mode() const       { return _mode;                   }
       void setMode(KeyMode m)    { _mode = m;                      }
       bool custom() const        { return _custom;                 }

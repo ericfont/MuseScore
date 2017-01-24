@@ -2522,7 +2522,7 @@ void KeySigView::setElement(Element* e)
       keysig.accidentalType->setValue(int(ev.key()));
       keysig.custom->setChecked(ev.custom());
       keysig.atonal->setChecked(ev.isAtonal());
-      keysig.transposedKeyExceededAccidentalLimit->setChecked(ev.transposedInstrumentKeyExceededAccidentalLimit());
+      keysig.transposedKeyExceededAccidentalLimit->setValue(int(ev.transposedInstrumentKeyExceededAccidentalLimit()));
       keysig.invalid->setChecked(!ev.isValid());
       }
 

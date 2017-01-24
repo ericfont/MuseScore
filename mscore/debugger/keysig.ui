@@ -75,6 +75,13 @@
         </property>
        </widget>
       </item>
+      <item row="1" column="4">
+       <widget class="QSpinBox" name="naturalType">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0" colspan="3">
        <widget class="QCheckBox" name="showCourtesySig">
         <property name="text">
@@ -82,10 +89,10 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="4">
-       <widget class="QSpinBox" name="naturalType">
-        <property name="readOnly">
-         <bool>true</bool>
+      <item row="2" column="1">
+       <widget class="QCheckBox" name="atonal">
+        <property name="text">
+         <string notr="true">atonal</string>
         </property>
        </widget>
       </item>
@@ -97,16 +104,22 @@
        </widget>
       </item>
       <item row="2" column="3">
-       <widget class="QCheckBox" name="transposedKeyExceededAccidentalLimit">
+       <widget class="QLabel" name="label_6">
         <property name="text">
          <string notr="true">transposedKeyExceededAccidentalLimit</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QCheckBox" name="atonal">
-        <property name="text">
-         <string notr="true">atonal</string>
+      <item row="2" column="4">
+       <widget class="QSpinBox" name="transposedKeyExceededAccidentalLimit">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="minimum">
+         <number>-99</number>
         </property>
        </widget>
       </item>

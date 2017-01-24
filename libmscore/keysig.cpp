@@ -331,8 +331,8 @@ void KeySig::write(XmlWriter& xml) const
             }
       else {
             xml.tag("accidental", int(_sig.key()));
-            if (_sig.transposedInstrumentKeyExceededAccidentalLimit()) // default is false, so only write if true
-                  xml.tag("transposedInstrumentKeyExceededAccidentalLimit", _sig.transposedInstrumentKeyExceededAccidentalLimit());
+            if (_sig.transposedInstrumentKeyExceededAccidentalLimit() != TransposedInstrumentKeyExceededAccidentalLimit::HAS_NOT_EXCEEDED_LIMIT)
+                  xml.tag("transposedInstrumentKeyExceededAccidentalLimit", int(_sig.transposedInstrumentKeyExceededAccidentalLimit()));
             }
       switch (_sig.mode()) {
             case KeyMode::NONE:     xml.tag("mode", "none"); break;
@@ -390,7 +390,7 @@ void KeySig::read(XmlReader& e)
             else if (tag == "accidental")
                   _sig.setKey(Key(e.readInt()));
             else if (tag == "transposedInstrumentKeyExceededAccidentalLimit")
-                  _sig.setTransposedInstrumentKeyExceededAccidentalLimit(e.readBool());
+                  _sig.setTransposedInstrumentKeyExceededAccidentalLimit(TransposedInstrumentKeyExceededAccidentalLimit(e.readInt()));
             else if (tag == "natural")                // obsolete
                   e.readInt();
             else if (tag == "custom") {
