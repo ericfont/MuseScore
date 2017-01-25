@@ -6804,7 +6804,7 @@
            <enum>Qt::StrongFocus</enum>
           </property>
           <property name="title">
-           <string>Simplification of Transposed Instrument Key Signatures</string>
+           <string>Convert transposed instrument key signatures into enharmonic equivalent when number of accidentals in transposition exceeds the following limits:</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_26">
            <item row="0" column="1">
@@ -6819,7 +6819,7 @@
               <number>7</number>
              </property>
              <property name="value">
-              <number>7</number>
+              <number>6</number>
              </property>
             </widget>
            </item>
@@ -6843,10 +6843,10 @@
               <number>4</number>
              </property>
              <property name="maximum">
-              <number>7</number>
+              <number>6</number>
              </property>
              <property name="value">
-              <number>7</number>
+              <number>6</number>
              </property>
             </widget>
            </item>

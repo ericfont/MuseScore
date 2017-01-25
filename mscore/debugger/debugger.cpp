@@ -2522,8 +2522,20 @@ void KeySigView::setElement(Element* e)
       keysig.accidentalType->setValue(int(ev.key()));
       keysig.custom->setChecked(ev.custom());
       keysig.atonal->setChecked(ev.isAtonal());
-      keysig.transposedKeyExceededAccidentalLimit->setValue(int(ev.transposedInstrumentKeyExceededAccidentalLimit()));
       keysig.invalid->setChecked(!ev.isValid());
+
+      // set transposedInstrumentKeyExceededAccidentalLimit according to text of the enum
+      switch (ev.transposedInstrumentKeyExceededAccidentalLimit()) {
+            case TransposedInstrumentKeyExceededAccidentalLimit::EXCEEDED_FLAT_LIMIT:
+                  keysig.transposedKeyExceededAccidentalLimit->setText("EXCEEDED_FLAT_LIMIT");
+                  break;
+            case TransposedInstrumentKeyExceededAccidentalLimit::HAS_NOT_EXCEEDED_LIMIT:
+                  keysig.transposedKeyExceededAccidentalLimit->setText("HAS_NOT_EXCEEDED_LIMIT");
+                  break;
+            case TransposedInstrumentKeyExceededAccidentalLimit::EXCEEDED_SHARP_LIMIT:
+                  keysig.transposedKeyExceededAccidentalLimit->setText("EXCEEDED_SHARP_LIMIT");
+                  break;
+            }
       }
 
 //---------------------------------------------------------

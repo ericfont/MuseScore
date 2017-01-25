@@ -518,9 +518,8 @@ void Score::transposeKeys(int staffStart, int staffEnd, int tickStart, int tickE
                   if (s->tick() == 0)
                         createKey = false;
                   if (!ks->isCustom() && !ks->isAtonal()) {
-                        Key key = st->key(s->tick());
                         // remove initial C major key signatures
-                        if (transposeKey(key, segmentInterval) == Key::C && s->tick() == 0) {
+                        if (transposeKey(st->key(s->tick()), segmentInterval) == Key::C && s->tick() == 0) {
                               undo(new RemoveElement(ks));
                               if (s->empty())
                                     undo(new RemoveElement(s));
@@ -673,9 +672,14 @@ void Score::transpositionChanged(Part* part, Interval oldV, int tickStart, int t
       v.flip();
       Interval diffV(oldV.chromatic + v.chromatic);
 
-      // transpose keys first
-      if (!styleB(StyleIdx::concertPitch))
-            transposeKeys(part->startTrack() / VOICES, part->endTrack() / VOICES, tickStart, tickEnd, diffV);
+      // transpose keys first if not in concert pitch
+      if (!styleB(StyleIdx::concertPitch)) {
+            // first undo the old transposition (this is important for proper unsetting of transposedKeyExceededAccidentalLimit flags) by going to concert pitch
+            transposeKeys(part->startTrack() / VOICES, part->endTrack() / VOICES, tickStart, tickEnd, oldV);
+
+            // then go from concert pitch to the new transposition (which may set transposedKeyExceededAccidentalLimit flags for a different set of key signatures)
+            transposeKeys(part->startTrack() / VOICES, part->endTrack() / VOICES, tickStart, tickEnd, v);
+            }
 
       // now transpose notes and chord symbols
       for (Segment* s = firstSegment(Segment::Type::ChordRest); s; s = s->next1(Segment::Type::ChordRest)) {

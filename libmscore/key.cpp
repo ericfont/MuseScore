@@ -151,8 +151,8 @@ Key transposeKey(Key key, const Interval& interval)
 
 //---------------------------------------------------------
 //   setTransposedInstrumentKey
-//    an alternative to setKey used only for setting a transposed instrument key according user's Style-defined limits
-//    sets _transposedInstrumentKeyExceededAccidentalLimit flag if transposition exceeds those limits
+//    an alternative to setKey used only for setting a transposed instrument key
+//    If transposition exceeds the sharp and flat limits, then converts to enharmonic equivalnet and sets the _transposedInstrumentKeyExceededAccidentalLimit flag
 //---------------------------------------------------------
 
 void KeySigEvent::setTransposedInstrumentKey(const Interval& interval, int sharpLimit, int flatLimit)

@@ -1808,7 +1808,7 @@ void Score::deleteMeasures(MeasureBase* is, MeasureBase* ie)
                                     transposeKeySigEvent = true;
                                     Interval v = staff(0)->part()->instrument(m->tick())->transpose();
                                     if (!v.isZero())
-                                          lastDeletedKeySigEvent.setKey(transposeKey(lastDeletedKeySigEvent.key(), v));
+                                          lastDeletedKeySigEvent.setTransposedInstrumentKey(v, score()->styleI(StyleIdx::keySigTransposedMaxSharps), score()->styleI(StyleIdx::keySigTransposedMaxFlats));
                                     }
                               }
                         }
@@ -1873,7 +1873,7 @@ printf("undoRemoveMeasures %p %p\n", is, ie);
                               if (transposeKeySigEvent) {
                                     Interval v = score->staff(staffIdx)->part()->instrument(0)->transpose();
                                     v.flip();
-                                    nkse.setKey(transposeKey(nkse.key(), v));
+                                    nkse.setTransposedInstrumentKey(v, score->styleI(StyleIdx::keySigTransposedMaxSharps), score->styleI(StyleIdx::keySigTransposedMaxFlats));
                                     }
                               KeySig* nks = new KeySig(score);
                               nks->setTrack(staffIdx * VOICES);
