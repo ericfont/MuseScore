@@ -285,6 +285,9 @@ EditStyle::EditStyle(Score* s, QWidget* parent)
       { StyleIdx::textLinePlacement,       false, textLinePlacement, resetTextLinePlacement },
       { StyleIdx::textLinePosAbove,        false, textLinePosAbove,             resetTextLinePosAbove },
       { StyleIdx::textLinePosBelow,        false, textLinePosBelow,             resetTextLinePosBelow },
+
+      { StyleIdx::keySigTransposedMaxSharps,false, keySigTransposedMaxSharps, 0 },
+      { StyleIdx::keySigTransposedMaxFlats, false, keySigTransposedMaxFlats, 0 },
       };
 
       for (QComboBox* cb : std::vector<QComboBox*> {

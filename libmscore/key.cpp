@@ -159,31 +159,31 @@ void KeySigEvent::setTransposedInstrumentKey(const Interval& interval, int sharp
       {
       _custom   = false;
 
-      // before performing the transposition, first place in original realm of sharp or flat key if transposition had pused key beyond the accidental limit
+      // before performing the transposition, first place in original realm of sharp or flat key if transposition had pushed key beyond the accidental limit
       if (_transposedInstrumentKeyExceededAccidentalLimit == TransposedInstrumentKeyExceededAccidentalLimit::EXCEEDED_SHARP_LIMIT) {
-
             _key += Key::DELTA_ENHARMONIC; // convert back to sharp enharmonic
             _transposedInstrumentKeyExceededAccidentalLimit = TransposedInstrumentKeyExceededAccidentalLimit::HAS_NOT_EXCEEDED_LIMIT;
+            _key = Key(transposeTpc(int(_key) + 14, interval, true) - 14);
             }
       else if (_transposedInstrumentKeyExceededAccidentalLimit == TransposedInstrumentKeyExceededAccidentalLimit::EXCEEDED_FLAT_LIMIT) {
-
             _key -= Key::DELTA_ENHARMONIC; // convert back to flat enharmonic
             _transposedInstrumentKeyExceededAccidentalLimit = TransposedInstrumentKeyExceededAccidentalLimit::HAS_NOT_EXCEEDED_LIMIT;
+            _key = Key(transposeTpc(int(_key) + 14, interval, true) - 14);
             }
+      else { // was not beyond the accidental limit
 
-      // perform the transposition
-      _key = Key(transposeTpc(int(_key) + 14, interval, true) - 14);
+            _key = Key(transposeTpc(int(_key) + 14, interval, true) - 14);
 
-      // convert to enharmonic equivalent if now beyond the accidental limit
-      if (_key > sharpLimit) {
-            _key -= Key::DELTA_ENHARMONIC; // convert to flat enharmonic
-            _transposedInstrumentKeyExceededAccidentalLimit = TransposedInstrumentKeyExceededAccidentalLimit::EXCEEDED_SHARP_LIMIT;
+            // convert to enharmonic equivalent if now beyond the accidental limit
+            if (_key > sharpLimit) {
+                  _key -= Key::DELTA_ENHARMONIC; // convert to flat enharmonic
+                  _transposedInstrumentKeyExceededAccidentalLimit = TransposedInstrumentKeyExceededAccidentalLimit::EXCEEDED_SHARP_LIMIT;
+                  }
+            else if (_key < -flatLimit) {
+                  _key += Key::DELTA_ENHARMONIC; // convert to sharp enharmonic
+                  _transposedInstrumentKeyExceededAccidentalLimit = TransposedInstrumentKeyExceededAccidentalLimit::EXCEEDED_FLAT_LIMIT;
+                  }
             }
-      else if (_key < -flatLimit) {
-            _key += Key::DELTA_ENHARMONIC; // convert to sharp enharmonic
-            _transposedInstrumentKeyExceededAccidentalLimit = TransposedInstrumentKeyExceededAccidentalLimit::EXCEEDED_FLAT_LIMIT;
-            }
-
       }
 
 //---------------------------------------------------------
