@@ -3376,11 +3376,14 @@ void Score::doLayout()
 
 void Score::doLayoutRange(int stick, int etick)
       {
+      if (first() == 0)
+            return;
+
 qDebug("%p %d-%d", this, stick, etick);
       if (stick < 0)
             stick = 0;
       if (etick < 0)
-            etick = lastMeasure()->endTick();
+                  etick = lastMeasure()->endTick();
 
       LayoutContext lc;
       lc.endTick     = etick;
