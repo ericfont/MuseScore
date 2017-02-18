@@ -90,9 +90,9 @@ NoteGroups::NoteGroups(QWidget* parent)
 //   setSig
 //---------------------------------------------------------
 
-void NoteGroups::setSig(Fraction sig, const Groups& g)
+void NoteGroups::setSig(TimeSig* t, const Groups& g)
       {
-      _sig    = sig;
+      timesig = t;
       _groups = g;
       chords8.clear();
       chords16.clear();

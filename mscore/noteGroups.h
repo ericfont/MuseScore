@@ -15,6 +15,7 @@
 
 #include "ui_note_groups.h"
 #include "libmscore/fraction.h"
+#include "libmscore/timesig.h"
 #include "libmscore/groups.h"
 
 namespace Ms {
@@ -33,7 +34,7 @@ class NoteGroups : public QGroupBox, Ui::NoteGroups {
       std::vector<Chord*> chords16;
       std::vector<Chord*> chords32;
       Groups _groups;
-      Fraction _sig;
+      TimeSig* timesig;
 
       Score* createScore(int n, TDuration::DurationType t, std::vector<Chord*>* chords);
 
@@ -43,7 +44,7 @@ class NoteGroups : public QGroupBox, Ui::NoteGroups {
 
    public:
       NoteGroups(QWidget* parent);
-      void setSig(Fraction sig, const Groups&);
+      void setSig(TimeSig*, const Groups&);
       Groups groups();
       };
 

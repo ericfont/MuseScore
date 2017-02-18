@@ -37,13 +37,12 @@ extern void populateIconPalette(Palette* p, const IconAction* a);
 //    TimeSigProperties
 //---------------------------------------------------------
 
-TimeSigProperties::TimeSigProperties(TimeSig* t, QWidget* parent)
+TimeSigProperties::TimeSigProperties(TimeSig* timesig, QWidget* parent)
    : QDialog(parent)
       {
       setObjectName("TimeSigProperties");
       setupUi(this);
       setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
-      timesig = t;
 
       zText->setText(timesig->numeratorString());
       nText->setText(timesig->denominatorString());
@@ -114,10 +113,10 @@ TimeSigProperties::TimeSigProperties(TimeSig* t, QWidget* parent)
             idx++;
             }
 
-      Groups g = t->groups();
+      Groups g = timesig->groups();
       if (g.empty())
             g = Groups::endings(timesig->sig());     // initialize with default
-      groups->setSig(timesig->sig(), g);
+      groups->setSig(timesig->sig(), g, timesig->timeSigType());
 
       MuseScore::restoreGeometry(this);
       }
