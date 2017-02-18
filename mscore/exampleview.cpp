@@ -313,10 +313,12 @@ void ExampleView::dropEvent(QDropEvent* event)
             dragElement = 0;
             return;
             }
+
+
       foreach (Element* e, elementsAt(pos)) {
-            if (e->type() == ElementType::NOTE) {
+            if (e->type() == ElementType::CHORD) {
                   Icon* icon = static_cast<Icon*>(dragElement);
-                  Chord* chord = static_cast<Note*>(e)->chord();
+                  Chord* chord = static_cast<Chord*>(e);
                   switch (icon->iconType()) {
                         case IconType::SBEAM:
                               chord->setBeamMode(Beam::Mode::BEGIN);
