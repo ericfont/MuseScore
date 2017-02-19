@@ -1384,23 +1384,41 @@ int Palette::rows() const
       }
 
 //---------------------------------------------------------
+//   sizeWithMoreElements
+//---------------------------------------------------------
+
+int Palette::sizeWithMoreElements() const
+      {
+      if (_moreElements)
+            return size() + 1;
+      else
+            return size();
+      }
+
+//---------------------------------------------------------
+//   rowsForWidth
+//---------------------------------------------------------
+
+int Palette::rowsForWidth(int w) const
+      {
+      int c = w / hgrid;
+      if (c <= 0)
+            c = 1;
+      int rows = (sizeWithMoreElements() + c - 1) / c;
+      if (rows <= 0)
+            rows = 1;
+      return rows;
+      }
+
+//---------------------------------------------------------
 //   heightForWidth
 //---------------------------------------------------------
 
 int Palette::heightForWidth(int w) const
       {
-      int c = w / hgrid;
-      if (c <= 0)
-            c = 1;
-      int s = size();
-      if (_moreElements)
-            s += 1;
-      int rows = (s + c - 1) / c;
-      if (rows <= 0)
-            rows = 1;
       qreal mag = PALETTE_SPATIUM * extraMag;
       int h = lrint(_yOffset * 2 * mag);
-      return rows * vgrid + h;
+      return rowsForWidth(w) * vgrid + h;
       }
 
 //---------------------------------------------------------
@@ -1410,7 +1428,10 @@ int Palette::heightForWidth(int w) const
 QSize Palette::sizeHint() const
       {
       int h = heightForWidth(width());
-      return QSize((width() / hgrid) * hgrid, h);
+      if (rowsForWidth(width()) == 1)
+            return QSize(sizeWithMoreElements() * hgrid, h);
+      else
+            return QSize((width() / hgrid) * hgrid, h);
       }
 
 //---------------------------------------------------------

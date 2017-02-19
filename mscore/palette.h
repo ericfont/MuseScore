@@ -205,6 +205,9 @@ class Palette : public QWidget {
       bool filter(const QString& text);
       void setShowContextMenu(bool val) { _showContextMenu = val; }
 
+      int sizeWithMoreElements() const;
+      int rowsForWidth(int w) const;
+
       virtual int heightForWidth(int) const;
       virtual QSize sizeHint() const;
       };
