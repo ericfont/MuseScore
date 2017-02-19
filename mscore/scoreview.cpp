@@ -6001,9 +6001,9 @@ static bool elementLower(const Element* e1, const Element* e2)
                   }
             }
       // force z of stem to be seen as higher than note
-      else if (e1->type() == Element::Type::STEM)
+      else if (e1->type() == Ms::ElementType::STEM)
             z1 = n.z() + 1;
-      else if (e2->type() == Element::Type::STEM)
+      else if (e2->type() == Ms::ElementType::STEM)
             z2 = n.z() + 1;
       return z1 < z2;
       }
