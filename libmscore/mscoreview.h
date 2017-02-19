@@ -19,6 +19,7 @@ class Element;
 class Score;
 class Note;
 class Page;
+class ChordRest;
 enum class Grip : int;
 enum class HairpinType : char;
 
@@ -69,6 +70,8 @@ class MuseScoreView {
       virtual void lyricsUpDown(bool /*up*/, bool /*end*/)  {}
       virtual void lyricsMinus()  {}
       virtual void lyricsUnderscore()  {}
+
+      ChordRest* nearestChordRest(const QPointF&);
       };
 
 

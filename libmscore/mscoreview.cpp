@@ -13,6 +13,7 @@
 #include "mscoreview.h"
 #include "score.h"
 #include "page.h"
+#include "chordrest.h"
 
 namespace Ms {
 
@@ -77,6 +78,61 @@ const QList<Element*> MuseScoreView::elementsAt(const QPointF& p)
       return el;
       }
 
+
+
+//---------------------------------------------------------
+//   nearestChordRest
+//---------------------------------------------------------
+
+ChordRest* MuseScoreView::nearestChordRest(const QPointF& p)
+      {
+      return 0;
+   /*   Page* page = point2page(p);
+      if (!page) {
+            // qDebug("  no page");
+            return 0;
+            }
+
+      p       -= page->pos();
+      double w = (preferences.proximity * .5) / matrix().m11();
+      QRectF r(p.x() - w, p.y() - w, 3.0 * w, 3.0 * w);
+
+      QList<Element*> el = page->items(r);
+      QList<Element*> ll;
+      for (Element* e : el) {
+            e->itemDiscovered = 0;
+            if (!e->selectable() || e->isPage())
+                  continue;
+            if (e->contains(p))
+                  ll.append(e);
+            }
+      int n = ll.size();
+      if ((n == 0) || ((n == 1) && (ll[0]->isMeasure()))) {
+            //
+            // if no relevant element hit, look nearby
+            //
+            for (Element* e : el) {
+                  if (e->isPage() || !e->selectable())
+                        continue;
+                  if (e->intersects(r))
+                        ll.append(e);
+                  }
+            }
+      if (ll.empty()) {
+            // qDebug("  nothing found");
+            return 0;
+            }
+      qSort(ll.begin(), ll.end(), elementLower);
+
+#if 0
+      qDebug("elementNear");
+      foreach(const Element* e, ll)
+            qDebug("  %s selected %d z %d", e->name(), e->selected(), e->z());
+#endif
+      Element* e = ll.at(0);
+      return e;*/
+
+      }
 
 }
 

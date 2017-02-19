@@ -3641,7 +3641,12 @@ bool ScoreView::mousePress(QMouseEvent* ev)
       data.startMove = imatrix.map(QPointF(startMoveI));
       curElement     = elementNear(data.startMove);
 
-      if (curElement && curElement->isMeasure()) {
+      Qt::KeyboardModifiers keyState = ev->modifiers();
+      if (keyState & Qt::AltModifier) {
+            qDebug("HI");
+            }
+      else if (curElement && curElement->isMeasure()) {
+            qDebug("curElement->isMeasure");
             System* dragSystem = (System*)(curElement->parent());
             int dragStaffIdx  = getStaff(dragSystem, data.startMove);
             if (dragStaffIdx < 0)
