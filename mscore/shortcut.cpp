@@ -1800,17 +1800,52 @@ Shortcut Shortcut::_sc[] = {
       {
          MsWidget::MAIN_WINDOW,
          STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT ,
-         "toggle-transport",
-         QT_TRANSLATE_NOOP("action","Playback Controls"),
-         QT_TRANSLATE_NOOP("action","Playback controls toolbar")
+         "toggle-midi",
+         QT_TRANSLATE_NOOP("action","Midi Tools"),
+         QT_TRANSLATE_NOOP("action","Midi controls toolbar")
          },
 #endif
       {
          MsWidget::MAIN_WINDOW,
          STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT ,
-         "toggle-midi",
-         QT_TRANSLATE_NOOP("action","Midi Tools"),
-         QT_TRANSLATE_NOOP("action","Midi controls toolbar")
+         "toggle-play",
+         QT_TRANSLATE_NOOP("action","Playback Controls"),
+         QT_TRANSLATE_NOOP("action","Playback controls toolbar")
+         },
+      {
+         MsWidget::MAIN_WINDOW,
+         STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT ,
+         "toggle-transport",
+         QT_TRANSLATE_NOOP("action","Transport Controls"),
+         QT_TRANSLATE_NOOP("action","Transport controls toolbar")
+         },
+      {
+         MsWidget::MAIN_WINDOW,
+         STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT ,
+         "toggle-loop",
+         QT_TRANSLATE_NOOP("action","Loop Controls"),
+         QT_TRANSLATE_NOOP("action","Loop controls toolbar")
+         },
+      {
+         MsWidget::MAIN_WINDOW,
+         STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT ,
+         "toggle-position",
+         QT_TRANSLATE_NOOP("action","Position Controls"),
+         QT_TRANSLATE_NOOP("action","Position controls toolbar")
+         },
+      {
+         MsWidget::MAIN_WINDOW,
+         STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT ,
+         "toggle-tempo",
+         QT_TRANSLATE_NOOP("action","Tempo Controls"),
+         QT_TRANSLATE_NOOP("action","Tempo controls toolbar")
+         },
+      {
+         MsWidget::MAIN_WINDOW,
+         STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT ,
+         "toggle-volume",
+         QT_TRANSLATE_NOOP("action","Volume Controls"),
+         QT_TRANSLATE_NOOP("action","Volume controls toolbar")
          },
       {
          MsWidget::MAIN_WINDOW,

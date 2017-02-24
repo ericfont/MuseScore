@@ -257,7 +257,12 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
 #ifdef HAS_MIDI
       QToolBar* midiTools;
 #endif
+      QToolBar* playTools;
       QToolBar* transportTools;
+      QToolBar* loopTools;
+      QToolBar* positionTools;
+      QToolBar* tempoTools;
+      QToolBar* volumeTools;
       QToolBar* entryTools;
       TextTools* _textTools                { 0 };
       PianoTools* _pianoTools              { 0 };

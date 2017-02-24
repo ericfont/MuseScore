@@ -88,7 +88,7 @@ class SeqMsgFifo : public FifoBase {
       SeqMsg dequeue();                   // remove object from fifo
       };
 
-// this are also the jack audio transport states:
+// this are also the jack audio play states:
 enum class Transport : char {
       STOP=0,
       PLAY=1,
@@ -113,7 +113,7 @@ class Seq : public QObject, public Sequencer {
       bool inCountIn;
                                           // When we begin playing count in, JACK should play the ticks, but shouldn't run
                                           // JACK Transport to prevent playing in other applications. Before playing
-                                          // count in we have to disconnect from JACK Transport by switching to the fake transport.
+                                          // count in we have to disconnect from JACK Transport by switching to the fake play.
                                           // Also we save current preferences.useJackTransport value to useJackTransportSavedFlag
                                           // to restore it when count in ends. After this all applications start playing in sync.
       bool useJackTransportSavedFlag;
