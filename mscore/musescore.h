@@ -254,6 +254,9 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       QToolBar* cpitchTools;
       QToolBar* fotoTools;
       QToolBar* fileTools;
+#ifdef HAS_MIDI
+      QToolBar* midiTools;
+#endif
       QToolBar* transportTools;
       QToolBar* entryTools;
       TextTools* _textTools                { 0 };

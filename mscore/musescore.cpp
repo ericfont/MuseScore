@@ -748,15 +748,21 @@ MuseScore::MuseScore()
       fileTools->addWidget(viewModeCombo);
 
       //---------------------
+      //    Midi Tool Bar
+      //---------------------
+
+#ifdef HAS_MIDI
+      midiTools = addToolBar("");
+      midiTools->setObjectName("midi-tools");
+      midiTools->addWidget(new AccessibleToolButton(midiTools, getAction("midi-on")));
+#endif
+
+      //---------------------
       //    Transport Tool Bar
       //---------------------
 
       transportTools = addToolBar("");
       transportTools->setObjectName("transport-tools");
-#ifdef HAS_MIDI
-      transportTools->addWidget(new AccessibleToolButton(transportTools, getAction("midi-on")));
-      transportTools->addSeparator();
-#endif
       transportTools->addWidget(new AccessibleToolButton(transportTools, getAction("rewind")));
       _playButton = new AccessibleToolButton(transportTools, getAction("play"));
       transportTools->addWidget(_playButton);
@@ -951,6 +957,14 @@ MuseScore::MuseScore()
       a->setChecked(fileTools->isVisible());
       connect(fileTools, SIGNAL(visibilityChanged(bool)), a, SLOT(setChecked(bool)));
       menuToolbars->addAction(a);
+
+#ifdef HAS_MIDI
+      a = getAction("toggle-midi");
+      a->setCheckable(true);
+      a->setChecked(midiTools->isVisible());
+      connect(midiTools, SIGNAL(visibilityChanged(bool)), a, SLOT(setChecked(bool)));
+      menuToolbars->addAction(a);
+#endif
 
       a = getAction("toggle-transport");
       a->setCheckable(true);
@@ -1370,6 +1384,9 @@ void MuseScore::retranslate(bool firstStart)
       revertToFactoryAction->setText(tr("Revert to Factory Settings"));
 
       fileTools->setWindowTitle(tr("File Operations"));
+#ifdef HAS_MIDI
+      midiTools->setWindowTitle(tr("Midi Tools"));
+#endif
       transportTools->setWindowTitle(tr("Playback Controls"));
       cpitchTools->setWindowTitle(tr("Concert Pitch"));
       fotoTools->setWindowTitle(tr("Image Capture"));
@@ -3107,7 +3124,9 @@ void MuseScore::changeState(ScoreState val)
             }
 
       menuWorkspaces->setEnabled(enable);
-
+#ifdef HAS_MIDI
+      midiTools->setEnabled(enable);
+#endif
       transportTools->setEnabled(enable && !noSeq && seq && seq->isRunning());
       cpitchTools->setEnabled(enable);
       mag->setEnabled(enable);
@@ -3390,6 +3409,11 @@ void MuseScore::readSettings()
 
       QAction* a = getAction("toggle-fileoperations");
       a->setChecked(!fileTools->isHidden());
+
+#ifdef HAS_MIDI
+      a = getAction("toggle-midi");
+      a->setChecked(!midiTools->isHidden());
+#endif
 
       a = getAction("toggle-transport");
       a->setChecked(!transportTools->isHidden());
@@ -4789,6 +4813,10 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
             ;
       else if (cmd == "toggle-fileoperations")
             fileTools->setVisible(!fileTools->isVisible());
+#ifdef HAS_MIDI
+      else if (cmd == "toggle-midi")
+            midiTools->setVisible(!midiTools->isVisible());
+#endif
       else if (cmd == "toggle-transport")
             transportTools->setVisible(!transportTools->isVisible());
       else if (cmd == "toggle-concertpitch")

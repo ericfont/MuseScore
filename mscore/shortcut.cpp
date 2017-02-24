@@ -1796,12 +1796,21 @@ Shortcut Shortcut::_sc[] = {
          QT_TRANSLATE_NOOP("action","File Operations"),
          QT_TRANSLATE_NOOP("action","File operations toolbar")
          },
+#ifdef HAS_MIDI
       {
          MsWidget::MAIN_WINDOW,
          STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT ,
          "toggle-transport",
          QT_TRANSLATE_NOOP("action","Playback Controls"),
          QT_TRANSLATE_NOOP("action","Playback controls toolbar")
+         },
+#endif
+      {
+         MsWidget::MAIN_WINDOW,
+         STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT ,
+         "toggle-midi",
+         QT_TRANSLATE_NOOP("action","Midi Tools"),
+         QT_TRANSLATE_NOOP("action","Midi controls toolbar")
          },
       {
          MsWidget::MAIN_WINDOW,
