@@ -314,7 +314,7 @@ void Seq::start()
                   seek(cs->repeatList()->tick2utick(cs->playPos()));
             }
       if (preferences.useJackTransport && mscore->countIn() && state == Transport::STOP) {
-            // Ready to start playing count in, switching to fake transport
+            // Ready to start playing count in, switching to fake play
             // to prevent playing in other applications with our ticks simultaneously
             useJackTransportSavedFlag    = true;
             preferences.useJackTransport = false;
@@ -676,12 +676,12 @@ void Seq::process(unsigned n, float* buffer)
                         if (preferences.useJackTransport && getCurTick() == 0)
                               seekRT(0);
 
-                        // Switching to fake transport while playing count in
+                        // Switching to fake play while playing count in
                         // to prevent playing in other applications with our ticks simultaneously
                         if (preferences.useJackTransport && mscore->countIn()) {
                               // Stopping real JACK Transport
                               _driver->stopTransport();
-                              // Starting fake transport
+                              // Starting fake play
                               useJackTransportSavedFlag = preferences.useJackTransport;
                               preferences.useJackTransport = false;
                               _driver->startTransport();

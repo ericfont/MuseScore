@@ -453,8 +453,15 @@ void MuseScore::preferencesChanged()
                   }
             }
 
-      transportTools->setEnabled(!noSeq && seq && seq->isRunning());
-      playId->setEnabled(!noSeq && seq && seq->isRunning());
+      bool seqRunning = !noSeq && seq && seq->isRunning();
+      playTools->setEnabled(seqRunning);
+      transportTools->setEnabled(seqRunning);
+      loopTools->setEnabled(seqRunning);
+      positionTools->setEnabled(seqRunning);
+      tempoTools->setEnabled(seqRunning);
+      volumeTools->setEnabled(seqRunning);
+
+      playId->setEnabled(seqRunning);
 
       getAction("midi-on")->setEnabled(preferences.enableMidiInput);
       _statusBar->setVisible(preferences.showStatusBar);
@@ -758,21 +765,56 @@ MuseScore::MuseScore()
 #endif
 
       //---------------------
+      //    Play Tool Bar
+      //---------------------
+
+      playTools = addToolBar("");
+      playTools->setObjectName("play-tools");
+      playTools->addWidget(new AccessibleToolButton(playTools, getAction("rewind")));
+      _playButton = new AccessibleToolButton(playTools, getAction("play"));
+      playTools->addWidget(_playButton);
+
+      //---------------------
       //    Transport Tool Bar
       //---------------------
 
       transportTools = addToolBar("");
       transportTools->setObjectName("transport-tools");
-      transportTools->addWidget(new AccessibleToolButton(transportTools, getAction("rewind")));
-      _playButton = new AccessibleToolButton(transportTools, getAction("play"));
-      transportTools->addWidget(_playButton);
-      transportTools->addWidget(new AccessibleToolButton(transportTools, getAction("loop")));
-      transportTools->addSeparator();
       QAction* repeatAction = getAction("repeat");
       repeatAction->setChecked(MScore::playRepeats);
       transportTools->addWidget(new AccessibleToolButton(transportTools, repeatAction));
       transportTools->addWidget(new AccessibleToolButton(transportTools, getAction("pan")));
-      transportTools->addWidget(new AccessibleToolButton(transportTools, metronomeAction));
+
+      //---------------------
+      //    Loop Tool Bar
+      //---------------------
+
+      loopTools = addToolBar("");
+      loopTools->setObjectName("loop-tools");
+      loopTools->addWidget(new AccessibleToolButton(loopTools, getAction("loop")));
+
+      //---------------------
+      //    Position Tool Bar
+      //---------------------
+
+      positionTools = addToolBar("");
+      positionTools->setObjectName("position-tools");
+
+      //---------------------
+      //    Tempo Tool Bar
+      //---------------------
+
+      tempoTools = addToolBar("");
+      tempoTools->setObjectName("tempo-tools");
+      tempoTools->addWidget(new AccessibleToolButton(tempoTools, metronomeAction));
+
+      //---------------------
+      //    Volume Tool Bar
+      //---------------------
+
+      volumeTools = addToolBar("");
+      volumeTools->setObjectName("volume-tools");
+
 
       //-------------------------------
       //    Concert Pitch Tool Bar
@@ -966,10 +1008,40 @@ MuseScore::MuseScore()
       menuToolbars->addAction(a);
 #endif
 
+      a = getAction("toggle-play");
+      a->setCheckable(true);
+      a->setChecked(playTools->isVisible());
+      connect(playTools, SIGNAL(visibilityChanged(bool)), a, SLOT(setChecked(bool)));
+      menuToolbars->addAction(a);
+
       a = getAction("toggle-transport");
       a->setCheckable(true);
       a->setChecked(transportTools->isVisible());
       connect(transportTools, SIGNAL(visibilityChanged(bool)), a, SLOT(setChecked(bool)));
+      menuToolbars->addAction(a);
+
+      a = getAction("toggle-loop");
+      a->setCheckable(true);
+      a->setChecked(loopTools->isVisible());
+      connect(loopTools, SIGNAL(visibilityChanged(bool)), a, SLOT(setChecked(bool)));
+      menuToolbars->addAction(a);
+
+      a = getAction("toggle-position");
+      a->setCheckable(true);
+      a->setChecked(positionTools->isVisible());
+      connect(positionTools, SIGNAL(visibilityChanged(bool)), a, SLOT(setChecked(bool)));
+      menuToolbars->addAction(a);
+
+      a = getAction("toggle-tempo");
+      a->setCheckable(true);
+      a->setChecked(tempoTools->isVisible());
+      connect(tempoTools, SIGNAL(visibilityChanged(bool)), a, SLOT(setChecked(bool)));
+      menuToolbars->addAction(a);
+
+      a = getAction("toggle-volume");
+      a->setCheckable(true);
+      a->setChecked(volumeTools->isVisible());
+      connect(volumeTools, SIGNAL(visibilityChanged(bool)), a, SLOT(setChecked(bool)));
       menuToolbars->addAction(a);
 
       a = getAction("toggle-concertpitch");
@@ -1387,7 +1459,12 @@ void MuseScore::retranslate(bool firstStart)
 #ifdef HAS_MIDI
       midiTools->setWindowTitle(tr("Midi Tools"));
 #endif
-      transportTools->setWindowTitle(tr("Playback Controls"));
+      playTools->setWindowTitle(tr("Playback Controls"));
+      transportTools->setWindowTitle(tr("Transport Controls"));
+      loopTools->setWindowTitle(tr("Loop Controls"));
+      positionTools->setWindowTitle(tr("Position Controls"));
+      tempoTools->setWindowTitle(tr("Tempo Controls"));
+      volumeTools->setWindowTitle(tr("Volume Controls"));
       cpitchTools->setWindowTitle(tr("Concert Pitch"));
       fotoTools->setWindowTitle(tr("Image Capture"));
       entryTools->setWindowTitle(tr("Note Input"));
@@ -3127,7 +3204,14 @@ void MuseScore::changeState(ScoreState val)
 #ifdef HAS_MIDI
       midiTools->setEnabled(enable);
 #endif
-      transportTools->setEnabled(enable && !noSeq && seq && seq->isRunning());
+      bool seqRuning = !noSeq && seq && seq->isRunning();
+      playTools->setEnabled(enable && seqRuning);
+      transportTools->setEnabled(enable && seqRuning);
+      loopTools->setEnabled(enable && seqRuning);
+      positionTools->setEnabled(enable && seqRuning);
+      tempoTools->setEnabled(enable && seqRuning);
+      volumeTools->setEnabled(enable && seqRuning);
+
       cpitchTools->setEnabled(enable);
       mag->setEnabled(enable);
       entryTools->setEnabled(enable);
@@ -3414,9 +3498,18 @@ void MuseScore::readSettings()
       a = getAction("toggle-midi");
       a->setChecked(!midiTools->isHidden());
 #endif
-
+      a = getAction("toggle-play");
+      a->setChecked(!playTools->isHidden());
       a = getAction("toggle-transport");
       a->setChecked(!transportTools->isHidden());
+      a = getAction("toggle-loop");
+      a->setChecked(!loopTools->isHidden());
+      a = getAction("toggle-position");
+      a->setChecked(!positionTools->isHidden());
+      a = getAction("toggle-tempo");
+      a->setChecked(!tempoTools->isHidden());
+      a = getAction("toggle-volume");
+      a->setChecked(!volumeTools->isHidden());
 
       a = getAction("toggle-concertpitch");
       a->setChecked(!cpitchTools->isHidden());
@@ -4817,8 +4910,18 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
       else if (cmd == "toggle-midi")
             midiTools->setVisible(!midiTools->isVisible());
 #endif
+      else if (cmd == "toggle-play")
+            playTools->setVisible(!playTools->isVisible());
       else if (cmd == "toggle-transport")
             transportTools->setVisible(!transportTools->isVisible());
+      else if (cmd == "toggle-loop")
+            loopTools->setVisible(!loopTools->isVisible());
+      else if (cmd == "toggle-position")
+            positionTools->setVisible(!positionTools->isVisible());
+      else if (cmd == "toggle-tempo")
+            tempoTools->setVisible(!tempoTools->isVisible());
+      else if (cmd == "toggle-volume")
+            volumeTools->setVisible(!volumeTools->isVisible());
       else if (cmd == "toggle-concertpitch")
             cpitchTools->setVisible(!cpitchTools->isVisible());
       else if (cmd == "toggle-imagecapture")
