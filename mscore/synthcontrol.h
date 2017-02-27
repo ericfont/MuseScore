@@ -60,6 +60,7 @@ class SynthControl : public QWidget, Ui::SynthControl {
 
    signals:
       void gainChanged(float);
+      void mutedChanged(bool);
       void metronomeGainChanged(float);
       void soundFontChanged();
       void closed(bool);
@@ -70,6 +71,7 @@ class SynthControl : public QWidget, Ui::SynthControl {
 
    public slots:
       void setGain(float);
+      void setMuted(bool);
 
    public:
       SynthControl(QWidget* parent);

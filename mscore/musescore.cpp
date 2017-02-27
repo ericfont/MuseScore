@@ -814,7 +814,11 @@ MuseScore::MuseScore()
 
       volumeTools = addToolBar("");
       volumeTools->setObjectName("volume-tools");
-      volumeTools->addWidget(new QSlider(Qt::Orientation::Horizontal, volumeTools));
+      QSlider* volumeSlider = new QSlider(Qt::Orientation::Horizontal, volumeTools);
+      volumeSlider->setMaximum(100);
+      volumeSlider->setMinimum(0);
+      volumeTools->addWidget(volumeSlider);
+      connect(synti, SIGNAL(gainChanged(float)), volumeSlider, SLOT(setGain(float)));
 
       //-------------------------------
       //    Concert Pitch Tool Bar
