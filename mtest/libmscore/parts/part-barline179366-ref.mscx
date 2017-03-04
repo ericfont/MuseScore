@@ -1,0 +1,2063 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<museScore version="2.00">
+  <Score>
+    <layoutMode>line</layoutMode>
+    <LayerTag id="0" tag="default"></LayerTag>
+    <currentLayer>0</currentLayer>
+    <Division>480</Division>
+    <Style>
+      <lastSystemFillLimit>0</lastSystemFillLimit>
+      <page-layout>
+        <page-height>1584</page-height>
+        <page-width>1224</page-width>
+        <page-margins type="even">
+          <left-margin>56.6929</left-margin>
+          <right-margin>56.6929</right-margin>
+          <top-margin>56.6929</top-margin>
+          <bottom-margin>113.386</bottom-margin>
+          </page-margins>
+        <page-margins type="odd">
+          <left-margin>56.6929</left-margin>
+          <right-margin>56.6929</right-margin>
+          <top-margin>56.6929</top-margin>
+          <bottom-margin>113.386</bottom-margin>
+          </page-margins>
+        </page-layout>
+      <Spatium>1.76389</Spatium>
+      </Style>
+    <showInvisible>1</showInvisible>
+    <showUnprintable>1</showUnprintable>
+    <showFrames>1</showFrames>
+    <showMargins>0</showMargins>
+    <metaTag name="arranger"></metaTag>
+    <metaTag name="composer">Composer</metaTag>
+    <metaTag name="copyright"></metaTag>
+    <metaTag name="lyricist"></metaTag>
+    <metaTag name="movementNumber"></metaTag>
+    <metaTag name="movementTitle"></metaTag>
+    <metaTag name="poet"></metaTag>
+    <metaTag name="source"></metaTag>
+    <metaTag name="translator"></metaTag>
+    <metaTag name="workNumber"></metaTag>
+    <metaTag name="workTitle">Title</metaTag>
+    <PageList>
+      <Page>
+        <System>
+          </System>
+        </Page>
+      </PageList>
+    <Part>
+      <Staff id="1">
+        <StaffType group="pitched">
+          <name>stdNormal</name>
+          </StaffType>
+        </Staff>
+      <trackName>Piano</trackName>
+      <Instrument>
+        <trackName>Piano</trackName>
+        <minPitchP>21</minPitchP>
+        <maxPitchP>108</maxPitchP>
+        <minPitchA>21</minPitchA>
+        <maxPitchA>108</maxPitchA>
+        <clef staff="2">F</clef>
+        <Articulation>
+          <velocity>100</velocity>
+          <gateTime>95</gateTime>
+          </Articulation>
+        <Articulation name="staccatissimo">
+          <velocity>100</velocity>
+          <gateTime>33</gateTime>
+          </Articulation>
+        <Articulation name="staccato">
+          <velocity>100</velocity>
+          <gateTime>50</gateTime>
+          </Articulation>
+        <Articulation name="portato">
+          <velocity>100</velocity>
+          <gateTime>67</gateTime>
+          </Articulation>
+        <Articulation name="tenuto">
+          <velocity>100</velocity>
+          <gateTime>100</gateTime>
+          </Articulation>
+        <Articulation name="marcato">
+          <velocity>120</velocity>
+          <gateTime>67</gateTime>
+          </Articulation>
+        <Articulation name="sforzato">
+          <velocity>120</velocity>
+          <gateTime>100</gateTime>
+          </Articulation>
+        <Channel>
+          <program value="0"/>
+          </Channel>
+        </Instrument>
+      </Part>
+    <Part>
+      <Staff id="2">
+        <StaffType group="pitched">
+          <name>stdNormal</name>
+          </StaffType>
+        <bracket type="-1" span="0"/>
+        </Staff>
+      <trackName>Flute</trackName>
+      <Instrument>
+        <trackName>Flute</trackName>
+        <minPitchP>59</minPitchP>
+        <maxPitchP>98</maxPitchP>
+        <minPitchA>60</minPitchA>
+        <maxPitchA>93</maxPitchA>
+        <instrumentId>wind.flutes.flute</instrumentId>
+        <Articulation>
+          <velocity>100</velocity>
+          <gateTime>95</gateTime>
+          </Articulation>
+        <Articulation name="staccatissimo">
+          <velocity>100</velocity>
+          <gateTime>33</gateTime>
+          </Articulation>
+        <Articulation name="staccato">
+          <velocity>100</velocity>
+          <gateTime>50</gateTime>
+          </Articulation>
+        <Articulation name="portato">
+          <velocity>100</velocity>
+          <gateTime>67</gateTime>
+          </Articulation>
+        <Articulation name="tenuto">
+          <velocity>100</velocity>
+          <gateTime>100</gateTime>
+          </Articulation>
+        <Articulation name="marcato">
+          <velocity>120</velocity>
+          <gateTime>67</gateTime>
+          </Articulation>
+        <Articulation name="sforzato">
+          <velocity>120</velocity>
+          <gateTime>100</gateTime>
+          </Articulation>
+        <Channel>
+          <program value="73"/>
+          </Channel>
+        </Instrument>
+      </Part>
+    <Staff id="1">
+      <Measure number="1">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <TimeSig>
+          <lid>1</lid>
+          <sigN>4</sigN>
+          <sigD>4</sigD>
+          <showCourtesySig>1</showCourtesySig>
+          </TimeSig>
+        <BarLine>
+          <subtype>start-repeat</subtype>
+          <span>1</span>
+          </BarLine>
+        <Rest>
+          <lid>2</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="2">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>3</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="3">
+        <Rest>
+          <lid>4</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          <span>1</span>
+          </BarLine>
+        </Measure>
+      <Measure number="4">
+        <Rest>
+          <lid>5</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="5">
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <lid>6</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="6">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>7</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="7">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>8</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="8">
+        <Rest>
+          <lid>9</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          <span>1</span>
+          </BarLine>
+        </Measure>
+      <Measure number="9">
+        <Rest>
+          <lid>10</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="10">
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <lid>11</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="11">
+        <Rest>
+          <lid>12</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="12">
+        <Rest>
+          <lid>14</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="13">
+        <Rest>
+          <lid>15</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="14">
+        <Rest>
+          <lid>16</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="15">
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <lid>17</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="16">
+        <Rest>
+          <lid>18</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="17">
+        <Rest>
+          <lid>20</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="18">
+        <Rest>
+          <lid>21</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="19">
+        <Rest>
+          <lid>22</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="20">
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <lid>23</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="21">
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>36</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="22">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>38</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="23">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>39</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="24">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>40</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="25">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <lid>41</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="26">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>42</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="27">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>44</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="28">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>45</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="29">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>46</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="30">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <lid>47</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="31">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>48</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="32">
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>50</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="33">
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>51</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="34">
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>52</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="35">
+        <endRepeat>2</endRepeat>
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <lid>53</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="36">
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>54</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="37">
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>56</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="38">
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>57</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="39">
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>58</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="40">
+        <endRepeat>2</endRepeat>
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <lid>59</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="41">
+        <startRepeat/>
+        <Rest>
+          <lid>60</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="42">
+        <startRepeat/>
+        <Rest>
+          <lid>62</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="43">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>63</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="44">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>64</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="45">
+        <startRepeat/>
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <lid>65</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="46">
+        <startRepeat/>
+        <Rest>
+          <lid>66</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="47">
+        <startRepeat/>
+        <Rest>
+          <lid>68</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="48">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>69</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="49">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <lid>70</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="50">
+        <startRepeat/>
+        <Rest>
+          <lid>71</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        <BarLine>
+          <subtype>end</subtype>
+          <span>1</span>
+          <lid>72</lid>
+          </BarLine>
+        </Measure>
+      </Staff>
+    <Staff id="2">
+      <Measure number="1">
+        <TimeSig>
+          <lid>73</lid>
+          <sigN>4</sigN>
+          <sigD>4</sigD>
+          <showCourtesySig>1</showCourtesySig>
+          </TimeSig>
+        <BarLine>
+          <subtype>start-repeat</subtype>
+          <span>1</span>
+          </BarLine>
+        <Rest>
+          <lid>74</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="2">
+        <Rest>
+          <lid>75</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="3">
+        <Rest>
+          <lid>76</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          <span>1</span>
+          </BarLine>
+        </Measure>
+      <Measure number="4">
+        <Rest>
+          <lid>77</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="5">
+        <Rest>
+          <lid>78</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="6">
+        <Rest>
+          <lid>79</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="7">
+        <Rest>
+          <lid>80</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="8">
+        <Rest>
+          <lid>81</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          <span>1</span>
+          </BarLine>
+        </Measure>
+      <Measure number="9">
+        <Rest>
+          <lid>82</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="10">
+        <Rest>
+          <lid>83</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="11">
+        <Rest>
+          <lid>84</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="12">
+        <Rest>
+          <lid>86</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="13">
+        <Rest>
+          <lid>87</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="14">
+        <Rest>
+          <lid>88</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="15">
+        <Rest>
+          <lid>89</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="16">
+        <Rest>
+          <lid>90</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="17">
+        <Rest>
+          <lid>92</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="18">
+        <Rest>
+          <lid>93</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="19">
+        <Rest>
+          <lid>94</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="20">
+        <Rest>
+          <lid>95</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="21">
+        <Rest>
+          <lid>108</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="22">
+        <Rest>
+          <lid>110</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="23">
+        <Rest>
+          <lid>111</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="24">
+        <Rest>
+          <lid>112</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="25">
+        <Rest>
+          <lid>113</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="26">
+        <Rest>
+          <lid>114</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="27">
+        <Rest>
+          <lid>116</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="28">
+        <Rest>
+          <lid>117</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="29">
+        <Rest>
+          <lid>118</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="30">
+        <Rest>
+          <lid>119</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="31">
+        <Rest>
+          <lid>120</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="32">
+        <Rest>
+          <lid>122</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="33">
+        <Rest>
+          <lid>123</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="34">
+        <Rest>
+          <lid>124</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="35">
+        <Rest>
+          <lid>125</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="36">
+        <Rest>
+          <lid>126</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="37">
+        <Rest>
+          <lid>128</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="38">
+        <Rest>
+          <lid>129</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="39">
+        <Rest>
+          <lid>130</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="40">
+        <Rest>
+          <lid>131</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="41">
+        <Rest>
+          <lid>132</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="42">
+        <Rest>
+          <lid>134</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="43">
+        <Rest>
+          <lid>135</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="44">
+        <Rest>
+          <lid>136</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="45">
+        <Rest>
+          <lid>137</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="46">
+        <Rest>
+          <lid>138</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="47">
+        <Rest>
+          <lid>140</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="48">
+        <Rest>
+          <lid>141</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="49">
+        <Rest>
+          <lid>142</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        </Measure>
+      <Measure number="50">
+        <Rest>
+          <lid>143</lid>
+          <durationType>measure</durationType>
+          <duration z="4" n="4"/>
+          </Rest>
+        <BarLine>
+          <subtype>end</subtype>
+          <span>1</span>
+          <lid>144</lid>
+          </BarLine>
+        </Measure>
+      </Staff>
+    <Score>
+      <layoutMode>line</layoutMode>
+      <LayerTag id="0" tag="default"></LayerTag>
+      <currentLayer>0</currentLayer>
+      <Division>480</Division>
+      <Style>
+        <lastSystemFillLimit>0</lastSystemFillLimit>
+        <page-layout>
+          <page-height>1584</page-height>
+          <page-width>1224</page-width>
+          <page-margins type="even">
+            <left-margin>56.6929</left-margin>
+            <right-margin>56.6929</right-margin>
+            <top-margin>56.6929</top-margin>
+            <bottom-margin>113.386</bottom-margin>
+            </page-margins>
+          <page-margins type="odd">
+            <left-margin>56.6929</left-margin>
+            <right-margin>56.6929</right-margin>
+            <top-margin>56.6929</top-margin>
+            <bottom-margin>113.386</bottom-margin>
+            </page-margins>
+          </page-layout>
+        <Spatium>1.76389</Spatium>
+        </Style>
+      <showInvisible>1</showInvisible>
+      <showUnprintable>1</showUnprintable>
+      <showFrames>1</showFrames>
+      <showMargins>0</showMargins>
+      <metaTag name="partName">Piano</metaTag>
+      <PageList>
+        <Page>
+          <System>
+            </System>
+          </Page>
+        </PageList>
+      <Part>
+        <Staff id="1">
+          <linkedTo>1</linkedTo>
+          <StaffType group="pitched">
+            <name>stdNormal</name>
+            </StaffType>
+          </Staff>
+        <trackName>Piano</trackName>
+        <Instrument>
+          <trackName>Piano</trackName>
+          <minPitchP>21</minPitchP>
+          <maxPitchP>108</maxPitchP>
+          <minPitchA>21</minPitchA>
+          <maxPitchA>108</maxPitchA>
+          <clef staff="2">F</clef>
+          <Articulation>
+            <velocity>100</velocity>
+            <gateTime>95</gateTime>
+            </Articulation>
+          <Articulation name="staccatissimo">
+            <velocity>100</velocity>
+            <gateTime>33</gateTime>
+            </Articulation>
+          <Articulation name="staccato">
+            <velocity>100</velocity>
+            <gateTime>50</gateTime>
+            </Articulation>
+          <Articulation name="portato">
+            <velocity>100</velocity>
+            <gateTime>67</gateTime>
+            </Articulation>
+          <Articulation name="tenuto">
+            <velocity>100</velocity>
+            <gateTime>100</gateTime>
+            </Articulation>
+          <Articulation name="marcato">
+            <velocity>120</velocity>
+            <gateTime>67</gateTime>
+            </Articulation>
+          <Articulation name="sforzato">
+            <velocity>120</velocity>
+            <gateTime>100</gateTime>
+            </Articulation>
+          <Channel>
+            <program value="0"/>
+            </Channel>
+          </Instrument>
+        </Part>
+      <Staff id="1">
+        <Measure number="1">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <TimeSig>
+            <lid>1</lid>
+            <sigN>4</sigN>
+            <sigD>4</sigD>
+            <showCourtesySig>1</showCourtesySig>
+            </TimeSig>
+          <BarLine>
+            <subtype>start-repeat</subtype>
+            <span>1</span>
+            </BarLine>
+          <Rest>
+            <lid>2</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="2">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>3</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="3">
+          <Rest>
+            <lid>4</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          <BarLine>
+            <subtype>double</subtype>
+            <span>1</span>
+            </BarLine>
+          </Measure>
+        <Measure number="4">
+          <Rest>
+            <lid>5</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="5">
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>6</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="6">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>7</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="7">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>8</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="8">
+          <Rest>
+            <lid>9</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          <BarLine>
+            <subtype>double</subtype>
+            <span>1</span>
+            </BarLine>
+          </Measure>
+        <Measure number="9">
+          <Rest>
+            <lid>10</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="10">
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>11</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="11">
+          <Rest>
+            <lid>12</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="12">
+          <Rest>
+            <lid>14</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="13">
+          <startRepeat/>
+          <Rest>
+            <lid>15</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="14">
+          <startRepeat/>
+          <Rest>
+            <lid>16</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="15">
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>17</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="16">
+          <Rest>
+            <lid>18</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="17">
+          <Rest>
+            <lid>20</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="18">
+          <startRepeat/>
+          <Rest>
+            <lid>21</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="19">
+          <startRepeat/>
+          <Rest>
+            <lid>22</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="20">
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>23</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="21">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>36</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="22">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>38</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="23">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>39</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="24">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>40</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="25">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>41</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="26">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>42</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="27">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>44</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="28">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>45</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="29">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>46</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="30">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>47</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="31">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>48</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="32">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>50</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="33">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>51</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="34">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>52</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="35">
+          <endRepeat>2</endRepeat>
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>53</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="36">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>54</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="37">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>56</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="38">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>57</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="39">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>58</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="40">
+          <endRepeat>2</endRepeat>
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>59</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="41">
+          <startRepeat/>
+          <Rest>
+            <lid>60</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="42">
+          <startRepeat/>
+          <Rest>
+            <lid>62</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="43">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>63</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="44">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>64</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="45">
+          <startRepeat/>
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>65</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="46">
+          <startRepeat/>
+          <Rest>
+            <lid>66</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="47">
+          <startRepeat/>
+          <Rest>
+            <lid>68</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="48">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>69</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="49">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>70</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="50">
+          <startRepeat/>
+          <Rest>
+            <lid>71</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          <BarLine>
+            <subtype>end</subtype>
+            <span>1</span>
+            <lid>72</lid>
+            </BarLine>
+          </Measure>
+        </Staff>
+      <name>Piano</name>
+      </Score>
+    <Score>
+      <layoutMode>line</layoutMode>
+      <LayerTag id="0" tag="default"></LayerTag>
+      <currentLayer>0</currentLayer>
+      <Division>480</Division>
+      <Style>
+        <lastSystemFillLimit>0</lastSystemFillLimit>
+        <page-layout>
+          <page-height>1584</page-height>
+          <page-width>1224</page-width>
+          <page-margins type="even">
+            <left-margin>56.6929</left-margin>
+            <right-margin>56.6929</right-margin>
+            <top-margin>56.6929</top-margin>
+            <bottom-margin>113.386</bottom-margin>
+            </page-margins>
+          <page-margins type="odd">
+            <left-margin>56.6929</left-margin>
+            <right-margin>56.6929</right-margin>
+            <top-margin>56.6929</top-margin>
+            <bottom-margin>113.386</bottom-margin>
+            </page-margins>
+          </page-layout>
+        <Spatium>1.76389</Spatium>
+        </Style>
+      <showInvisible>1</showInvisible>
+      <showUnprintable>1</showUnprintable>
+      <showFrames>1</showFrames>
+      <showMargins>0</showMargins>
+      <metaTag name="partName">Flute</metaTag>
+      <PageList>
+        <Page>
+          <System>
+            </System>
+          </Page>
+        </PageList>
+      <Part>
+        <Staff id="1">
+          <linkedTo>2</linkedTo>
+          <StaffType group="pitched">
+            <name>stdNormal</name>
+            </StaffType>
+          <bracket type="-1" span="0"/>
+          </Staff>
+        <trackName>Flute</trackName>
+        <Instrument>
+          <trackName>Flute</trackName>
+          <minPitchP>59</minPitchP>
+          <maxPitchP>98</maxPitchP>
+          <minPitchA>60</minPitchA>
+          <maxPitchA>93</maxPitchA>
+          <instrumentId>wind.flutes.flute</instrumentId>
+          <Articulation>
+            <velocity>100</velocity>
+            <gateTime>95</gateTime>
+            </Articulation>
+          <Articulation name="staccatissimo">
+            <velocity>100</velocity>
+            <gateTime>33</gateTime>
+            </Articulation>
+          <Articulation name="staccato">
+            <velocity>100</velocity>
+            <gateTime>50</gateTime>
+            </Articulation>
+          <Articulation name="portato">
+            <velocity>100</velocity>
+            <gateTime>67</gateTime>
+            </Articulation>
+          <Articulation name="tenuto">
+            <velocity>100</velocity>
+            <gateTime>100</gateTime>
+            </Articulation>
+          <Articulation name="marcato">
+            <velocity>120</velocity>
+            <gateTime>67</gateTime>
+            </Articulation>
+          <Articulation name="sforzato">
+            <velocity>120</velocity>
+            <gateTime>100</gateTime>
+            </Articulation>
+          <Channel>
+            <program value="73"/>
+            </Channel>
+          </Instrument>
+        </Part>
+      <Staff id="1">
+        <Measure number="1">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <TimeSig>
+            <lid>73</lid>
+            <sigN>4</sigN>
+            <sigD>4</sigD>
+            <showCourtesySig>1</showCourtesySig>
+            </TimeSig>
+          <BarLine>
+            <subtype>start-repeat</subtype>
+            <span>1</span>
+            </BarLine>
+          <Rest>
+            <lid>74</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="2">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>75</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="3">
+          <Rest>
+            <lid>76</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          <BarLine>
+            <subtype>double</subtype>
+            <span>1</span>
+            </BarLine>
+          </Measure>
+        <Measure number="4">
+          <Rest>
+            <lid>77</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="5">
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>78</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="6">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>79</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="7">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>80</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="8">
+          <Rest>
+            <lid>81</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          <BarLine>
+            <subtype>double</subtype>
+            <span>1</span>
+            </BarLine>
+          </Measure>
+        <Measure number="9">
+          <Rest>
+            <lid>82</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="10">
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>83</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="11">
+          <Rest>
+            <lid>84</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="12">
+          <Rest>
+            <lid>86</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="13">
+          <startRepeat/>
+          <Rest>
+            <lid>87</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="14">
+          <startRepeat/>
+          <Rest>
+            <lid>88</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="15">
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>89</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="16">
+          <Rest>
+            <lid>90</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="17">
+          <Rest>
+            <lid>92</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="18">
+          <startRepeat/>
+          <Rest>
+            <lid>93</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="19">
+          <startRepeat/>
+          <Rest>
+            <lid>94</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="20">
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>95</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="21">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>108</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="22">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>110</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="23">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>111</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="24">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>112</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="25">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>113</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="26">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>114</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="27">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>116</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="28">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>117</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="29">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>118</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="30">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>119</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="31">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>120</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="32">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>122</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="33">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>123</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="34">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>124</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="35">
+          <endRepeat>2</endRepeat>
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>125</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="36">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>126</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="37">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>128</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="38">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>129</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="39">
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>130</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="40">
+          <endRepeat>2</endRepeat>
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>131</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="41">
+          <startRepeat/>
+          <Rest>
+            <lid>132</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="42">
+          <startRepeat/>
+          <Rest>
+            <lid>134</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="43">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>135</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="44">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>136</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="45">
+          <startRepeat/>
+          <LayoutBreak>
+            <subtype>line</subtype>
+            </LayoutBreak>
+          <Rest>
+            <lid>137</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="46">
+          <startRepeat/>
+          <Rest>
+            <lid>138</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="47">
+          <startRepeat/>
+          <Rest>
+            <lid>140</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="48">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>141</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="49">
+          <startRepeat/>
+          <endRepeat>2</endRepeat>
+          <Rest>
+            <lid>142</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          </Measure>
+        <Measure number="50">
+          <startRepeat/>
+          <Rest>
+            <lid>143</lid>
+            <durationType>measure</durationType>
+            <duration z="4" n="4"/>
+            </Rest>
+          <BarLine>
+            <subtype>end</subtype>
+            <span>1</span>
+            <lid>144</lid>
+            </BarLine>
+          </Measure>
+        </Staff>
+      <name>Flute</name>
+      </Score>
+    </Score>
+  </museScore>
