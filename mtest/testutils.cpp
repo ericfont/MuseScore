@@ -202,7 +202,7 @@ qDebug() << "Running " << cmd << " with arg1:" << saveName << " and arg2: " << c
             //   qPrintable(QString(root + "/" + compareWith)));
             QTextStream outputText(stdout);
             outputText << QString(ba);
-            outputText << QString("   <diff -u %1 %2 failed").arg(QString(saveName)).arg(QString(root + "/" + compareWith));
+            outputText << QString("   <diff -u %1 %2 failed, exit code %3. ").arg(QString(saveName)).arg(QString(root + "/" + compareWith)).arg(p.exitCode());
             return false;
             }
       return true;
