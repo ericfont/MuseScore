@@ -3143,6 +3143,27 @@ void Measure::stretchMeasure(qreal targetWidth)
       }
 
 //---------------------------------------------------------
+//   hasStartRepeatBarLine
+//      return the first one
+//---------------------------------------------------------
+
+bool Measure::hasStartRepeatBarLine() const
+      {
+      // search barline segment:
+      Segment* s = first();
+      while (s && !s->isStartRepeatBarLineType())
+            s = s->next();
+      // search first element
+      if (s) {
+            for (const Element* e : s->elist()) {
+                  if (e)
+                        return true;
+                  }
+            }
+      return false;
+      }
+
+//---------------------------------------------------------
 //   endBarLine
 //      return the first one
 //---------------------------------------------------------
@@ -3176,7 +3197,7 @@ BarLineType Measure::endBarLineType() const
       }
 
 //---------------------------------------------------------
-//   endBarLineType
+//   endBarLineVisible
 //    Assume all barlines have same visiblity if there is more
 //    than one.
 //---------------------------------------------------------

@@ -257,6 +257,7 @@ class Measure : public MeasureBase {
       void removeSystemHeader();
       void removeSystemTrailer();
 
+      bool hasStartRepeatBarLine() const;
       const BarLine* endBarLine() const;
       BarLineType endBarLineType() const;
       bool endBarLineVisible() const;

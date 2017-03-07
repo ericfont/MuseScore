@@ -1,0 +1,887 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<museScore version="3.00">
+  <Score>
+    <LayerTag id="0" tag="default"></LayerTag>
+    <currentLayer>0</currentLayer>
+    <Division>480</Division>
+    <Style>
+      <pageWidth>8.5</pageWidth>
+      <pageHeight>11</pageHeight>
+      <pagePrintableWidth>7.7126</pagePrintableWidth>
+      <pageEvenLeftMargin>0.393701</pageEvenLeftMargin>
+      <pageOddLeftMargin>0.393701</pageOddLeftMargin>
+      <pageEvenTopMargin>0.393701</pageEvenTopMargin>
+      <pageEvenBottomMargin>0.787403</pageEvenBottomMargin>
+      <pageOddTopMargin>0.393701</pageOddTopMargin>
+      <pageOddBottomMargin>0.787403</pageOddBottomMargin>
+      <lyricsMinBottomDistance>4</lyricsMinBottomDistance>
+      <clefLeftMargin>0.64</clefLeftMargin>
+      <clefKeyRightMargin>1.75</clefKeyRightMargin>
+      <lastSystemFillLimit>0</lastSystemFillLimit>
+      <pedalPosBelow>0</pedalPosBelow>
+      <trillPosAbove>0</trillPosAbove>
+      <minMMRestWidth>0</minMMRestWidth>
+      <dynamicsFontItalic>0</dynamicsFontItalic>
+      <Spatium>1.76389</Spatium>
+      </Style>
+    <showInvisible>1</showInvisible>
+    <showUnprintable>1</showUnprintable>
+    <showFrames>1</showFrames>
+    <showMargins>0</showMargins>
+    <metaTag name="arranger"></metaTag>
+    <metaTag name="composer">Composer</metaTag>
+    <metaTag name="copyright"></metaTag>
+    <metaTag name="lyricist"></metaTag>
+    <metaTag name="movementNumber"></metaTag>
+    <metaTag name="movementTitle"></metaTag>
+    <metaTag name="poet"></metaTag>
+    <metaTag name="source"></metaTag>
+    <metaTag name="translator"></metaTag>
+    <metaTag name="workNumber"></metaTag>
+    <metaTag name="workTitle">Title</metaTag>
+    <Part>
+      <Staff id="1">
+        <StaffType group="pitched">
+          <name>stdNormal</name>
+          </StaffType>
+        </Staff>
+      <trackName>Piano</trackName>
+      <Instrument>
+        <trackName>Piano</trackName>
+        <minPitchP>21</minPitchP>
+        <maxPitchP>108</maxPitchP>
+        <minPitchA>21</minPitchA>
+        <maxPitchA>108</maxPitchA>
+        <clef staff="2">F</clef>
+        <Articulation>
+          <velocity>100</velocity>
+          <gateTime>95</gateTime>
+          </Articulation>
+        <Articulation name="staccatissimo">
+          <velocity>100</velocity>
+          <gateTime>33</gateTime>
+          </Articulation>
+        <Articulation name="staccato">
+          <velocity>100</velocity>
+          <gateTime>50</gateTime>
+          </Articulation>
+        <Articulation name="portato">
+          <velocity>100</velocity>
+          <gateTime>67</gateTime>
+          </Articulation>
+        <Articulation name="tenuto">
+          <velocity>100</velocity>
+          <gateTime>100</gateTime>
+          </Articulation>
+        <Articulation name="marcato">
+          <velocity>120</velocity>
+          <gateTime>67</gateTime>
+          </Articulation>
+        <Articulation name="sforzato">
+          <velocity>120</velocity>
+          <gateTime>100</gateTime>
+          </Articulation>
+        <Channel>
+          <program value="0"/>
+          </Channel>
+        </Instrument>
+      </Part>
+    <Part>
+      <Staff id="2">
+        <StaffType group="pitched">
+          <name>stdNormal</name>
+          </StaffType>
+        <bracket type="-1" span="0"/>
+        </Staff>
+      <trackName>Flute</trackName>
+      <Instrument>
+        <trackName>Flute</trackName>
+        <minPitchP>59</minPitchP>
+        <maxPitchP>98</maxPitchP>
+        <minPitchA>60</minPitchA>
+        <maxPitchA>93</maxPitchA>
+        <instrumentId>wind.flutes.flute</instrumentId>
+        <Articulation>
+          <velocity>100</velocity>
+          <gateTime>95</gateTime>
+          </Articulation>
+        <Articulation name="staccatissimo">
+          <velocity>100</velocity>
+          <gateTime>33</gateTime>
+          </Articulation>
+        <Articulation name="staccato">
+          <velocity>100</velocity>
+          <gateTime>50</gateTime>
+          </Articulation>
+        <Articulation name="portato">
+          <velocity>100</velocity>
+          <gateTime>67</gateTime>
+          </Articulation>
+        <Articulation name="tenuto">
+          <velocity>100</velocity>
+          <gateTime>100</gateTime>
+          </Articulation>
+        <Articulation name="marcato">
+          <velocity>120</velocity>
+          <gateTime>67</gateTime>
+          </Articulation>
+        <Articulation name="sforzato">
+          <velocity>120</velocity>
+          <gateTime>100</gateTime>
+          </Articulation>
+        <Channel>
+          <program value="73"/>
+          </Channel>
+        </Instrument>
+      </Part>
+    <Staff id="1">
+      <Measure number="1">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <TimeSig>
+          <sigN>4</sigN>
+          <sigD>4</sigD>
+          <showCourtesySig>1</showCourtesySig>
+          </TimeSig>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="2">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="3">
+        <startRepeat/>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="4">
+        <startRepeat/>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="5">
+        <startRepeat/>
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="6">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="7">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="8">
+        <startRepeat/>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="9">
+        <startRepeat/>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="10">
+        <startRepeat/>
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="11">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="12">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="13">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="14">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="15">
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="16">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="17">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="18">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="19">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="20">
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="21">
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="22">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="23">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="24">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="25">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="26">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="27">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="28">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="29">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="30">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="31">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="32">
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="33">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="34">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="35">
+        <endRepeat>2</endRepeat>
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="36">
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="37">
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="38">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="39">
+        <startRepeat/>
+        <endRepeat>2</endRepeat>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="40">
+        <endRepeat>2</endRepeat>
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="41">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="42">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="43">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="44">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="45">
+        <LayoutBreak>
+          <subtype>line</subtype>
+          </LayoutBreak>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="46">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="47">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="48">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="49">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="50">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      </Staff>
+    <Staff id="2">
+      <Measure number="1">
+        <TimeSig>
+          <sigN>4</sigN>
+          <sigD>4</sigD>
+          <showCourtesySig>1</showCourtesySig>
+          </TimeSig>
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="2">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="3">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="4">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="5">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="6">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="7">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="8">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="9">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="10">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="11">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="12">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="13">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="14">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="15">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="16">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="17">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="18">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="19">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="20">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="21">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="22">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="23">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="24">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="25">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="26">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="27">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="28">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="29">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="30">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="31">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="32">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="33">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="34">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="35">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="36">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="37">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="38">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="39">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="40">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        </Measure>
+      <Measure number="41">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="42">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="43">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="44">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="45">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="46">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="47">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="48">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="49">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      <Measure number="50">
+        <Rest>
+          <durationType>measure</durationType>
+          <duration>4/4</duration>
+          </Rest>
+        <BarLine>
+          <subtype>double</subtype>
+          </BarLine>
+        </Measure>
+      </Staff>
+    </Score>
+  </museScore>

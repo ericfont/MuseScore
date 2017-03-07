@@ -29,6 +29,7 @@
 #include "libmscore/sym.h"
 #include "libmscore/chordline.h"
 #include "libmscore/sym.h"
+#include "libmscore/barline.h"
 #include "mtest/testutils.h"
 
 #define DIR QString("libmscore/parts/")
@@ -42,7 +43,7 @@ using namespace Ms;
 class TestParts : public QObject, public MTest
       {
       Q_OBJECT
-
+/*
       void createParts(MasterScore* score);
       void testPartCreation(const QString& test);
 
@@ -53,13 +54,13 @@ class TestParts : public QObject, public MTest
       MasterScore* doAddSymbol();
       MasterScore* doRemoveSymbol();
       MasterScore* doAddChordline();
-      MasterScore* doRemoveChordline();
+      MasterScore* doRemoveChordline();*/
 //      MasterScore* doAddImage();
 //      MasterScore* doRemoveImage();
 
    private slots:
       void initTestCase();
-
+/*
       void createPart1();
       void createPart2();
       void voicesExcerpt();
@@ -118,6 +119,8 @@ class TestParts : public QObject, public MTest
       void createPart3() {
             testPartCreation("part-54346");
             }
+*/
+      void dropBarlines();
       };
 
 //---------------------------------------------------------
@@ -128,7 +131,7 @@ void TestParts::initTestCase()
       {
       initMTest();
       }
-
+/*
 //---------------------------------------------------------
 //   createParts
 //---------------------------------------------------------
@@ -1050,6 +1053,135 @@ void TestParts::staffStyles()
 
 void TestParts::measureProperties()
       {
+      }
+*/
+//---------------------------------------------------------
+//   verifyLinkedBarlines
+///   verifies barline of type segmentType at tick is of type barLineTypeToVerify in both the dropMeasure as well as the two measures linked to that dropMeasure
+//---------------------------------------------------------
+
+void verifyLinkedBarlines(Measure* dropMeasure, Measure* linkMeasure1, Measure* linkMeasure2, BarLineType barLineTypeToVerify, Segment::Type segmentType, int tick)
+      {
+      QVERIFY(static_cast<BarLine*>(dropMeasure->findSegment(segmentType, tick)->element(0))->barLineType() == barLineTypeToVerify);
+      QVERIFY(static_cast<BarLine*>(linkMeasure1->findSegment(segmentType, tick)->element(0))->barLineType() == barLineTypeToVerify);
+      QVERIFY(static_cast<BarLine*>(linkMeasure2->findSegment(segmentType, tick)->element(0))->barLineType() == barLineTypeToVerify);
+      }
+
+//---------------------------------------------------------
+//   dropBarline
+///   drops BarLineType onto the dropMeasure
+//---------------------------------------------------------
+
+void dropBarline(Measure* dropMeasure, BarLineType barLineType)
+      {
+      Score* score = dropMeasure->score();
+      DropData dd;
+      dd.view = 0;
+      BarLine* b = new BarLine(score);
+      b->setBarLineType(barLineType);
+      dd.element = b;
+
+      score->startCmd();
+      dropMeasure->drop(dd);
+      score->endCmd();
+      }
+
+//---------------------------------------------------------
+///   dropBarlines
+///   apply each type of barline [single, double, start, end, end-start] to each type of barline, either from main score or from parts
+//---------------------------------------------------------
+
+void TestParts::dropBarlines()
+      {
+      score = readScore(DIR + "part-barlines.mscx");
+      QVERIFY(score);
+
+      Score* part1 = score->excerpts().at(0)->partScore();
+      Score* part2 = score->excerpts().at(1)->partScore();
+
+      score->doLayout();
+      part1->doLayout();
+      part2->doLayout();
+
+      Measure* sm  = score->firstMeasure();
+      Measure* pm = part1->firstMeasure();
+
+      // The test .mscx has a repeated pattern of 5 measures ending with BarLineTypes DOUBLE, START_REPEAT, END_START_REPEAT, END_REPEAT, and then a NORMAL BarLine on a manual line break.
+
+      // drop START_REPEAT BarLine onto main score measures with each type of BarLine and verify it is added to a part
+      dropBarline(sm, BarLineType::START_REPEAT); QVERIFY(pm->hasStartRepeatBarLine()); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(sm, BarLineType::START_REPEAT); QVERIFY(pm->hasStartRepeatBarLine()); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(sm, BarLineType::START_REPEAT); QVERIFY(pm->hasStartRepeatBarLine()); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(sm, BarLineType::START_REPEAT); QVERIFY(pm->hasStartRepeatBarLine()); QVERIFY(pm->prevMeasure()->endBarLineType() == BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(sm, BarLineType::START_REPEAT); QVERIFY(pm->hasStartRepeatBarLine()); QVERIFY(pm->prevMeasure()->endBarLineType() == BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+
+      // drop START_REPEAT BarLine onto a part score measures with each type of BarLine and verify it is added to main score
+      dropBarline(pm, BarLineType::START_REPEAT); QVERIFY(sm->hasStartRepeatBarLine()); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(pm, BarLineType::START_REPEAT); QVERIFY(sm->hasStartRepeatBarLine()); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(pm, BarLineType::START_REPEAT); QVERIFY(sm->hasStartRepeatBarLine()); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(pm, BarLineType::START_REPEAT); QVERIFY(sm->hasStartRepeatBarLine()); QVERIFY(sm->prevMeasure()->endBarLineType() == BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(pm, BarLineType::START_REPEAT); QVERIFY(sm->hasStartRepeatBarLine()); QVERIFY(sm->prevMeasure()->endBarLineType() == BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+
+      // drop NORMAL BarLine onto main score measures with each type of BarLine and verify it is added to a part
+      dropBarline(sm, BarLineType::NORMAL); QVERIFY(pm->endBarLineType() == BarLineType::NORMAL); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(sm, BarLineType::NORMAL); QVERIFY(pm->endBarLineType() == BarLineType::NORMAL); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(sm, BarLineType::NORMAL); QVERIFY(pm->endBarLineType() == BarLineType::NORMAL); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(sm, BarLineType::NORMAL); QVERIFY(pm->endBarLineType() == BarLineType::NORMAL); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(sm, BarLineType::NORMAL); QVERIFY(pm->endBarLineType() == BarLineType::NORMAL); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+
+      // drop NORMAL BarLine onto part score measures with each type of BarLine and verify it is added to main score
+      dropBarline(pm, BarLineType::NORMAL); QVERIFY(sm->endBarLineType() == BarLineType::NORMAL); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(pm, BarLineType::NORMAL); QVERIFY(sm->endBarLineType() == BarLineType::NORMAL); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(pm, BarLineType::NORMAL); QVERIFY(sm->endBarLineType() == BarLineType::NORMAL); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(pm, BarLineType::NORMAL); QVERIFY(sm->endBarLineType() == BarLineType::NORMAL); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+      dropBarline(pm, BarLineType::NORMAL); QVERIFY(sm->endBarLineType() == BarLineType::NORMAL); sm = sm->nextMeasure(); pm = pm->nextMeasure();
+/*
+      // drop END_START_REPEAT onto main score measures with each type of BarLine and verify it is added to both parts
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::END_START_REPEAT, BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::END_START_REPEAT, BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::END_START_REPEAT, BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::END_START_REPEAT, BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::END_START_REPEAT, BarLineType::END_REPEAT);       sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      verifyLinkedBarlines(         sm, p1m, p2m, BarLineType::START_REPEAT, Segment::Type::StartRepeatBarLine, sm->tick());
+
+      // drop END_START_REPEAT onto part score measures with each type of BarLine and verify it is added to main score and the other part
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::END_START_REPEAT, BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::END_START_REPEAT, BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::END_START_REPEAT, BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::END_START_REPEAT, BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::END_START_REPEAT, BarLineType::END_REPEAT);       sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      verifyLinkedBarlines(         p1m, p2m, sm, BarLineType::START_REPEAT, Segment::Type::StartRepeatBarLine, sm->tick());
+
+      // drop END_REPEAT onto main score measures with each type of BarLine and verify it is added to both parts
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::END_REPEAT, BarLineType::END_REPEAT);       sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::END_REPEAT, BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::END_REPEAT, BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::END_REPEAT, BarLineType::END_REPEAT);       sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::END_REPEAT, BarLineType::END_REPEAT);       sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+
+      // drop END_REPEAT onto part score measures with each type of BarLine and verify it is added to main score and the other part
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::END_REPEAT, BarLineType::END_REPEAT);       sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::END_REPEAT, BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::END_REPEAT, BarLineType::END_START_REPEAT); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::END_REPEAT, BarLineType::END_REPEAT);       sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::END_REPEAT, BarLineType::END_REPEAT);       sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+
+      // drop DOUBLE BarLine onto main score measures with each type of BarLine and verify it is added to both parts
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::DOUBLE, BarLineType::DOUBLE); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::DOUBLE, BarLineType::DOUBLE); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::DOUBLE, BarLineType::DOUBLE); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::DOUBLE, BarLineType::DOUBLE); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(sm, p1m, p2m, BarLineType::DOUBLE, BarLineType::DOUBLE); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+
+      // drop DOUBLE BarLine onto part score measures with each type of BarLine and verify it is added to main score and the other part
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::DOUBLE, BarLineType::DOUBLE); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::DOUBLE, BarLineType::DOUBLE); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::DOUBLE, BarLineType::DOUBLE); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::DOUBLE, BarLineType::DOUBLE); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+      dropEndBarlineAndVerifyLinked(p1m, p2m, sm, BarLineType::DOUBLE, BarLineType::DOUBLE); sm = sm->nextMeasure(); p1m = p1m->nextMeasure(); p2m = p2m->nextMeasure();
+*/
+      QVERIFY(saveCompareScore(score, "part-barlines.mscx", DIR + "part-barlines-ref.mscx"));
+      delete score;
       }
 
 
