@@ -191,7 +191,18 @@ Staff::~Staff()
 
 ClefTypeList Staff::clefType(int tick) const
       {
-      ClefTypeList ct = clefs.clef(tick);
+      int clefReturnTick;
+      ClefTypeList ct = clefs.clef(tick, &clefReturnTick);
+
+      int instrumentReturnTick;
+      const Instrument* instrument = _part->instruments()->instrument(tick, &instrumentReturnTick);
+
+      // if the most recent instrument change occurs after the last non-generated clef, then use that instrument's default clef instead
+      if (instrument) {
+            if (instrumentReturnTick > clefReturnTick)
+                  ct = instrument->clefType(idx());
+            }
+
       if (ct._concertClef == ClefType::INVALID) {
             switch(_staffType.group()) {
                   case StaffGroup::TAB:
@@ -204,6 +215,9 @@ ClefTypeList Staff::clefType(int tick) const
                         ct = ClefTypeList(ClefType::PERC);
                         break;
                   }
+            }
+      else {
+            //
             }
       return ct;
       }

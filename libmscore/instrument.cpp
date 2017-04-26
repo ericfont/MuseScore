@@ -864,7 +864,7 @@ QString Instrument::instrumentId() const
 //   instrument
 //---------------------------------------------------------
 
-const Instrument* InstrumentList::instrument(int tick) const
+const Instrument* InstrumentList::instrument(int tick, int* returnTick) const
       {
       if (empty())
             return &defaultInstrument;
@@ -872,6 +872,8 @@ const Instrument* InstrumentList::instrument(int tick) const
       if (i == begin())
             return &defaultInstrument;
       --i;
+      if (returnTick)
+            *returnTick = i->first;
       return i->second;
       }
 
@@ -879,7 +881,7 @@ const Instrument* InstrumentList::instrument(int tick) const
 //   instrument
 //---------------------------------------------------------
 
-Instrument* InstrumentList::instrument(int tick)
+Instrument* InstrumentList::instrument(int tick, int* returnTick)
       {
       if (empty())
             return &defaultInstrument;
@@ -887,6 +889,8 @@ Instrument* InstrumentList::instrument(int tick)
       if (i == begin())
             return &defaultInstrument;
       --i;
+      if (returnTick)
+            *returnTick = i->first;
       return i->second;
       }
 

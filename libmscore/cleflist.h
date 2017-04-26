@@ -27,7 +27,7 @@ class Score;
 class ClefList : public std::map<int, ClefTypeList> {
    public:
       ClefList() {}
-      ClefTypeList clef(int tick) const;
+      ClefTypeList clef(int tick, int* returnTick = 0) const;
       void setClef(int tick, ClefTypeList);
       };
 

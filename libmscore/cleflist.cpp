@@ -39,14 +39,17 @@ bool ClefTypeList::operator!=(const ClefTypeList& t) const
 //   clef
 //---------------------------------------------------------
 
-ClefTypeList ClefList::clef(int tick) const
+ClefTypeList ClefList::clef(int tick, int* returnTick) const
       {
       if (empty())
             return ClefTypeList(ClefType::INVALID, ClefType::INVALID);
       auto i = upper_bound(tick);
       if (i == begin())
             return ClefTypeList(ClefType::INVALID, ClefType::INVALID);
-      return (--i)->second;
+      --i;
+      if (returnTick)
+            *returnTick = i->first;
+      return i->second;
       }
 
 //---------------------------------------------------------

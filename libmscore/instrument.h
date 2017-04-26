@@ -225,8 +225,8 @@ class InstrumentList : public std::map<const int, Instrument*> {
 
    public:
       InstrumentList() {}
-      const Instrument* instrument(int tick) const;
-      Instrument* instrument(int tick);
+      const Instrument* instrument(int tick, int* returnTick = 0) const;
+      Instrument* instrument(int tick, int* returnTick = 0);
       void setInstrument(Instrument*, int tick);
       };
 

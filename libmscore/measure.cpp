@@ -3844,6 +3844,55 @@ void Measure::layoutX(qreal stretch)
       }
 
 //---------------------------------------------------------
+//   generateInstrumentChangeClefs
+//---------------------------------------------------------
+
+void Measure::generateInstrumentChangeClefs()
+      {
+      for (int staffIdx = 0; staffIdx < score()->nstaves(); ++staffIdx) {
+            Staff* staff = score()->staff(staffIdx);
+
+            Clef* preexistingClefAtInstrumentChange = 0;
+
+            for (Segment* segment = first(); segment; segment = segment->next()) {
+                  int tick = segment->tick();
+
+                  if (segment->segmentType() == Segment::Type::Clef)
+                        preexistingClefAtInstrumentChange = static_cast<Clef*>(segment->element(staffIdx));
+
+                  if (segment->segmentType() == Segment::Type::ChordRest) {
+
+                        // if there is an instrument change with different clef, then generate a clef
+                        const InstrumentList* il = staff->part()->instruments();
+                        if (il->find(tick) != il->end()) {
+                              Instrument* instrumentChangeAtTick = staff->part()->instruments()->at(tick);
+                              if (!preexistingClefAtInstrumentChange) {
+                                    Clef *clef = new Clef(score());
+                                    clef->setClefType(instrumentChangeAtTick->clefType(staffIdx));
+                                    clef->setTrack(staffIdx * VOICES);
+                                    clef->setSmall(false);
+                                    clef->setGenerated(true);
+
+                                    Segment* clefSegment = findSegment(Segment::Type::Clef, tick);
+                                    if (clefSegment && !clefSegment->element(clef->track())) {
+                                          clefSegment->add(clef);
+                                          clef->setParent(clefSegment);
+                                          }
+                                    else {
+                                          clefSegment = new Segment(this, Segment::Type::Clef, tick);
+                                          clefSegment->add(clef);
+                                          clef->setParent(clefSegment);
+                                          score()->undoAddElement(clefSegment);
+                                          }
+                                    }
+                              }
+                        }
+                        preexistingClefAtInstrumentChange = 0;
+                  }
+            }
+      }
+
+//---------------------------------------------------------
 //   layoutStage1
 //    compute multi measure rest break
 //    call layoutCR0 for every chord/rest
@@ -3855,6 +3904,8 @@ void Measure::layoutStage1()
 
       bool mmrests = score()->styleB(StyleIdx::createMultiMeasureRests);
       setBreakMMRest(false);
+
+      generateInstrumentChangeClefs();
 
       for (int staffIdx = 0; staffIdx < score()->nstaves(); ++staffIdx) {
             AccidentalState as;      // list of already set accidentals for this measure
