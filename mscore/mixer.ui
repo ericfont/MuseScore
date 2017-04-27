@@ -65,43 +65,10 @@
       <property name="spacing">
        <number>0</number>
       </property>
-      <item row="2" column="0">
-       <layout class="QHBoxLayout" name="hBoxLayout">
-        <item>
-         <widget class="QToolButton" name="expand">
-          <property name="statusTip">
-           <string>show details</string>
-          </property>
-          <property name="text">
-           <string>↓</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="patch">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>MIDI sound</string>
-          </property>
-          <property name="accessibleName">
-           <string>Sound</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
       <item row="1" column="0">
        <widget class="QLineEdit" name="partName">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="toolTip">
          <string>Part name</string>
@@ -125,7 +92,7 @@
         <property name="spacing">
          <number>0</number>
         </property>
-        <item row="0" column="4">
+        <item row="0" column="3">
          <spacer name="basicFrameHorizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -139,10 +106,20 @@
          </spacer>
         </item>
         <item row="0" column="0">
-         <layout class="QVBoxLayout" name="muteSoloLayout" stretch="0,0">
-          <property name="spacing">
-           <number>0</number>
-          </property>
+         <layout class="QHBoxLayout" name="hBoxLayout">
+          <item>
+           <widget class="QToolButton" name="expand">
+            <property name="statusTip">
+             <string>show details</string>
+            </property>
+            <property name="text">
+             <string>↓</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="QToolButton" name="solo">
             <property name="sizePolicy">
@@ -199,98 +176,19 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Vol:</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
-        <item row="0" column="2">
-         <widget class="Awl::MidiPanKnob" name="pan" native="true">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>50</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>50</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::TabFocus</enum>
-          </property>
-          <property name="toolTip">
-           <string>Panorama position</string>
-          </property>
-          <property name="accessibleName">
-           <string>Panorama position</string>
-          </property>
-          <property name="accessibleDescription">
-           <string>Use arrows to modify</string>
-          </property>
-          <property name="scaleWidth" stdset="0">
-           <number>5</number>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1">
-         <widget class="Awl::Knob" name="volume" native="true">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>50</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>50</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::TabFocus</enum>
-          </property>
-          <property name="toolTip">
-           <string>Volume</string>
-          </property>
-          <property name="accessibleName">
-           <string>Volume</string>
-          </property>
-          <property name="accessibleDescription">
-           <string>Use arrows to modify</string>
-          </property>
-          <property name="invertedAppearance" stdset="0">
-           <bool>false</bool>
-          </property>
-          <property name="scaleWidth" stdset="0">
-           <number>5</number>
-          </property>
-          <property name="scaleValueColor" stdset="0">
-           <color>
-            <red>238</red>
-            <green>80</green>
-            <blue>54</blue>
-           </color>
-          </property>
-          <property name="maxValue" stdset="0">
-           <double>127.000000000000000</double>
-          </property>
-          <property name="lineStep" stdset="0">
-           <double>1.000000000000000</double>
-          </property>
-          <property name="pageStep" stdset="0">
-           <double>10.000000000000000</double>
+         <widget class="QSlider" name="horizontalSlider">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
@@ -300,6 +198,12 @@
        <widget class="Line" name="line">
         <property name="autoFillBackground">
          <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QFrame
+{
+rgb(136, 138, 133)
+}</string>
         </property>
         <property name="frameShadow">
          <enum>QFrame::Plain</enum>
@@ -317,308 +221,11 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>120</height>
+       <height>210</height>
       </size>
      </property>
      <layout class="QGridLayout" name="gridLayout2">
-      <item row="0" column="0">
-       <widget class="QFrame" name="detailsFrame">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>420</width>
-          <height>100</height>
-         </size>
-        </property>
-        <widget class="QGroupBox" name="voicesGroupBox">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>30</y>
-           <width>120</width>
-           <height>70</height>
-          </rect>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>120</width>
-           <height>70</height>
-          </size>
-         </property>
-         <property name="title">
-          <string>Mute Voices:</string>
-         </property>
-         <widget class="QWidget" name="layoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>9</x>
-            <y>29</y>
-            <width>101</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <layout class="QHBoxLayout" name="voicesButtonBox">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QGroupBox" name="midiGroupBox">
-         <property name="geometry">
-          <rect>
-           <x>130</x>
-           <y>0</y>
-           <width>260</width>
-           <height>100</height>
-          </rect>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>260</width>
-           <height>100</height>
-          </size>
-         </property>
-         <property name="title">
-          <string>Midi:</string>
-         </property>
-         <widget class="QWidget" name="gridLayoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>6</x>
-            <y>30</y>
-            <width>241</width>
-            <height>61</height>
-           </rect>
-          </property>
-          <layout class="QGridLayout" name="gridLayout">
-           <item row="0" column="0">
-            <widget class="QLabel" name="portLabel">
-             <property name="text">
-              <string>Port:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="Awl::Knob" name="chorus" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>50</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>50</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="focusPolicy">
-              <enum>Qt::TabFocus</enum>
-             </property>
-             <property name="toolTip">
-              <string>Chorus</string>
-             </property>
-             <property name="accessibleName">
-              <string>Chorus</string>
-             </property>
-             <property name="accessibleDescription">
-              <string>Use arrows to modify</string>
-             </property>
-             <property name="scaleWidth" stdset="0">
-              <number>5</number>
-             </property>
-             <property name="maxValue" stdset="0">
-              <double>127.000000000000000</double>
-             </property>
-             <property name="lineStep" stdset="0">
-              <double>1.000000000000000</double>
-             </property>
-             <property name="pageStep" stdset="0">
-              <double>10.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="Awl::Knob" name="reverb" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>50</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>50</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="focusPolicy">
-              <enum>Qt::TabFocus</enum>
-             </property>
-             <property name="toolTip">
-              <string>Reverb</string>
-             </property>
-             <property name="accessibleName">
-              <string>Reverb</string>
-             </property>
-             <property name="accessibleDescription">
-              <string>Use arrows to modify</string>
-             </property>
-             <property name="scaleWidth" stdset="0">
-              <number>5</number>
-             </property>
-             <property name="maxValue" stdset="0">
-              <double>127.000000000000000</double>
-             </property>
-             <property name="lineStep" stdset="0">
-              <double>1.000000000000000</double>
-             </property>
-             <property name="pageStep" stdset="0">
-              <double>10.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QLabel" name="chorusLabel">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>50</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>50</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Cho</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QLabel" name="reverbLabel">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>50</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>50</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Rev</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QSpinBox" name="portSpinBox">
-             <property name="minimum">
-              <number>1</number>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="channelLabel">
-             <property name="text">
-              <string>Channel:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QSpinBox" name="channelSpinBox">
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>17</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QCheckBox" name="drumset">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>96</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Drumset</string>
-         </property>
-        </widget>
-       </widget>
-      </item>
-      <item row="0" column="2">
+      <item row="0" column="4">
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -630,6 +237,499 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item row="0" column="1">
+       <layout class="QVBoxLayout" name="muteSoloLayout" stretch="0,0">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QGroupBox" name="voicesGroupBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>70</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
+          <property name="title">
+           <string>Mute Voices:</string>
+          </property>
+          <widget class="QWidget" name="layoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>9</x>
+             <y>29</y>
+             <width>377</width>
+             <height>49</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="voicesButtonBox">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
+          <property name="title">
+           <string>Panning:</string>
+          </property>
+          <widget class="Awl::MidiPanKnob" name="pan" native="true">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>30</y>
+             <width>50</width>
+             <height>71</height>
+            </rect>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::TabFocus</enum>
+           </property>
+           <property name="toolTip">
+            <string>Panorama position</string>
+           </property>
+           <property name="accessibleName">
+            <string>Panorama position</string>
+           </property>
+           <property name="accessibleDescription">
+            <string>Use arrows to modify</string>
+           </property>
+           <property name="scaleWidth" stdset="0">
+            <number>5</number>
+           </property>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="0">
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="minimumSize">
+         <size>
+          <width>375</width>
+          <height>0</height>
+         </size>
+        </property>
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
+          <string>Tab 1</string>
+         </attribute>
+         <widget class="QGroupBox" name="midiGroupBox">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>50</y>
+            <width>260</width>
+            <height>100</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>260</width>
+            <height>100</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
+          <property name="title">
+           <string>Midi Output:</string>
+          </property>
+          <widget class="QWidget" name="gridLayoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>6</x>
+             <y>30</y>
+             <width>241</width>
+             <height>61</height>
+            </rect>
+           </property>
+           <layout class="QGridLayout" name="gridLayout">
+            <item row="0" column="0">
+             <widget class="QLabel" name="portLabel">
+              <property name="text">
+               <string>Port:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="Awl::Knob" name="chorus" native="true">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="focusPolicy">
+               <enum>Qt::TabFocus</enum>
+              </property>
+              <property name="toolTip">
+               <string>Chorus</string>
+              </property>
+              <property name="accessibleName">
+               <string>Chorus</string>
+              </property>
+              <property name="accessibleDescription">
+               <string>Use arrows to modify</string>
+              </property>
+              <property name="scaleWidth" stdset="0">
+               <number>5</number>
+              </property>
+              <property name="maxValue" stdset="0">
+               <double>127.000000000000000</double>
+              </property>
+              <property name="lineStep" stdset="0">
+               <double>1.000000000000000</double>
+              </property>
+              <property name="pageStep" stdset="0">
+               <double>10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="Awl::Knob" name="reverb" native="true">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="focusPolicy">
+               <enum>Qt::TabFocus</enum>
+              </property>
+              <property name="toolTip">
+               <string>Reverb</string>
+              </property>
+              <property name="accessibleName">
+               <string>Reverb</string>
+              </property>
+              <property name="accessibleDescription">
+               <string>Use arrows to modify</string>
+              </property>
+              <property name="scaleWidth" stdset="0">
+               <number>5</number>
+              </property>
+              <property name="maxValue" stdset="0">
+               <double>127.000000000000000</double>
+              </property>
+              <property name="lineStep" stdset="0">
+               <double>1.000000000000000</double>
+              </property>
+              <property name="pageStep" stdset="0">
+               <double>10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLabel" name="chorusLabel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Cho</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="reverbLabel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Rev</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QSpinBox" name="portSpinBox">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="channelLabel">
+              <property name="text">
+               <string>Channel:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QSpinBox" name="channelSpinBox">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>17</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+         <widget class="QCheckBox" name="drumset">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>10</y>
+            <width>81</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Drumset</string>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="patch">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>10</y>
+            <width>211</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>MIDI sound</string>
+          </property>
+          <property name="accessibleName">
+           <string>Sound</string>
+          </property>
+         </widget>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>50</y>
+            <width>81</width>
+            <height>101</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>DejaVu Sans</family>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="title">
+           <string>Offset Volume:</string>
+          </property>
+          <widget class="Awl::Knob" name="volume" native="true">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>30</y>
+             <width>50</width>
+             <height>59</height>
+            </rect>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::TabFocus</enum>
+           </property>
+           <property name="toolTip">
+            <string>Volume</string>
+           </property>
+           <property name="accessibleName">
+            <string>Volume</string>
+           </property>
+           <property name="accessibleDescription">
+            <string>Use arrows to modify</string>
+           </property>
+           <property name="invertedAppearance" stdset="0">
+            <bool>false</bool>
+           </property>
+           <property name="scaleWidth" stdset="0">
+            <number>5</number>
+           </property>
+           <property name="scaleValueColor" stdset="0">
+            <color>
+             <red>238</red>
+             <green>80</green>
+             <blue>54</blue>
+            </color>
+           </property>
+           <property name="maxValue" stdset="0">
+            <double>127.000000000000000</double>
+           </property>
+           <property name="lineStep" stdset="0">
+            <double>1.000000000000000</double>
+           </property>
+           <property name="pageStep" stdset="0">
+            <double>10.000000000000000</double>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QLabel" name="label">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>64</width>
+            <height>15</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Sound:</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_2">
+         <attribute name="title">
+          <string>Tab 2</string>
+         </attribute>
+        </widget>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -650,8 +750,6 @@
  </customwidgets>
  <tabstops>
   <tabstop>partName</tabstop>
-  <tabstop>volume</tabstop>
-  <tabstop>pan</tabstop>
  </tabstops>
  <resources/>
  <connections/>
