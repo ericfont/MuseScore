@@ -116,7 +116,7 @@ void PartEdit::setPart(Part* p, Channel* a)
       _setValue(portSpinBox,    part->masterScore()->midiMapping(a->channel)->port + 1);
       _setValue(channelSpinBox, part->masterScore()->midiMapping(a->channel)->channel + 1);
 
-      QHBoxLayout* hb = voiceButtonBox;
+      QHBoxLayout* hb = voicesButtonBox;
       int idx = 0;
       for (Staff* staff : *part->staves()) {
             for (int voice = 0; voice < VOICES; ++voice) {
@@ -377,10 +377,11 @@ void Mixer::midiPrefsChanged(bool showMidiControls)
             pe->channelSpinBox->setVisible(showMidiControls);
             pe->portSpinBox   ->setVisible(showMidiControls);
 
-            if (!showMidiControls)
-                  pe->hboxLayout->setSpacing(20);
+            // I've hardset spacing to 0
+        /*    if (!showMidiControls)
+                  pe->voiceButtonsBox->setSpacing(20);
             else
-                  pe->hboxLayout->setSpacing(5);
+                  pe->voiceButtonsBox->setSpacing(5);*/
             }
       }
 
