@@ -21,7 +21,7 @@
 #include "musescore.h"
 #include "libmscore/score.h"
 #include "libmscore/part.h"
-#include "mixer.h"
+#include "mixerPart.h"
 #include "seq.h"
 #include "libmscore/undo.h"
 #include "synthcontrol.h"

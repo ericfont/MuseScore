@@ -29,7 +29,7 @@
 #include "libmscore/chord.h"
 #include "libmscore/note.h"
 #include "libmscore/undo.h"
-#include "mixer.h"
+#include "mixerPart.h"
 #include "scoreview.h"
 #include "playpanel.h"
 #include "preferences.h"

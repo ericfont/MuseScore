@@ -92,7 +92,7 @@
         <property name="spacing">
          <number>0</number>
         </property>
-        <item row="0" column="3">
+        <item row="0" column="5">
          <spacer name="basicFrameHorizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -177,18 +177,57 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Vol:</string>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox">
+            <property name="decimals">
+             <number>0</number>
+            </property>
+            <property name="value">
+             <double>50.000000000000000</double>
             </property>
            </widget>
           </item>
          </layout>
         </item>
+        <item row="0" column="4">
+         <layout class="QHBoxLayout" name="voicesButtonBox">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+         </layout>
+        </item>
+        <item row="0" column="3">
+         <widget class="QWidget" name="widget_2" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+          <property name="decimals">
+           <number>0</number>
+          </property>
+          <property name="minimum">
+           <double>-100.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="1">
-         <widget class="QSlider" name="horizontalSlider">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+         <widget class="QWidget" name="widget" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -239,49 +278,10 @@ rgb(136, 138, 133)
        </spacer>
       </item>
       <item row="0" column="1">
-       <layout class="QVBoxLayout" name="muteSoloLayout" stretch="0,0">
+       <layout class="QVBoxLayout" name="muteSoloLayout" stretch="0">
         <property name="spacing">
          <number>0</number>
         </property>
-        <item>
-         <widget class="QGroupBox" name="voicesGroupBox">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>120</width>
-            <height>70</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-           </font>
-          </property>
-          <property name="title">
-           <string>Mute Voices:</string>
-          </property>
-          <widget class="QWidget" name="layoutWidget">
-           <property name="geometry">
-            <rect>
-             <x>9</x>
-             <y>29</y>
-             <width>377</width>
-             <height>49</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" name="voicesButtonBox">
-            <property name="spacing">
-             <number>0</number>
-            </property>
-           </layout>
-          </widget>
-         </widget>
-        </item>
         <item>
          <widget class="QGroupBox" name="groupBox_2">
           <property name="font">

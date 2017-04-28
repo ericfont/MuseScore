@@ -11,7 +11,7 @@
 #include "selectionwindow.h"
 #include "playpanel.h"
 #include "synthcontrol.h"
-#include "mixer.h"
+#include "mixerPart.h"
 #include "drumroll.h"
 #include "pianoroll.h"
 

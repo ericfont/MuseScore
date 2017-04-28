@@ -21,7 +21,7 @@
 #ifndef __ILEDIT_H__
 #define __ILEDIT_H__
 
-#include "ui_mixer.h"
+#include "ui_mixerPart.h"
 #include "libmscore/instrument.h"
 #include "enableplayforwidget.h"
 namespace Ms {
