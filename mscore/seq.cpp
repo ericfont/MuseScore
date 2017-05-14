@@ -48,6 +48,12 @@
 
 #include <vorbis/vorbisfile.h>
 
+#if defined(Q_OS_MAC) || defined(Q_OS_WIN)
+  #include "portmidi/porttime/porttime.h"
+#else
+  #include <porttime.h>
+#endif
+
 namespace Ms {
 
 Seq* seq;
@@ -178,6 +184,8 @@ Seq::Seq()
       prevTempo = 0;
       connect(this, SIGNAL(timeSigChanged()),this,SLOT(handleTimeSigTempoChanged()));
       connect(this, SIGNAL(tempoChanged()),this,SLOT(handleTimeSigTempoChanged()));
+
+      initialPlayTimestampWithLatency = 0;
       }
 
 //---------------------------------------------------------
@@ -562,6 +570,7 @@ void Seq::processMessages()
                         }
                         break;
                   case SeqMsgId::PLAY:
+                        setInitialPlayTimestampWithLatency();
                         putEvent(msg.event);
                         break;
                   case SeqMsgId::SEEK:
@@ -662,6 +671,7 @@ void Seq::process(unsigned n, float* buffer)
       _driver->checkTransportSeek(playTime, frames, inCountIn);
 
       if (driverState != state) {
+            setInitialPlayTimestampWithLatency();
             // Got a message from JACK Transport panel: Play
             if (state == Transport::STOP && driverState == Transport::PLAY) {
                   if ((preferences.useJackMidi || preferences.useJackAudio) && !getAction("play")->isChecked()) {
@@ -1407,7 +1417,7 @@ void Seq::putEvent(const NPlayEvent& event, unsigned framePos)
             }
       int syntiIdx= _synti->index(cs->midiMapping(channel)->articulation->synti);
       _synti->play(event, syntiIdx);
-      if (_driver != 0 && (preferences.useJackMidi || preferences.useAlsaAudio))
+      if (_driver != 0 && (preferences.useJackMidi || preferences.useAlsaAudio || preferences.usePortaudioAudio))
             _driver->putEvent(event, framePos);
       }
 
@@ -1604,4 +1614,17 @@ void Seq::handleTimeSigTempoChanged()
       {
       _driver->handleTimeSigTempoChanged();
       }
+
+//---------------------------------------------------------
+//   Called when playback starts.
+//   Used to set a starting reference time for which subsequent PortMidi events will be relative to.
+//---------------------------------------------------------
+
+void Seq::setInitialPlayTimestampWithLatency()
+      {
+     #ifdef USE_PORTMIDI
+           initialPlayTimestampWithLatency = Pt_Time() + preferences.portMidiOutputLatency;
+     #endif
+     }
+
 }

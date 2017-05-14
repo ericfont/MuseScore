@@ -152,6 +152,8 @@ class Seq : public QObject, public Sequencer {
       qreal tickVolume;
       qreal metronomeVolume;  // overall volume
 
+      unsigned initialPlayTimestampWithLatency; // timestamp in portaudio time which all future timestamps will be based off of.
+
       QTimer* heartBeatTimer;
       QTimer* noteTimer;
 
@@ -249,6 +251,9 @@ class Seq : public QObject, public Sequencer {
       void stopNoteTimer();
       void recomputeMaxMidiOutPort();
       float metronomeGain() const      { return metronomeVolume; }
+
+      void setInitialPlayTimestampWithLatency();
+      unsigned getInitialPlayTimestampWithLatency() const { return initialPlayTimestampWithLatency; }
       };
 
 extern Seq* seq;

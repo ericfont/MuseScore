@@ -30,12 +30,6 @@
 #include "shortcutcapturedialog.h"
 #include "scoreview.h"
 #include "libmscore/sym.h"
-#include "pa.h"
-
-#ifdef USE_PORTMIDI
-#include "pm.h"
-#endif
-
 #include "libmscore/page.h"
 #include "file.h"
 #include "libmscore/mscore.h"
@@ -46,6 +40,11 @@
 #include "mstyle/mconfig.h"
 #include "resourceManager.h"
 #include "synthesizer/msynthesizer.h"
+
+#include "pa.h"
+#ifdef USE_PORTMIDI
+#include "pm.h"
+#endif
 
 namespace Ms {
 
@@ -120,6 +119,8 @@ void Preferences::init()
       alsaFragments      = 3;
       portaudioDevice    = -1;
       portMidiInput      = "";
+      portMidiOutput     = "";
+      portMidiOutputLatency = 0;
 
       antialiasedDrawing       = true;
       sessionStart             = SessionStart::SCORE;
@@ -257,7 +258,9 @@ void Preferences::write()
       s.setValue("alsaPeriodSize",     alsaPeriodSize);
       s.setValue("alsaFragments",      alsaFragments);
       s.setValue("portaudioDevice",    portaudioDevice);
-      s.setValue("portMidiInput",   portMidiInput);
+      s.setValue("portMidiInput",      portMidiInput);
+      s.setValue("portMidiOutput",     portMidiOutput);
+      s.setValue("portMidiOutputLatency", portMidiOutputLatency);
 
       s.setValue("layoutBreakColor",   MScore::layoutBreakColor.name(QColor::NameFormat::HexArgb));
       s.setValue("frameMarginColor",   MScore::frameMarginColor.name(QColor::NameFormat::HexArgb));
@@ -432,6 +435,8 @@ void Preferences::read()
       alsaFragments      = s.value("alsaFragments", alsaFragments).toInt();
       portaudioDevice    = s.value("portaudioDevice", portaudioDevice).toInt();
       portMidiInput      = s.value("portMidiInput", portMidiInput).toString();
+      portMidiOutput     = s.value("portMidiOutput", portMidiOutput).toString();
+      portMidiOutputLatency = s.value("portMidiOutputLatency", portMidiOutputLatency).toInt();
       MScore::layoutBreakColor   = readColor("layoutBreakColor", MScore::layoutBreakColor);
       MScore::frameMarginColor   = readColor("frameMarginColor", MScore::frameMarginColor);
       antialiasedDrawing      = s.value("antialiasedDrawing", antialiasedDrawing).toBool();
@@ -953,7 +958,7 @@ void PreferenceDialog::updateValues()
                   connect(portaudioApi, SIGNAL(activated(int)), SLOT(portaudioApiActivated(int)));
 #ifdef USE_PORTMIDI
                   PortMidiDriver* midiDriver = static_cast<PortMidiDriver*>(audio->mididriver());
-                  if(midiDriver){
+                  if (midiDriver) {
                         QStringList midiInputs = midiDriver->deviceInList();
                         int curMidiInIdx = 0;
                         portMidiInput->clear();
@@ -963,6 +968,19 @@ void PreferenceDialog::updateValues()
                                     curMidiInIdx = i;
                               }
                         portMidiInput->setCurrentIndex(curMidiInIdx);
+
+                        QStringList midiOutputs = midiDriver->deviceOutList();
+                        int curMidiOutIdx = -1; // do not set a midi out device if user never selected one
+                        portMidiOutput->clear();
+                        portMidiOutput->addItem("", -1);
+                        for(int i = 0; i < midiOutputs.size(); ++i) {
+                              portMidiOutput->addItem(midiOutputs.at(i), i);
+                              if (midiOutputs.at(i) == prefs.portMidiOutput)
+                                    curMidiOutIdx = i + 1;
+                              }
+                        portMidiOutput->setCurrentIndex(curMidiOutIdx);
+
+                        portMidiOutputLatency->setValue(prefs.portMidiOutputLatency);
                         }
 #endif
                   }
@@ -976,7 +994,7 @@ void PreferenceDialog::updateValues()
       //
       // score settings
       //
-      scale->setValue(prefs.mag*100.0);
+      scale->setValue(prefs.mag * 100.0);
       showMidiControls->setChecked(prefs.showMidiControls);
 
       defaultPlayDuration->setValue(MScore::defaultPlayDuration);
@@ -1424,6 +1442,15 @@ void PreferenceDialog::apply()
 
 #ifdef USE_PORTMIDI
       prefs.portMidiInput = portMidiInput->currentText();
+      prefs.portMidiOutput = portMidiOutput->currentText();
+      if (static_cast<PortMidiDriver*>(static_cast<Portaudio*>(seq->driver())->mididriver())->isSameCoreMidiIacBus(prefs.portMidiInput, prefs.portMidiOutput)) {
+            QMessageBox msgBox;
+            msgBox.setWindowTitle(tr("Possible MIDI Loopback"));
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("Warning: You used the same CoreMIDI IAC bus for input and output.  This will cause problematic loopback, whereby MuseScore's outputted MIDI messages will be sent back to MuseScore as input, causing confusion.  To avoid this problem, access Audio MIDI Setup via Spotlight to create a dedicated virtual port for MuseScore's MIDI output, restart MuseScore, return to Preferences, and select your new virtual port for MuseScore's MIDI output.  Other programs may then use that dedicated virtual port to receive MuseScore's MIDI output."));
+            msgBox.exec();
+            }
+      prefs.portMidiOutputLatency = portMidiOutputLatency->value();
 #endif
 
       if (lastSession->isChecked())

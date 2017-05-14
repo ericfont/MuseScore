@@ -18,6 +18,11 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
+#include "musescore.h"
+#include "preferences.h"
+#include "pm.h"
+#include "seq.h"
+
 #if defined(Q_OS_WIN)
   #include <windows.h>
   #include <mmsystem.h>
@@ -29,11 +34,6 @@
   #include <porttime.h>
 #endif
 
-#include "preferences.h"
-#include "pm.h"
-#include "musescore.h"
-#include "seq.h"
-
 namespace Ms {
 
 //---------------------------------------------------------
@@ -43,8 +43,11 @@ namespace Ms {
 PortMidiDriver::PortMidiDriver(Seq* s)
   : MidiDriver(s)
       {
-      inputStream = 0;
+      inputId = -1;
+      outputId = -1;
       timer = 0;
+      inputStream = 0;
+      outputStream = 0;
       }
 
 PortMidiDriver::~PortMidiDriver()
@@ -63,16 +66,19 @@ PortMidiDriver::~PortMidiDriver()
 bool PortMidiDriver::init()
       {
       inputId = getDeviceIn(preferences.portMidiInput);
-      if(inputId == -1)
-        inputId  = Pm_GetDefaultInputDeviceID();
-      outputId = Pm_GetDefaultOutputDeviceID();
+      if (inputId == -1)
+            inputId  = Pm_GetDefaultInputDeviceID();
 
       if (inputId == pmNoDevice)
             return false;
 
+      outputId = getDeviceOut(preferences.portMidiOutput); // Note: allow init even if outputId == pmNoDevice, since input is more important than output.
+
       static const int INPUT_BUFFER_SIZE = 100;
+      static const int OUTPUT_BUFFER_SIZE = 100;
       static const int DRIVER_INFO = 0;
       static const int TIME_INFO = 0;
+      static const int OUTPUT_LATENCY = preferences.portMidiOutputLatency; // milliseconds of latency to help avoid jitter in midi output
 
       Pt_Start(20, 0, 0);      // timer started, 20 millisecond accuracy
 
@@ -93,6 +99,21 @@ bool PortMidiDriver::init()
       PmEvent buffer[1];
       while (Pm_Poll(inputStream))
             Pm_Read(inputStream, buffer, 1);
+
+      if (outputId != pmNoDevice) {
+            error = Pm_OpenOutput(&outputStream,
+               outputId,
+               (void*)DRIVER_INFO, OUTPUT_BUFFER_SIZE,
+               ((PmTimeProcPtr) Pt_Time),
+               (void*)TIME_INFO,
+               OUTPUT_LATENCY);
+            if (error != pmNoError) {
+                  const char* p = Pm_GetErrorText(error);
+                  qDebug("PortMidi: open output (id=%d) failed: %s", int(outputId), p);
+                  Pt_Stop();
+                  return false;
+                  }
+            }
 
       timer = new QTimer();
       timer->setInterval(20);       // 20 msec
@@ -196,6 +217,22 @@ QStringList PortMidiDriver::deviceInList() const
       }
 
 //---------------------------------------------------------
+//   deviceOutList
+//---------------------------------------------------------
+
+QStringList PortMidiDriver::deviceOutList() const
+      {
+      QStringList ol;
+      int interf = Pm_CountDevices();
+      for (PmDeviceID id = 0; id < interf; id++) {
+            const PmDeviceInfo* info = Pm_GetDeviceInfo((PmDeviceID)id);
+            if(info->output)
+                ol.append(QString(info->interf) +","+ QString(info->name));
+            }
+      return ol;
+      }
+
+//---------------------------------------------------------
 //   getDeviceIn
 //---------------------------------------------------------
 
@@ -211,6 +248,50 @@ int PortMidiDriver::getDeviceIn(const QString& name)
                   }
             }
       return -1;
+      }
+
+//---------------------------------------------------------
+//   getDeviceOut
+//---------------------------------------------------------
+
+int PortMidiDriver::getDeviceOut(const QString& name)
+      {
+      int interf = Pm_CountDevices();
+      for (int id = 0; id < interf; id++) {
+            const PmDeviceInfo* info = Pm_GetDeviceInfo((PmDeviceID)id);
+            if (info->output) {
+                  QString n = QString(info->interf) + "," + QString(info->name);
+                  if (n == name)
+                        return id;
+                  }
+            }
+      return -1;
+      }
+
+//---------------------------------------------------------
+//   isSameCoreMidiIacBus
+//    determines if both the input and output devices are the same shared CoreMIDI "IAC" bus
+//---------------------------------------------------------
+
+bool PortMidiDriver::isSameCoreMidiIacBus(const QString& inName, const QString& outName)
+      {
+      int interf = Pm_CountDevices();
+      const PmDeviceInfo* inInfo = 0;
+      const PmDeviceInfo* outInfo = 0;
+      for (PmDeviceID id = 0; id < interf; id++) {
+            const PmDeviceInfo* info = Pm_GetDeviceInfo((PmDeviceID)id);
+            if (info->input && inName.contains(info->name))
+                  inInfo = info;
+            if (info->output && outName.contains(info->name))
+                  outInfo = info;
+            }
+
+      if (inInfo && outInfo &&
+          QString(inInfo->interf) == "CoreMIDI" && QString(outInfo->interf) == "CoreMIDI" &&
+          inName.contains("IAC") && outName.contains("IAC"))
+            return true;
+      else
+            return false;
       }
 }
 

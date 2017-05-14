@@ -117,6 +117,8 @@ struct Preferences {
       int alsaFragments;
       int portaudioDevice;
       QString portMidiInput;
+      QString portMidiOutput;
+      int portMidiOutputLatency;
 
       bool antialiasedDrawing;
       SessionStart sessionStart;
