@@ -1758,7 +1758,17 @@ Shortcut Shortcut::_sc[] = {
          MsWidget::MAIN_WINDOW,
          STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT  | STATE_PLAY,
          "toggle-navigator",
-         QT_TRANSLATE_NOOP("action","Navigator"),
+         QT_TRANSLATE_NOOP("action","Navigator")//,
+         //0,
+         //0,
+         //Icons::Invalid_ICON,
+         //Qt::ApplicationShortcut
+         },
+      {
+         MsWidget::MAIN_WINDOW,
+         STATE_NORMAL | STATE_NOTE_ENTRY | STATE_EDIT  | STATE_PLAY,
+         "toggle-timeline",
+         QT_TRANSLATE_NOOP("action","Timeline"),
          0,
          0,
          Icons::Invalid_ICON,

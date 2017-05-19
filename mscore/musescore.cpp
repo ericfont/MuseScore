@@ -55,6 +55,7 @@
 #include "keyedit.h"
 #include "harmonyedit.h"
 #include "navigator.h"
+#include "timeline.h"
 #include "importmidi/importmidi_panel.h"
 #include "libmscore/chord.h"
 #include "mstyle/mstyle.h"
@@ -644,6 +645,12 @@ MuseScore::MuseScore()
       scorePageLayoutChanged();
       showNavigator(preferences.showNavigator);
 
+      _timeline = new TScrollArea;
+      _timeline->setFocusPolicy(Qt::NoFocus);
+      mainWindow->addWidget(_timeline);
+      scorePageLayoutChanged();
+      showTimeline(false);//preferences.showNavigator);
+
       mainWindow->setStretchFactor(0, 1);
       mainWindow->setStretchFactor(1, 0);
       mainWindow->setSizes(QList<int>({500, 50}));
@@ -921,6 +928,11 @@ MuseScore::MuseScore()
       a = getAction("toggle-navigator");
       a->setCheckable(true);
       a->setChecked(preferences.showNavigator);
+      menuView->addAction(a);
+
+      a = getAction("toggle-timeline");
+      a->setCheckable(true);
+      //a->setChecked(preferences.showNavigator);
       menuView->addAction(a);
 
       a = getAction("toggle-mixer");
@@ -1767,6 +1779,10 @@ void MuseScore::setCurrentScoreView(ScoreView* view)
                   navigator()->setScoreView(cv);
                   navigator()->setScore(0);
                   }
+            if (_timeline && _timeline->widget()) {
+                  timeline()->setScoreView(cv);
+                  timeline()->setScore(0);
+                  }
             if (_inspector)
                   _inspector->update(0);
             viewModeCombo->setEnabled(false);
@@ -1824,6 +1840,10 @@ void MuseScore::setCurrentScoreView(ScoreView* view)
       if (_navigator && _navigator->widget()) {
             navigator()->setScore(cs);
             navigator()->setScoreView(view);
+            }
+      if (_timeline && _timeline->widget()) {
+            timeline()->setScore(cs);
+            timeline()->setScoreView(view);
             }
       ScoreAccessibility::instance()->updateAccessibilityInfo();
       }
@@ -4106,7 +4126,10 @@ void MuseScore::scorePageLayoutChanged()
             mainWindow->setOrientation(MScore::verticalOrientation() ? Qt::Horizontal : Qt::Vertical);
             if (navigatorScrollArea())
                   navigatorScrollArea()->orientationChanged();
+            //if (timelineScrollArea())
+            //      timelineScrollArea()->orientationChanged();
             }
+
       }
 
 //---------------------------------------------------------
@@ -4802,6 +4825,8 @@ void MuseScore::cmd(QAction* a, const QString& cmd)
             showPlayPanel(a->isChecked());
       else if (cmd == "toggle-navigator")
             showNavigator(a->isChecked());
+      else if (cmd == "toggle-timeline")
+            showTimeline(a->isChecked());
       else if (cmd == "toggle-midiimportpanel")
             importmidiPanel->setVisible(a->isChecked());
       else if (cmd == "toggle-mixer")
@@ -5046,6 +5071,15 @@ void MuseScore::openExternalLink(const QString& url)
 Navigator* MuseScore::navigator() const
       {
       return _navigator ? static_cast<Navigator*>(_navigator->widget()) : 0;
+      }
+
+//---------------------------------------------------------
+//   timeline
+//---------------------------------------------------------
+
+Timeline* MuseScore::timeline() const
+      {
+      return _timeline ? static_cast<Timeline*>(_timeline->widget()) : 0;
       }
 
 //---------------------------------------------------------
