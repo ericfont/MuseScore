@@ -27,6 +27,7 @@ class Score;
 class ScoreView;
 class Page;
 class Navigator;
+class Measure;
 
 //---------------------------------------------------------
 //   NScrollArea

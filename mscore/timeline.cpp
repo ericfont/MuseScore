@@ -21,8 +21,12 @@
 #include "libmscore/system.h"
 #include "libmscore/measurebase.h"
 #include "libmscore/measure.h"
+#include "libmscore/chord.h"
 
 namespace Ms {
+
+#include<QGraphicsView>
+#include<QMouseEvent>
 
 //---------------------------------------------------------
 //   showTimeline
@@ -32,7 +36,7 @@ void MuseScore::showTimeline(bool visible)
       {
       Timeline* n = static_cast<Timeline*>(_timeline->widget());
       if (n == 0 && visible) {
-            n = new Timeline(_timeline, this);
+            n = new Timeline(_timeline);//, this);
             n->setScoreView(cv);
             }
       _timeline->setVisible(visible);
@@ -47,7 +51,7 @@ TScrollArea::TScrollArea(QWidget* w)
    : QScrollArea(w)
       {
       setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-      setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+      setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
       setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
       setMinimumHeight(40);
       setLineWidth(0);
@@ -114,18 +118,28 @@ void ViewRect::paintEvent(QPaintEvent* ev)
 //---------------------------------------------------------
 
 Timeline::Timeline(TScrollArea* sa, QWidget* parent)
-  : QWidget(parent)
+  : QGraphicsView(parent)
       {
       setAttribute(Qt::WA_NoBackground);
       _score         = 0;
       scrollArea     = sa;
       scrollArea->setWidgetResizable(true);
       _cv            = 0;
-      viewRect       = new ViewRect(this);
+      //viewRect       = new ViewRect(this);
       setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
       sa->setWidget(this);
       sa->setWidgetResizable(false);
       _previewOnly = false;
+      //_scene = new QGraphicsScene(parent->rect());
+      //_scene->addRect(0, 0, 50, 50, QPen(Qt::blue), QBrush(Qt::red));
+      //_scene = new QGraphicsScene(0,0,100,100);
+      setScene(new QGraphicsScene);//_scene);
+      scene()->addRect(0,0,100,100,QPen(Qt::blue),QBrush(Qt::red));
+      scene()->setBackgroundBrush(Qt::black);
+      //QGraphicsEllipseItem *item = new QGraphicsEllipseItem( 0, scene() );
+      //    item->setRect( -50.0, -50.0, 100.0, 100.0 );
+      //qDebug() << scene()->height();
+
       }
 
 //---------------------------------------------------------
@@ -136,7 +150,7 @@ void Timeline::resizeEvent(QResizeEvent* /*ev*/)
       {
       if (_score) {
             rescale();
-            updateViewRect();
+            //updateViewRect();
             }
       }
 
@@ -157,11 +171,11 @@ void Timeline::setScoreView(ScoreView* v)
             connect(this, SIGNAL(viewRectMoved(const QRectF&)), v, SLOT(setViewRect(const QRectF&)));
             connect(_cv,  SIGNAL(viewRectChanged()), this, SLOT(updateViewRect()));
             rescale();
-            updateViewRect();
+            //updateViewRect();
             }
       else {
             _score = 0;
-            updateViewRect();
+            //updateViewRect();
             //update() should be enough... see #21841
             repaint();
             }
@@ -176,7 +190,7 @@ void Timeline::setScore(Score* v)
       _cv    = 0;
       _score = v;
       rescale();
-      updateViewRect();
+      //updateViewRect();
       update();
       }
 
@@ -187,22 +201,25 @@ void Timeline::setScore(Score* v)
 
 void Timeline::rescale()
       {
+      //setMaximumSize(50, 50);
+      //setMinimumSize(0, 0);
+      //return;
       if (!_score || _score->pages().isEmpty()) {
-            setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
-            setMinimumSize(0, 0);
+            //setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
+            //setMinimumSize(0, 0);
             return;
             }
       Page* lp          = _score->pages().back();
 
       // reset the layout before setting fix size
-      setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
-      setMinimumSize(0, 0);
+      //setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
+      //setMinimumSize(0, 0);
 
       if (MScore::verticalOrientation() && !_previewOnly) {
             qreal scoreWidth  = lp->width();
             qreal scoreHeight = lp->y() + lp->height();
             qreal m = width() / scoreWidth;
-            setFixedHeight(int(scoreHeight * m));
+            //setFixedHeight(int(scoreHeight * m));
             matrix = QTransform(m, 0, 0, m, 0, 0);
             }
       else {
@@ -211,7 +228,7 @@ void Timeline::rescale()
             if (_previewOnly)
                   scoreWidth = lp->width() * _score->pages().size();
             qreal m  = height() / scoreHeight;
-            setFixedWidth(int(scoreWidth * m));
+            //setFixedWidth(int(scoreWidth * m));
             matrix = QTransform(m, 0, 0, m, 0, 0);
             }
       }
@@ -222,10 +239,10 @@ void Timeline::rescale()
 
 void Timeline::updateViewRect()
       {
-      QRect r;
-      if (_cv)
-            r = _cv->toLogical(QRect(0.0, 0.0, _cv->width(), _cv->height())).toRect();
-      setViewRect(r);
+      //QRect r;
+      //if (_cv)
+      //      r = _cv->toLogical(QRect(0.0, 0.0, _cv->width(), _cv->height())).toRect();
+      //setViewRect(r);
       }
 
 //---------------------------------------------------------
@@ -234,7 +251,27 @@ void Timeline::updateViewRect()
 
 void Timeline::mousePressEvent(QMouseEvent* ev)
       {
-      if (_cv == 0)
+      QRect rect(ev->x(), ev->y(), 50, 50);
+      scene()->addRect(rect, QPen(Qt::blue));
+      //MeasureBase* curr;// = _score->first;
+      /*Measure* meas = _score->firstMeasure();
+      int measure = 1;
+
+      //segments->begin()
+      while (meas != NULL) {
+            //bool foundNotes = false;
+            Segment* curr = meas->first();
+            for (; curr != NULL; curr = curr->next()){
+                  if (curr->isChordRestType()) qDebug() << "Measure:" << measure << ":" << curr->tick() << ":" << curr->ticks();
+                  }
+            measure++;
+            meas = meas->nextMeasure();
+            }
+
+      std::cout << "Clicked me" << std::endl;
+      //if(_score)
+      //  qDebug() << "TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+      /*if (_cv == 0)
             return;
       startMove = ev->pos();
       if (!viewRect->geometry().contains(startMove)) {
@@ -245,7 +282,7 @@ void Timeline::mousePressEvent(QMouseEvent* ev)
             r.translate(dx, dy);
             setViewRect(r);
             emit viewRectMoved(matrix.inverted().mapRect(viewRect->geometry()));
-            }
+            }*/
       }
 
 //---------------------------------------------------------
@@ -254,7 +291,7 @@ void Timeline::mousePressEvent(QMouseEvent* ev)
 
 void Timeline::mouseMoveEvent(QMouseEvent* ev)
       {
-      QPoint delta = ev->pos() - startMove;
+      /*QPoint delta = ev->pos() - startMove;
       QRect r(viewRect->geometry().translated(delta));
       startMove = ev->pos();
 
@@ -298,7 +335,7 @@ void Timeline::mouseMoveEvent(QMouseEvent* ev)
       else {
             int x = delta.x() > 0 ? r.x() + r.width() : r.x();
             scrollArea->ensureVisible(x, height()/2, 0, 0);
-            }
+            }*/
       }
 
 //---------------------------------------------------------
@@ -307,11 +344,11 @@ void Timeline::mouseMoveEvent(QMouseEvent* ev)
 
 void Timeline::setViewRect(const QRectF& _viewRect)
       {
-      viewRect->setGeometry(matrix.mapRect(_viewRect).toRect());
+      /*viewRect->setGeometry(matrix.mapRect(_viewRect).toRect());
       if (MScore::verticalOrientation() && !_previewOnly)
             scrollArea->ensureVisible(0, viewRect->y() + viewRect->height() / 2);
       else
-            scrollArea->ensureVisible(viewRect->x(), 0);
+            scrollArea->ensureVisible(viewRect->x(), 0);*/
       }
 
 //---------------------------------------------------------
@@ -344,7 +381,7 @@ void Timeline::layoutChanged()
 
 void Timeline::paintEvent(QPaintEvent* ev)
       {
-      QPainter p(this);
+      /*QPainter p(this);
       QRect r(ev->rect());
       p.fillRect(r, palette().color(QPalette::Window));
 
@@ -391,7 +428,7 @@ void Timeline::paintEvent(QPaintEvent* ev)
                   }
             p.translate(-pos);
             i++;
-            }
+            }*/
       }
 }
 

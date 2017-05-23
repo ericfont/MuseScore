@@ -342,6 +342,8 @@ void Navigator::layoutChanged()
 
 void Navigator::paintEvent(QPaintEvent* ev)
       {
+      //qDebug() << _score->first()
+
       QPainter p(this);
       QRect r(ev->rect());
       p.fillRect(r, palette().color(QPalette::Window));

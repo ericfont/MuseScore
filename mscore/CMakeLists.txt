@@ -429,19 +429,19 @@ if (MINGW)
       PROPERTIES generated true
       )
    # Windows: Add -mconsole to LINK_FLAGS to get a console window for debug output
-   if(CMAKE_BUILD_TYPE MATCHES "DEBUG")
+   if(CMAKE_BUILD_TYPE MATCHES "^(DEBUG|Debug)$")
      set_target_properties( mscore
         PROPERTIES
            COMPILE_FLAGS "${PCH_INCLUDE} -g -Wall -Wextra -Winvalid-pch ${QT_DEFINITIONS} -DQT_SVG_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB"
            LINK_FLAGS "-mwindows -mconsole -L ${CROSSQT}/lib"
         )
-   else(CMAKE_BUILD_TYPE MATCHES "DEBUG")
+   else(CMAKE_BUILD_TYPE MATCHES "^(DEBUG|Debug)$")
      set_target_properties( mscore
           PROPERTIES
              COMPILE_FLAGS "${PCH_INCLUDE} -Wall -Wextra -Winvalid-pch ${QT_DEFINITIONS} -DQT_SVG_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB"
              LINK_FLAGS "-Wl,-S -mwindows -L ${CROSSQT}/lib"
           )
-   endif(CMAKE_BUILD_TYPE MATCHES "DEBUG")
+   endif(CMAKE_BUILD_TYPE MATCHES "^(DEBUG|Debug)$")
 
    target_link_libraries(mscore
       portaudio

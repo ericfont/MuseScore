@@ -62,7 +62,7 @@ class TScrollArea : public QScrollArea {
 //   Timeline
 //---------------------------------------------------------
 
-class Timeline : public QWidget {
+class Timeline : public QGraphicsView {
       Q_OBJECT
 
       Score* _score;
@@ -73,6 +73,7 @@ class Timeline : public QWidget {
       QPoint startMove;
       QTransform matrix;
       bool _previewOnly;
+      //QGraphicsScene* _scene;
 
       void rescale();
 
