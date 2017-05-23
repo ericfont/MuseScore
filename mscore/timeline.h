@@ -45,57 +45,16 @@ class TScrollArea : public QScrollArea {
       };
 
 //---------------------------------------------------------
-//   ViewRect
-//---------------------------------------------------------
-
-//class ViewRect : public QWidget {
-//      Q_OBJECT
-
-//      virtual void paintEvent(QPaintEvent*);
-
-//   public:
-//      ViewRect(QWidget* w = 0);
-//      };
-
-
-//---------------------------------------------------------
 //   Timeline
 //---------------------------------------------------------
 
 class Timeline : public QGraphicsView {
       Q_OBJECT
 
-      Score* _score;
       TScrollArea* scrollArea;
-      QPointer<ScoreView> _cv;
-
-      ViewRect* viewRect;
-      QPoint startMove;
-      QTransform matrix;
-      bool _previewOnly;
-      //QGraphicsScene* _scene;
-
-      void rescale();
-
-      virtual void paintEvent(QPaintEvent*);
-      virtual void mousePressEvent(QMouseEvent*);
-      virtual void mouseMoveEvent(QMouseEvent*);
-      virtual void resizeEvent(QResizeEvent*);
-
-   public slots:
-      void updateViewRect();
-      void layoutChanged();
-
-   signals:
-      void viewRectMoved(const QRectF&);
 
    public:
       Timeline(TScrollArea* sa, QWidget* parent = 0);
-      void setScoreView(ScoreView*);
-      void setScore(Score*);
-      void setPreviewOnly(bool b) { _previewOnly = b; }
-      Score* score() const { return _score; }
-      void setViewRect(const QRectF& r);
       };
 
 

@@ -1780,8 +1780,8 @@ void MuseScore::setCurrentScoreView(ScoreView* view)
                   navigator()->setScore(0);
                   }
             if (_timeline && _timeline->widget()) {
-                  timeline()->setScoreView(cv);
-                  timeline()->setScore(0);
+                  //timeline()->setScoreView(cv);
+                 // timeline()->setScore(0);
                   }
             if (_inspector)
                   _inspector->update(0);
@@ -1842,8 +1842,8 @@ void MuseScore::setCurrentScoreView(ScoreView* view)
             navigator()->setScoreView(view);
             }
       if (_timeline && _timeline->widget()) {
-            timeline()->setScore(cs);
-            timeline()->setScoreView(view);
+            //timeline()->setScore(cs);
+           // timeline()->setScoreView(view);
             }
       ScoreAccessibility::instance()->updateAccessibilityInfo();
       }
