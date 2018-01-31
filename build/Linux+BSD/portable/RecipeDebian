@@ -48,7 +48,9 @@ fetch-build-dependencies() {
   # allow to download $ARCH-specific packages
   dpkg --add-architecture $ARCH
 
-  apt-get clean && apt-get update && apt-get install -y \
+  apt-get clean && apt-get update && apt-get dist-upgrade -y
+  
+  apt-get install -y \
     libsndfile1-dev:$ARCH \
     libasound2-dev:$ARCH \
     portaudio19-dev:$ARCH \
@@ -56,17 +58,11 @@ fetch-build-dependencies() {
     zlib1g-dev:$ARCH \
     libfreetype6-dev:$ARCH \
     libmp3lame-dev:$ARCH \
+    libssl1.0.0:$ARCH \
     libssl-dev:$ARCH \
     libdrm-dev:$ARCH \
     libgl1-mesa-dev:$ARCH \
     libpulse-dev:$ARCH \
-    qtbase5-dev:$ARCH \
-    qttools5-dev:$ARCH \
-    qtscript5-dev:$ARCH \
-    libqt5xmlpatterns5-dev:$ARCH \
-    libqt5svg5-dev:$ARCH \
-    libqt5webkit5-dev:$ARCH \
-    qttools5-dev-tools:$ARCH \
     cross-gcc-dev \
     binutils-arm-linux-gnueabihf \
     crossbuild-essential-armhf \
@@ -74,8 +70,16 @@ fetch-build-dependencies() {
     cmake \
     git
 
-  # forcibly install because will break aptitude dependency rules 
-  force-install qtbase5-dev-tools $ARCH
+  # install Qt from buster since need MuseScore 3.0 needs buster's higher Qt version 5.9.2
+  apt-get install -t buster -y \
+    qtbase5-dev:$ARCH \
+    qttools5-dev:$ARCH \
+    qtscript5-dev:$ARCH \
+    libqt5xmlpatterns5-dev:$ARCH \
+    libqt5svg5-dev:$ARCH \
+    libqt5webkit5-dev:$ARCH \
+    qttools5-dev-tools:$ARCH \
+    qtbase5-dev-tools:$ARCH
 }
 
 ###################################################################################
@@ -84,6 +88,7 @@ fetch-build-dependencies() {
 fetch-package-dependencies() {
   echo "fetching AppImage packaging + runtime dependencies for arch: $ARCH"
 
+  # Non-Qt packages
   force-install \
     alsa-base any \
     alsa-tools $ARCH \
@@ -94,14 +99,6 @@ fetch-package-dependencies() {
     liblcms2-2 $ARCH \
     libmng1 $ARCH \
     libicu52 $ARCH \
-    qtquick1-5-dev $ARCH \
-    libqt5quickwidgets5 $ARCH \
-    libqt5gui5 $ARCH \
-    libqt5multimedia5 $ARCH \
-    libqt5multimediawidgets5 $ARCH \
-    libqt5positioning5 $ARCH \
-    libqt5sensors5 $ARCH \
-    libqt5webkit5 $ARCH \
     libpulse0 $ARCH \
     libjson-c-dev $ARCH \
     libexpat1-dev $ARCH \
@@ -113,13 +110,24 @@ fetch-package-dependencies() {
     libreadline6 $ARCH \
     libbz2-1.0 $ARCH \
     libpcre3 $ARCH \
+    libwrap0 $ARCH 
+
+  # Qt-specific packages take newer versions from buster
+  force-install -t buster \
+    qtquick1-5-dev $ARCH \
+    libqt5quickwidgets5 $ARCH \
+    libqt5gui5 $ARCH \
+    libqt5multimedia5 $ARCH \
+    libqt5multimediawidgets5 $ARCH \
+    libqt5positioning5 $ARCH \
+    libqt5sensors5 $ARCH \
+    libqt5webkit5 $ARCH \
     qml-module-qtquick-controls $ARCH \
     qml-module-qtquick-dialogs $ARCH \
     qml-module-qtquick-layouts $ARCH \
     qml-module-qtquick2 $ARCH \
     qml-module-qtqml-models2 $ARCH \
-    qt5-image-formats-plugins $ARCH \
-    libwrap0 $ARCH 
+    qt5-image-formats-plugins $ARCH
 }
 
 ########################################################
