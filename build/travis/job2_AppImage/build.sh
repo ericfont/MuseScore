@@ -59,7 +59,7 @@ case "$1" in
     shift
     # build MuseScore inside debian x86-64 multiarch image containing arm cross toolchain and libraries
     docker run -i -v "${PWD}:/MuseScore" \
-      ericfont/musescore:jessie-crosscompile-armhf \
+      ericfont/musescore:jessie-crosscompile-armv7-Qt-5.9.4 \
       /bin/bash -c \
       "/MuseScore/build/Linux+BSD/portable/RecipeDebian --build-only armhf $makefile_overrides"
     # then run inside fully emulated arm image for AppImage packing step (which has trouble inside multiarch image)

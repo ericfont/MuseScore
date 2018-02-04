@@ -60,22 +60,13 @@ fetch-build-dependencies() {
     libdrm-dev:$ARCH \
     libgl1-mesa-dev:$ARCH \
     libpulse-dev:$ARCH \
-    qtbase5-dev:$ARCH \
-    qttools5-dev:$ARCH \
-    qtscript5-dev:$ARCH \
-    libqt5xmlpatterns5-dev:$ARCH \
-    libqt5svg5-dev:$ARCH \
-    libqt5webkit5-dev:$ARCH \
-    qttools5-dev-tools:$ARCH \
     cross-gcc-dev \
     binutils-arm-linux-gnueabihf \
     crossbuild-essential-armhf \
     qemu-user-static \
     cmake \
+    make \
     git
-
-  # forcibly install because will break aptitude dependency rules 
-  force-install qtbase5-dev-tools $ARCH
 }
 
 ###################################################################################
@@ -94,14 +85,6 @@ fetch-package-dependencies() {
     liblcms2-2 $ARCH \
     libmng1 $ARCH \
     libicu52 $ARCH \
-    qtquick1-5-dev $ARCH \
-    libqt5quickwidgets5 $ARCH \
-    libqt5gui5 $ARCH \
-    libqt5multimedia5 $ARCH \
-    libqt5multimediawidgets5 $ARCH \
-    libqt5positioning5 $ARCH \
-    libqt5sensors5 $ARCH \
-    libqt5webkit5 $ARCH \
     libpulse0 $ARCH \
     libjson-c-dev $ARCH \
     libexpat1-dev $ARCH \
@@ -113,12 +96,6 @@ fetch-package-dependencies() {
     libreadline6 $ARCH \
     libbz2-1.0 $ARCH \
     libpcre3 $ARCH \
-    qml-module-qtquick-controls $ARCH \
-    qml-module-qtquick-dialogs $ARCH \
-    qml-module-qtquick-layouts $ARCH \
-    qml-module-qtquick2 $ARCH \
-    qml-module-qtqml-models2 $ARCH \
-    qt5-image-formats-plugins $ARCH \
     libwrap0 $ARCH 
 }
 
@@ -135,7 +112,8 @@ build() {
   if [ "$ARCH" == "armhf" ]; then
     LIBARM="/lib/arm-linux-gnueabihf" # might generalize in future to support other archs
     CMAKE_TOOLCHAIN_FILE="/MuseScore/build/Linux+BSD/portable/ARM/jessie-crosscompile-armhf.cmake" \
-    LD_LIBRARY_PATH="/usr$LIBARM:/usr$LIBARM/alsa-lib:/usr$LIBARM/pulseaudio:$LIBARM" \
+    LD_LIBRARY_PATH="/Qt-5.9.4/lib:/usr$LIBARM:/usr$LIBARM/alsa-lib:/usr$LIBARM/pulseaudio:$LIBARM" \
+    PATH="/Qt-5.9.4/bin:$PATH"
     make "$@" portable
   else
     echo "This bash script only supports armhf cross at the moment"

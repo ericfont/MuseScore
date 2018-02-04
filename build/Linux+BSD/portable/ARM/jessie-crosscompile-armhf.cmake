@@ -18,7 +18,7 @@ SET(CMAKE_FIND_ROOT_PATH /lib/arm-linux-gnueabihf /usr/lib/arm-linux-gnueabihf /
 SET(CMAKE_LIBRARY_PATH /usr/include/arm-linux-gnueabihf)
 
 # Qt include directories
-SET(QT_INCLUDE_DIR           /usr/include/arm-linux-gnu)
+SET(QT_INCLUDE_DIR           /Qt-5.9.4/include)
 SET(QT_QT_INCLUDE_DIR        ${QT_INCLUDE_DIR}/qt5)
 SET(QT_QTCORE_INCLUDE_DIR    ${QT_QT_INCLUDE_DIR}/QtCore)
 SET(QT_QTXML_INCLUDE_DIR     ${QT_QT_INCLUDE_DIR}/QtXml)
@@ -30,11 +30,11 @@ SET(QT_QTWEBKIT_INCLUDE_DIR  ${QT_QT_INCLUDE_DIR}/QtWebkit)
 SET(QT_INCLUDES ${QT_INCLUDE_DIR} ${QT_QT_INCLUDE_DIR} ${QT_QTCORE_INCLUDE_DIR} ${QT_QTXML_INCLUDE_DIR} ${QT_GUI_INCLUDE_DIR} ${QT_QTNETWORK_INCLUDE_DIR} ${QT_QTWEBKIT_INCLUDE_DIR} )
 
 # Qt libraries
-SET(QT_LIBRARY_DIR  ${CMAKE_LIBRARY_PATH})
+SET(QT_LIBRARY_DIR /Qt-5.9.4/lib)
 SET(QT_CROSS_LIBRARIES QtSvg5 QtGui5 QtCore5 QtXml5 QtNetwork5 QtWebKit5 QtXmlPatterns5 QtDeclarative5)
 
 # Qt binaries
-SET(QT_BINARY_DIR   /usr/lib/arm-linux-gnueabihf/qt5/bin)
+SET(QT_BINARY_DIR   /Qt-5.9.4/bin)
 SET(QT_MOC_EXECUTABLE  ${QT_BINARY_DIR}/moc)
 SET(QT_UIC_EXECUTABLE  ${QT_BINARY_DIR}/uic)
 SET(QT_QMAKE_EXECUTABLE  ${QT_BINARY_DIR}/qmake)
