@@ -158,6 +158,18 @@ bool AlsaDriver::pcmStart()
             qDebug ("Alsa_driver: pcmStart: pcm_start: %s.", snd_strerror (err));
             return false;
             }
+
+      // wait 100ms and see if any frames are avilable
+      usleep(100000);
+      err = snd_pcm_wait(_play_handle, -1);
+      if (err < 0)
+            return false;
+      int avail = snd_pcm_avail_update(_play_handle);
+      if (avail <= 0) {
+            qDebug ("Alsa_driver: pcmStart: snd_pcm_avail_update didn't return any available frames after 100ms wait.");
+            return false;
+            }
+
       return true;
       }
 
