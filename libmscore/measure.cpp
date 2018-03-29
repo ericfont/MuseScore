@@ -1813,6 +1813,10 @@ void Measure::read(XmlReader& e, int staffIdx)
                   _len = Fraction(sl[0].toInt(), sl[1].toInt());
             else
                   qDebug("illegal measure size <%s>", qPrintable(e.attribute("len")));
+            if (_len == 0) {
+                  qDebug("illegal measure length = 0");
+                  return;
+                  }
             irregular = true;
             score()->sigmap()->add(tick(), SigEvent(_len, _timesig));
             score()->sigmap()->add(tick() + ticks(), SigEvent(_timesig));
