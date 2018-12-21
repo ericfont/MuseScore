@@ -551,7 +551,7 @@ void Score::localInsertChord(const Position& pos)
       const int len            = fraction.ticks();
       Segment* seg             = pos.segment;
       const int tick           = seg->tick();
-      Measure* measure         = seg->measure();
+      Measure* measure         = seg->measure()->isMMRest() ? seg->measure()->mmRestFirst() : seg->measure();
       const Fraction targetMeasureLen = measure->len() + fraction;
 
       // Shift spanners, enlarge the measure.
@@ -574,12 +574,18 @@ void Score::localInsertChord(const Position& pos)
       Measure* msMeasure = ms->tick2measure(tick);
       const int msTracks = ms->ntracks();
 
+      // first convert any measure rests into normal (non-measure) rest(s) of equivalent duration
       for (int track = 0; track < msTracks; ++track) {
-            // Insert rest only if there is no full-measure rest here.
-            Element* maybeRest = msMeasure->findFirst(SegmentType::ChordRest, /* rel. tick */ 0)->element(track);
-            if (maybeRest && maybeRest->isRest() && toRest(maybeRest)->durationType().isMeasure())
-                  toRest(maybeRest)->undoChangeProperty(Pid::DURATION, targetMeasureLen);
-            else if (msMeasure->hasVoice(track))
+            Element* maybeRest = msMeasure->first(SegmentType::ChordRest)->element(track);
+            if (maybeRest && maybeRest->isRest() && toRest(maybeRest)->durationType().isMeasure()) {
+                  Rest *measureRest = toRest(maybeRest);
+                  ms->setRest(measureRest->tick(), track, measureRest->duration(), /* useDots */ false, /* tuplet */ nullptr, /* useFullMeasureRest */ false);
+                  }
+            }
+
+      // then insert rest(s) to fill the inserted space
+      for (int track = 0; track < msTracks; ++track) {
+            if (msMeasure->hasVoice(track))
                   ms->setRest(tick, track, fraction, /* useDots */ false, /* tuplet */ nullptr);
             }
 
