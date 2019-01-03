@@ -216,8 +216,11 @@ void Score::update()
             CmdState& cs = ms->cmdState();
             ms->deletePostponed();
             if (cs.layoutRange()) {
-                  for (Score* s : ms->scoreList())
-                        s->doLayoutRange(cs.startTick(), cs.endTick());
+                  QList<Score*> scores = ms->scoreList();
+                  for (Score* s : scores)
+                        s->setLayoutRange(cs.startTick(), cs.endTick());
+
+                  QtConcurrent::blockingMap(scores, [](Score* f){ f->doLayoutRange(); } );
                   updateAll = true;
                   }
             }

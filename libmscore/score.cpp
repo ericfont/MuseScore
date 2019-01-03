@@ -262,6 +262,9 @@ Score::Score()
       _style  = MScore::defaultStyle();
 //      accInfo = tr("No selection");     // ??
       accInfo = "No selection";
+
+      _layoutRangeStartTick = -1;
+      _layoutRangeEndTick = -1;
       }
 
 Score::Score(MasterScore* parent)

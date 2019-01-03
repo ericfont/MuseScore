@@ -1465,7 +1465,7 @@ static void checkDivider(bool left, System* s, qreal yOffset)
 static void layoutPage(Page* page, qreal restHeight)
       {
       if (restHeight < 0.0) {
-            qDebug("restHeight < 0.0: %f\n", restHeight);
+          //  qCDebug(layout) << "restHeight < 0.0: " << restHeight;
             restHeight = 0;
             }
 
@@ -4046,19 +4046,20 @@ void LayoutContext::collectPage()
 
 void Score::doLayout()
       {
-      doLayoutRange(0, -1);
+      setLayoutRange(0, -1);
+      doLayoutRange();
       }
 
 //---------------------------------------------------------
 //   doLayoutRange
 //---------------------------------------------------------
 
-void Score::doLayoutRange(int stick, int etick)
+void Score::doLayoutRange()
       {
-      if (stick == -1 && etick == -1)
+      if (_layoutRangeStartTick == -1 && _layoutRangeEndTick == -1)
             abort();
       if (!last() || (lineMode() && !firstMeasure())) {
-            qDebug("empty score");
+            qCDebug(layout, "empty score");
             qDeleteAll(_systems);
             _systems.clear();
             qDeleteAll(pages());
@@ -4067,15 +4068,15 @@ void Score::doLayoutRange(int stick, int etick)
             }
 //      if (!_systems.isEmpty())
 //            return;
- qDebug("%p %d-%d %s systems %d", this, stick, etick, isMaster() ? "Master" : "Part", int(_systems.size()));
-      bool layoutAll = stick <= 0 && (etick < 0 || etick >= last()->endTick());
-      if (stick < 0)
-            stick = 0;
-      if (etick < 0)
-            etick = last()->endTick();
+      qCDebug(layout, "start Score %p range %d-%d %s systems %d", this, _layoutRangeStartTick, _layoutRangeEndTick, isMaster() ? "Master" : "Part", int(_systems.size()));
+      bool layoutAll = _layoutRangeStartTick <= 0 && (_layoutRangeEndTick < 0 || _layoutRangeEndTick >= last()->endTick());
+      if (_layoutRangeStartTick < 0)
+            _layoutRangeStartTick = 0;
+      if (_layoutRangeEndTick < 0)
+            _layoutRangeEndTick = last()->endTick();
 
       LayoutContext lc;
-      lc.endTick     = etick;
+      lc.endTick     = _layoutRangeEndTick;
       _scoreFont     = ScoreFont::fontFactory(style().value(Sid::MusicalSymbolFont).toString());
       _noteHeadWidth = _scoreFont->width(SymId::noteheadBlack, spatium() / SPATIUM20);
 
@@ -4088,7 +4089,7 @@ void Score::doLayoutRange(int stick, int etick)
       //    initialize layout context lc
       //---------------------------------------------------
 
-      MeasureBase* m = tick2measure(stick);
+      MeasureBase* m = tick2measure(_layoutRangeStartTick);
       if (m == 0)
             m = first();
       // start layout one measure earlier to handle clefs and cautionary elements
@@ -4115,6 +4116,8 @@ void Score::doLayoutRange(int stick, int etick)
             lc.prevMeasure = 0;
             lc.nextMeasure = _showVBox ? first() : firstMeasure();
             layoutLinear(layoutAll, lc);
+            _layoutRangeStartTick = -1;
+            _layoutRangeEndTick = -1;
             return;
             }
       if (!layoutAll && m->system()) {
@@ -4184,7 +4187,7 @@ void Score::doLayoutRange(int stick, int etick)
       // we need to reset tempo because fermata is setted
       //inside getNextMeasure and it lead to twice timeStretch
       if (isMaster())
-            resetTempoRange(stick, etick);
+            resetTempoRange(_layoutRangeStartTick, _layoutRangeEndTick);
 
       getNextMeasure(lc);
       lc.curSystem = collectSystem(lc);
@@ -4193,6 +4196,10 @@ void Score::doLayoutRange(int stick, int etick)
 
       for (MuseScoreView* v : viewer)
             v->layoutChanged();
+
+      _layoutRangeStartTick = -1;
+      _layoutRangeEndTick = -1;
+      qCDebug(layout, "end Score %p", this);
       }
 
 //---------------------------------------------------------

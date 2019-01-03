@@ -459,6 +459,9 @@ class Score : public QObject, public ScoreElement {
       qreal _noteHeadWidth { 0.0 };       // cached value
       QString accInfo;                    ///< information used by the screen-reader
 
+      int _layoutRangeStartTick;
+      int _layoutRangeEndTick;
+
       //------------------
 
       ChordRest* nextMeasure(ChordRest* element, bool selectBehavior = false, bool mmRest = false);
@@ -997,7 +1000,8 @@ class Score : public QObject, public ScoreElement {
       void removeAudio();
 
       void doLayout();
-      void doLayoutRange(int, int);
+      void doLayoutRange();
+      void setLayoutRange(const int stick, const int etick) { _layoutRangeStartTick = stick; _layoutRangeEndTick = etick; }
       void layoutLinear(bool layoutAll, LayoutContext& lc);
 
       void layoutSystemsUndoRedo();
