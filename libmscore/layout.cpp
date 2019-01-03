@@ -64,6 +64,8 @@
 #include "fermata.h"
 #include "measurenumber.h"
 
+Q_LOGGING_CATEGORY(layout,   "layout",   QtCriticalMsg)
+
 namespace Ms {
 
 // #define PAGE_DEBUG
@@ -1465,7 +1467,7 @@ static void checkDivider(bool left, System* s, qreal yOffset)
 static void layoutPage(Page* page, qreal restHeight)
       {
       if (restHeight < 0.0) {
-            qDebug("restHeight < 0.0: %f\n", restHeight);
+            qCDebug(layout) << "restHeight < 0.0: " << restHeight;
             restHeight = 0;
             }
 
@@ -4067,7 +4069,7 @@ void Score::doLayoutRange(int stick, int etick)
             }
 //      if (!_systems.isEmpty())
 //            return;
- qDebug("%p %d-%d %s systems %d", this, stick, etick, isMaster() ? "Master" : "Part", int(_systems.size()));
+      qCDebug(layout) << "beg layout " << hex << this << " range " << stick << " to " << etick << (isMaster() ? "Master" : "Part") << " systems " << int(_systems.size());
       bool layoutAll = stick <= 0 && (etick < 0 || etick >= last()->endTick());
       if (stick < 0)
             stick = 0;
@@ -4104,7 +4106,7 @@ void Score::doLayoutRange(int stick, int etick)
       // rest which replaces the measure range
 
       if (!m->system() && m->isMeasure() && toMeasure(m)->hasMMRest()) {
-            qDebug("  don’t start with mmrest");
+            qCDebug(layout) << "  don’t start with mmrest";
             m = toMeasure(m)->mmRest();
             }
 
@@ -4193,6 +4195,8 @@ void Score::doLayoutRange(int stick, int etick)
 
       for (MuseScoreView* v : viewer)
             v->layoutChanged();
+      
+      qCDebug(layout) << "end layout " << hex << this;
       }
 
 //---------------------------------------------------------

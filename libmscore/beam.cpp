@@ -1056,11 +1056,9 @@ static void initBeamMetrics()
 
 static Bm beamMetric1(bool up, char l1, char l2)
       {
-      static int initialized = false;
-      if (!initialized) {
+      static QMutex mutexInitBeamMetrics;
+      if (mutexInitBeamMetrics.tryLock())
             initBeamMetrics();
-            initialized = true;
-            }
       return bMetrics[Bm::key(up, l1, l2)];
       }
 

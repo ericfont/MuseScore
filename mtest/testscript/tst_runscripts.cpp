@@ -63,7 +63,7 @@ void TestScripts::runTestScripts()
 
       if (!QFileInfo(MSCORE_EXECUTABLE).exists())
             qFatal("Cannot find executable: %s", MSCORE_EXECUTABLE);
-      QVERIFY(QProcess::execute(MSCORE_EXECUTABLE, args) == 0);
+      QVERIFY2(QProcess::execute(MSCORE_EXECUTABLE, args) == 0, args.);
       }
 
 QTEST_MAIN(TestScripts)
