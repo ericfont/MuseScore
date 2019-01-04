@@ -147,7 +147,7 @@ class UndoStack {
       int nextState;
       int cleanState;
       int curIdx;
-      QMutex mutexPushPop;
+      QMutex mutex; // to prevent more than one thread from accessing the same UndoStack simultaneously
 
    public:
       UndoStack();
