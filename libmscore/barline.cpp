@@ -63,11 +63,14 @@ static void undoChangeBarLineType(BarLine* bl, BarLineType barType)
                   SegmentType segmentType = segment->segmentType();
                   if (segmentType == SegmentType::EndBarLine) {
                         m->undoChangeProperty(Pid::REPEAT_END, false);
-                        for (Element* e : segment->elist()) {
-                              if (e) {
-                                    for (ScoreElement* ee : e->linkList()) {
-                                          ee->score()->undo(new ChangeProperty(ee, Pid::BARLINE_TYPE, QVariant::fromValue(barType), PropertyFlags::NOSTYLE));
-                                          ee->score()->undo(new ChangeProperty(ee, Pid::GENERATED, false, PropertyFlags::NOSTYLE));
+                        for (ScoreElement* linkedMeasure : m->linkList()) {
+                              Segment* linkedSegment = toMeasure(linkedMeasure)->getSegment(SegmentType::EndBarLine, m->endTick());
+                              for (Element* e : linkedSegment->elist()) {
+                                    if (e) {
+                                          for (ScoreElement* ee : e->linkList()) {
+                                                ee->score()->undo(new ChangeProperty(ee, Pid::BARLINE_TYPE, QVariant::fromValue(barType), PropertyFlags::NOSTYLE));
+                                                ee->score()->undo(new ChangeProperty(ee, Pid::GENERATED, false, PropertyFlags::NOSTYLE));
+                                                }
                                           }
                                     }
                               }
