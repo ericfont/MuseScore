@@ -143,11 +143,13 @@ void ScoreView::setViewRect(const QRectF& r)
 //    return true if there is a valid target
 //---------------------------------------------------------
 
-bool ScoreView::dragTimeAnchorElement(const QPointF& pos)
+bool ScoreView::dragTimeAnchorElement(const QPointF& pos, bool firstStaffOnly)
       {
       int staffIdx;
       Segment* seg;
       MeasureBase* mb = _score->pos2measure(pos, &staffIdx, 0, &seg, 0);
+      if (firstStaffOnly)
+            staffIdx = 0;
       int track  = staffIdx * VOICES;
 
       if (mb && mb->isMeasure() && seg->element(track)) {
@@ -334,6 +336,8 @@ void ScoreView::dragMoveEvent(QDragMoveEvent* event)
 
       switch (editData.dropElement->type()) {
             case ElementType::VOLTA:
+                  event->setAccepted(dragTimeAnchorElement(pos, !(editData.modifiers & Qt::ControlModifier)));
+                  break;
             case ElementType::PEDAL:
             case ElementType::LET_RING:
             case ElementType::VIBRATO:
@@ -419,7 +423,6 @@ void ScoreView::dropEvent(QDropEvent* event)
             Q_ASSERT(editData.dropElement->score() == score());
             _score->addRefresh(editData.dropElement->canvasBoundingRect());
             switch (editData.dropElement->type()) {
-                  case ElementType::VOLTA:
                   case ElementType::OTTAVA:
                   case ElementType::TRILL:
                   case ElementType::PEDAL:
@@ -479,6 +482,9 @@ void ScoreView::dropEvent(QDropEvent* event)
                         }
                         event->acceptProposedAction();
                         break;
+                  case ElementType::VOLTA:
+                        if (editData.modifiers & Qt::ControlModifier)
+                              editData.dropElement->setSystemFlag(false);
                   case ElementType::HBOX:
                   case ElementType::VBOX:
                   case ElementType::KEYSIG:
@@ -519,7 +525,7 @@ void ScoreView::dropEvent(QDropEvent* event)
                   case ElementType::FIGURED_BASS:
                   case ElementType::LYRICS:
                   case ElementType::STAFFTYPE_CHANGE: {
-                        Element* el = getDropTarget(editData);
+                        Element* el = dropTarget ? dropTarget : getDropTarget(editData);
                         if (!el) {
                               if (!dropCanvas(editData.dropElement)) {
                                     qDebug("cannot drop %s(%p) to canvas", editData.dropElement->name(), editData.dropElement);

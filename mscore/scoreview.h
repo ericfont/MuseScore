@@ -100,7 +100,7 @@ class ScoreView : public QWidget, public MuseScoreView {
       // Note:
       //    only one of the elements is active during drag
 
-      const Element* dropTarget;    ///< current drop target during dragMove
+      Element* dropTarget;          ///< current drop target during dragMove
       QRectF dropRectangle;         ///< current drop rectangle during dragMove
       QLineF dropAnchor;            ///< line to current anchor point during dragMove
 
@@ -183,7 +183,7 @@ class ScoreView : public QWidget, public MuseScoreView {
 
       void setShadowNote(const QPointF&);
       void drawElements(QPainter& p,QList<Element*>& el, Element* editElement);
-      bool dragTimeAnchorElement(const QPointF& pos);
+      bool dragTimeAnchorElement(const QPointF& pos, bool firstStaffOnly = false);
       bool dragMeasureAnchorElement(const QPointF& pos);
       virtual void lyricsTab(bool back, bool end, bool moveOnly) override;
       virtual void lyricsReturn() override;
